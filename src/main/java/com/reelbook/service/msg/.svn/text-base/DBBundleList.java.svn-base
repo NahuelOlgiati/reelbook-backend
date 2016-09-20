@@ -1,0 +1,33 @@
+package com.ebizlink.adonis.common.service.msg;
+
+import java.util.ListResourceBundle;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import com.ebizlink.adonis.common.service.manager.local.DBBundleManagerLocal;
+import com.ebizlink.pandora2.core.util.LogUtil;
+
+/**
+ */
+public class DBBundleList extends ListResourceBundle
+{
+	private static final LogUtil log = new LogUtil(DBBundleList.class);
+
+	/**
+	 */
+	@Override
+	protected Object[][] getContents()
+	{
+		Object[][] contents = null;
+		try
+		{
+			final InitialContext initialContext = new InitialContext();
+			final DBBundleManagerLocal manager = (DBBundleManagerLocal) initialContext.lookup("java:global/ejb/DBBundleManagerEJB");
+			contents = manager.getContents();
+		}
+		catch (final NamingException e)
+		{
+			log.error(e.getMessage(), e);
+		}
+		return contents;
+	}
+}

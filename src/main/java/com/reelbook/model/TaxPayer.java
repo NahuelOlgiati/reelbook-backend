@@ -17,6 +17,7 @@ import javax.persistence.UniqueConstraint;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.enumeration.TaxPayerTypeEnum;
+import com.reelbook.model.msc.TaxAgent;
 import com.reelbook.server.exception.ValidationException;
 
 @Entity

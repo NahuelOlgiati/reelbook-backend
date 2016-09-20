@@ -24,7 +24,7 @@ import com.reelbook.server.exception.ManagerException;
 import com.reelbook.server.model.support.QueryHint;
 import com.reelbook.service.manager.local.DocumentTypeManagerLocal;
 
-@Secured
+//@Secured
 @Stateless
 @Path("/documentType")
 public class DocumentTypeEndPoint extends BaseEJB

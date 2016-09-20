@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.reelbook.model.embeddable.Phone;
+import com.reelbook.model.msc.TaxAgentPhone;
 
 @Entity
 @Table(name = "osiris_tax_taxpayerphone")

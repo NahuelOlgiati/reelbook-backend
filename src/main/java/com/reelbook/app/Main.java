@@ -15,8 +15,8 @@ public class Main {
 
 		Swarm swarm = new Swarm();
 
-		final MainProperties mp = MainProperties.getMe();
-		
+		// final MainProperties mp = MainProperties.getMe();
+
 		swarm.fraction(LoggingFraction.createDebugLoggingFraction());
 		swarm.fraction(getDatasourcesFraction());
 		swarm.fraction(getJpaFraction());
@@ -27,30 +27,51 @@ public class Main {
 		deployment.addAsLibrary(swarm.createDefaultDeployment());
 
 		SwaggerArchive archive = deployment.as(SwaggerArchive.class);
-		archive.setResourcePackages(mp.getMsg("swagger_resourcepackages"));
-		archive.setTitle(mp.getMsg("swagger_title"));
+		// archive.setResourcePackages(mp.getMsg("swagger_resourcepackages"));
+		// archive.setTitle(mp.getMsg("swagger_title"));
+		archive.setResourcePackages("com.reelbook.rest.endpoint");
+		archive.setTitle("Primus Backend Enpoints");
 
 		deployment.addAllDependencies();
 		// deployment.staticContent(); DESCOMENTAR ROMPE TODO LPM
 		swarm.deploy(deployment);
 	}
 
+	// private static JPAFraction getJpaFraction() {
+	// final MainProperties mp = MainProperties.getMe();
+	// return new
+	// JPAFraction().defaultDatasource(mp.getMsg("jpa_default_datasource"));
+	// }
+	//
+	// private static DatasourcesFraction getDatasourcesFraction() {
+	// final MainProperties mp = MainProperties.getMe();
+	// return new
+	// DatasourcesFraction().jdbcDriver(mp.getMsg("driver_child_key"), (d) -> {
+	// d.driverClassName(mp.getMsg("driver_classname"));
+	// d.xaDatasourceClass(mp.getMsg("driver_xa_datasourceclass"));
+	// d.driverModuleName(mp.getMsg("driver_modulename"));
+	// }).dataSource(mp.getMsg("datasource_child_key"), (ds) -> {
+	// ds.driverName(mp.getMsg("datasource_drivername"));
+	// ds.connectionUrl(mp.getMsg("datasource_connection_url"));
+	// ds.userName(mp.getMsg("datasource_username"));
+	// ds.password(mp.getMsg("datasource_password"));
+	// });
+	// }
+
 	private static JPAFraction getJpaFraction() {
-		final MainProperties mp = MainProperties.getMe();
-		return new JPAFraction().defaultDatasource(mp.getMsg("jpa_default_datasource"));
+		return new JPAFraction().defaultDatasource("jboss/datasources/reelbookDS");
 	}
 
 	private static DatasourcesFraction getDatasourcesFraction() {
-		final MainProperties mp = MainProperties.getMe();
-		return new DatasourcesFraction().jdbcDriver(mp.getMsg("driver_child_key"), (d) -> {
-			d.driverClassName(mp.getMsg("driver_classname"));
-			d.xaDatasourceClass(mp.getMsg("driver_xa_datasourceclass"));
-			d.driverModuleName(mp.getMsg("driver_modulename"));
-		}).dataSource(mp.getMsg("datasource_child_key"), (ds) -> {
-			ds.driverName(mp.getMsg("datasource_drivername"));
-			ds.connectionUrl(mp.getMsg("datasource_connection_url"));
-			ds.userName(mp.getMsg("datasource_username"));
-			ds.password(mp.getMsg("datasource_password"));
+		return new DatasourcesFraction().jdbcDriver("org.postgresql", (d) -> {
+			d.driverClassName("org.postgresql.Driver");
+			d.xaDatasourceClass("org.postgresql.xa.PGXADataSource");
+			d.driverModuleName("org.postgresql");
+		}).dataSource("reelbookDS", (ds) -> {
+			ds.driverName("org.postgresql");
+			ds.connectionUrl("jdbc:postgresql://localhost:5433/villegas");
+			ds.userName("villegas");
+			ds.password("villegas");
 		});
 	}
 }

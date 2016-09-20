@@ -1,4 +1,4 @@
-package com.reelbook.model;
+package com.reelbook.model.msc;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import javax.persistence.MappedSuperclass;
 
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
+import com.reelbook.model.Country;
 import com.reelbook.model.embeddable.Address;
 import com.reelbook.model.embeddable.Document;
-import com.reelbook.model.msc.Agent;
 import com.reelbook.server.exception.ValidationException;
 
 @MappedSuperclass

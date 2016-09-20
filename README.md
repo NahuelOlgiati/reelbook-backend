@@ -16,4 +16,4 @@ http://ksoong.org/wildfly-swarm
 
 # Debug
 On /target
-java -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=y -jar reelbook-backend-swarm.jar debug
+java -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=y -jar reelbook-backend-swarm.jar

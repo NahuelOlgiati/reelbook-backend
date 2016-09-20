@@ -1,4 +1,4 @@
-package com.reelbook.model;
+package com.reelbook.model.msc;
 
 import javax.persistence.Embedded;
 import javax.persistence.GeneratedValue;

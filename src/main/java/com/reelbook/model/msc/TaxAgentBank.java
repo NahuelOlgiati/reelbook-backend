@@ -1,4 +1,4 @@
-package com.reelbook.model;
+package com.reelbook.model.msc;
 
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +11,7 @@ import javax.persistence.SequenceGenerator;
 
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
+import com.reelbook.model.Bank;
 import com.reelbook.server.exception.ValidationException;
 import com.reelbook.server.model.BaseModel;
 

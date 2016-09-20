@@ -6,6 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.reelbook.model.msc.TaxAgentBank;
+
 @Entity
 @Table(name = "osiris_tax_taxpayerbank")
 //@Audited

@@ -1,11 +1,18 @@
 package com.reelbook.rest.endpoint;
 
 import java.util.Date;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.reelbook.model.DocumentType;
 import com.reelbook.rest.util.ResponseUtil;
+import com.reelbook.server.exception.ManagerException;
 import com.reelbook.service.msg.DBSMsgHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,6 +51,16 @@ public class TestEndPoint {
 	@Produces("text/plain")
 	public Response cleardbmsg() {
 		DBSMsgHandler.reload();
+		return ResponseUtil.success();
+	}
+	
+	@POST
+	@Path("/documentType")
+	@ApiOperation(value = "Test document type", response = String.class)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response create(DocumentType documentType)
+	{
 		return ResponseUtil.success();
 	}
 }

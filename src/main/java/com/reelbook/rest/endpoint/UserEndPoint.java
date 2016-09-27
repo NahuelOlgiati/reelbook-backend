@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -49,6 +50,24 @@ public class UserEndPoint extends BaseEJB
 		return ResponseUtil.success(user);
 	}
 
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response create(PortalUser portalUser)
+	{
+		Response r = null;
+		try
+		{
+			portalUserML.save(portalUser);
+		}
+		catch (ManagerException e)
+		{
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
+	}
+	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)

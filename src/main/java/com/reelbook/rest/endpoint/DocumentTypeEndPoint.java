@@ -13,10 +13,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.DocumentType;
 import com.reelbook.rest.annotation.RequiredRole;
-import com.reelbook.rest.annotation.Secured;
 import com.reelbook.rest.app.RoleEnum;
 import com.reelbook.rest.util.ResponseUtil;
 import com.reelbook.server.ejb.BaseEJB;
@@ -45,25 +43,30 @@ public class DocumentTypeEndPoint extends BaseEJB
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findById(@PathParam("id") Long id)
 	{
-		final DocumentType documentType = documentTypeML.get(id);
-		if (CompareUtil.isEmpty(documentType))
+		Response r = null;
+		try
 		{
-			return ResponseUtil.notFound();
+			r = ResponseUtil.success(documentTypeML.get(id));
 		}
-		return ResponseUtil.success(documentType);
+		catch (Exception e)
+		{
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response create(DocumentType documentType)
 	{
 		Response r = null;
 		try
 		{
-			documentTypeML.save(documentType);
+			r = ResponseUtil.success(documentTypeML.save(documentType));
 		}
-		catch (ManagerException e)
+		catch (Exception e)
 		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
@@ -73,13 +76,13 @@ public class DocumentTypeEndPoint extends BaseEJB
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(DocumentType documentType)
 	{
 		Response r = null;
 		try
 		{
-			documentTypeML.save(documentType);
+			r = ResponseUtil.success(documentTypeML.save(documentType));
 		}
 		catch (ManagerException e)
 		{
@@ -91,14 +94,13 @@ public class DocumentTypeEndPoint extends BaseEJB
 
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteById(@PathParam("id") Long id)
 	{
 		Response r = null;
 		try
 		{
-			documentTypeML.delete(id);
-			r = Response.ok().build();
+			r = ResponseUtil.success(documentTypeML.delete(id));
 		}
 		catch (Exception e)
 		{

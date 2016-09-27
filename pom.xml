@@ -18,7 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.wildfly.swarm>2016.9</version.wildfly.swarm>
 		<version.postgresql>9.4.1207</version.postgresql>
-		<version.json-simple>1.1.1</version.json-simple>
+		<version.gson>2.7</version.gson>
 		<version.hibernate-jpamodelgen>5.2.2.Final</version.hibernate-jpamodelgen>
 		<version.maven-processor-plugin>3.1.0</version.maven-processor-plugin>
 		<version.maven-compiler-plugin>2.5.1</version.maven-compiler-plugin>
@@ -77,11 +77,11 @@
 			<artifactId>swagger</artifactId>
 		</dependency>
 
-		<!-- Json -->
+		<!-- Gson -->
 		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>${version.json-simple}</version>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${version.gson}</version>
 		</dependency>
 
 	</dependencies>

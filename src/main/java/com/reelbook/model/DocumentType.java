@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.google.gson.annotations.SerializedName;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CharUtil;
 import com.reelbook.core.util.CompareUtil;
@@ -29,6 +30,7 @@ import com.reelbook.server.model.BaseSummarySimpleModel;
 public class DocumentType extends BaseSummarySimpleModel
 {
 	@Id
+	@SerializedName(value="id")
 	@SequenceGenerator(name = "id", sequenceName = "adonis_config_documenttype_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long documentTypeID;

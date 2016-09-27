@@ -17,7 +17,7 @@ public class Main {
 
 		// final MainProperties mp = MainProperties.getMe();
 
-		swarm.fraction(LoggingFraction.createDebugLoggingFraction());
+		swarm.fraction(LoggingFraction.createDefaultLoggingFraction());
 		swarm.fraction(getDatasourcesFraction());
 		swarm.fraction(getJpaFraction());
 		swarm.fraction(EJBFraction.createDefaultFraction());

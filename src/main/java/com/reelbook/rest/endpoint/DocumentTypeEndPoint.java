@@ -1,5 +1,7 @@
 package com.reelbook.rest.endpoint;
 
+import java.io.IOException;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -13,6 +15,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
+
+import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.DocumentType;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.app.RoleEnum;
@@ -25,31 +30,26 @@ import com.reelbook.service.manager.local.DocumentTypeManagerLocal;
 //@Secured
 @Stateless
 @Path("/documentType")
-public class DocumentTypeEndPoint extends BaseEJB
-{
+public class DocumentTypeEndPoint extends BaseEJB {
 	@EJB
 	private DocumentTypeManagerLocal documentTypeML;
 
 	@GET
-	@RequiredRole({RoleEnum.ADMIN})
+	@RequiredRole({ RoleEnum.ADMIN })
 	@Produces(MediaType.APPLICATION_JSON)
-	public DocumentType[] get()
-	{
-		return documentTypeML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList().toArray(new DocumentType[0]);
+	public DocumentType[] get() {
+		return documentTypeML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList()
+				.toArray(new DocumentType[0]);
 	}
 
 	@GET
 	@Path("/get:{id:[0-9][0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findById(@PathParam("id") Long id)
-	{
+	public Response findById(@PathParam("id") Long id) {
 		Response r = null;
-		try
-		{
+		try {
 			r = ResponseUtil.success(documentTypeML.get(id));
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -59,15 +59,11 @@ public class DocumentTypeEndPoint extends BaseEJB
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response create(DocumentType documentType)
-	{
+	public Response create(DocumentType documentType) {
 		Response r = null;
-		try
-		{
+		try {
 			r = ResponseUtil.success(documentTypeML.save(documentType));
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -77,15 +73,11 @@ public class DocumentTypeEndPoint extends BaseEJB
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(DocumentType documentType)
-	{
+	public Response update(DocumentType documentType) {
 		Response r = null;
-		try
-		{
+		try {
 			r = ResponseUtil.success(documentTypeML.save(documentType));
-		}
-		catch (ManagerException e)
-		{
+		} catch (ManagerException e) {
 			System.out.println("exception in update " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -95,18 +87,33 @@ public class DocumentTypeEndPoint extends BaseEJB
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteById(@PathParam("id") Long id)
-	{
+	public Response deleteById(@PathParam("id") Long id) {
 		Response r = null;
-		try
-		{
+		try {
 			r = ResponseUtil.success(documentTypeML.delete(id));
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
 		return r;
+	}
+
+	@POST
+	@Path("/upload")
+	@Consumes("multipart/form-data")
+	public Response uploadFile(MultipartFormDataInput input) {
+
+		String uploadName = "uploadedFile";
+		String uploadFilePath = "/home/tallion.com.ar/nolgiati/Desktop/upload/";
+		Integer bufferSize = 8192;
+
+		try {
+			FileUtil.upload(input, uploadName, uploadFilePath, bufferSize);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return ResponseUtil.success();
+
 	}
 }

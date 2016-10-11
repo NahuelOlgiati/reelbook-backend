@@ -6,12 +6,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -55,14 +57,17 @@ public class DocumentTypeEndPoint extends BaseEJB {
 		}
 		return r;
 	}
-		
+
 	@GET
 	@Path("/autocomplete:{description}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response autocomplete(@PathParam("description") String description) {
+	public Response autocomplete(@PathParam("description") String description,
+			@DefaultValue("0") @QueryParam("firstResult") Integer firstResult,
+			@DefaultValue("10") @QueryParam("maxResults") Integer maxResults) {
 		Response r = null;
 		try {
-			r = ResponseUtil.success(documentTypeML.getQueryHintResult(description, new QueryHint(0,10)));
+			r = ResponseUtil
+					.success(documentTypeML.getQueryHintResult(description, new QueryHint(firstResult, maxResults)));
 		} catch (Exception e) {
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();

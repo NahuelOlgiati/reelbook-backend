@@ -55,6 +55,20 @@ public class DocumentTypeEndPoint extends BaseEJB {
 		}
 		return r;
 	}
+		
+	@GET
+	@Path("/autocomplete:{description}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response autocomplete(@PathParam("description") String description) {
+		Response r = null;
+		try {
+			r = ResponseUtil.success(documentTypeML.getQueryHintResult(description, new QueryHint(0,10)));
+		} catch (Exception e) {
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
+	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

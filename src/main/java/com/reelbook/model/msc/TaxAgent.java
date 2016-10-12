@@ -1,29 +1,30 @@
 package com.reelbook.model.msc;
 
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.Country;
 import com.reelbook.model.embeddable.Address;
 import com.reelbook.model.embeddable.Document;
-import com.reelbook.server.exception.ValidationException;
 
 @MappedSuperclass
-// @Audited
+@Audited
 @SuppressWarnings("serial")
-public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContact, B extends TaxAgentBank>
-		extends Agent {
+public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContact> extends Agent
+{
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "countryID")
-	// @NotAudited
+	@NotAudited
 	private Country country;
 
 	@Embedded
@@ -34,7 +35,8 @@ public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContac
 
 	/**
 	 */
-	protected TaxAgent(Document document) {
+	protected TaxAgent(Document document)
+	{
 		super(document);
 		this.country = null;
 		this.legalAddress = null;
@@ -43,20 +45,24 @@ public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContac
 
 	/**
 	 */
-	public Country getCountry() {
+	public Country getCountry()
+	{
 		return country;
 	}
 
 	/**
 	 */
-	public void setCountry(Country country) {
+	public void setCountry(Country country)
+	{
 		this.country = country;
 	}
 
 	/**
 	 */
-	public Address getLegalAddress() {
-		if (legalAddress == null) {
+	public Address getLegalAddress()
+	{
+		if (legalAddress == null)
+		{
 			legalAddress = new Address();
 		}
 		return legalAddress;
@@ -64,13 +70,15 @@ public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContac
 
 	/**
 	 */
-	public String getNotes() {
+	public String getNotes()
+	{
 		return notes;
 	}
 
 	/**
 	 */
-	public void setNotes(String notes) {
+	public void setNotes(String notes)
+	{
 		this.notes = notes;
 	}
 
@@ -100,101 +108,97 @@ public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContac
 
 	/**
 	 */
-	public abstract List<B> getBankList();
-
-	/**
-	 */
-	public abstract B getBankDefault();
-
-	/**
-	 */
-	public abstract void setBankDefault(B bankDefault);
-
-	/**
-	 */
 	@Override
-	public void initLazyElements() {
+	public void initLazyElements()
+	{
 		super.initLazyElements();
 		getPhoneList().size();
 		getContactList().size();
-		getBankList().size();
 	}
 
 	/**
 	 */
 	@Override
-	public void valid() throws ValidationException {
+	public void valid() throws ValidationException
+	{
 		final MessageBuilder mb = new MessageBuilder();
 
-		try {
+		try
+		{
 			super.valid();
-		} catch (ValidationException v) {
+		}
+		catch (ValidationException v)
+		{
 			mb.addMessage(v.getMessages());
 		}
 
-		if (CompareUtil.isEmpty(getCountry())) {
+		if (CompareUtil.isEmpty(getCountry()))
+		{
 			// mb.addMessage(DBSMsgHandler.getMsg(TaxAgent.class,
 			// "countryEmpty"));
 		}
 
-		try {
+		try
+		{
 			getLegalAddress().valid();
-		} catch (ValidationException v) {
+		}
+		catch (ValidationException v)
+		{
 			mb.addMessage(v.getMessages());
 		}
 
-		if (!CompareUtil.isEmpty(getPhoneList())) {
-			try {
-				for (final TaxAgentPhone tap : getPhoneList()) {
+		if (!CompareUtil.isEmpty(getPhoneList()))
+		{
+			try
+			{
+				for (final TaxAgentPhone tap : getPhoneList())
+				{
 					tap.valid();
 				}
-			} catch (ValidationException v) {
+			}
+			catch (ValidationException v)
+			{
 				mb.addMessage(v.getMessages());
 			}
 
-			if (!getPhoneList().contains(getPhoneDefault())) {
+			if (!getPhoneList().contains(getPhoneDefault()))
+			{
 				// mb.addMessage(DBSMsgHandler.getMsg(TaxAgent.class,
 				// "phoneDefaultEmpty"));
 			}
-		} else {
+		}
+		else
+		{
 			setPhoneDefault(null);
 		}
 
-		if (!CompareUtil.isEmpty(getContactList())) {
-			try {
-				for (final TaxAgentContact tac : getContactList()) {
+		if (!CompareUtil.isEmpty(getContactList()))
+		{
+			try
+			{
+				for (final TaxAgentContact tac : getContactList())
+				{
 					tac.valid();
 				}
-			} catch (ValidationException v) {
+			}
+			catch (ValidationException v)
+			{
 				mb.addMessage(v.getMessages());
 			}
 
-			if (!getContactList().contains(getContactDefault())) {
+			if (!getContactList().contains(getContactDefault()))
+			{
 				// mb.addMessage(DBSMsgHandler.getMsg(TaxAgent.class,
 				// "contactDefaultEmpty"));
 			}
-		} else {
+		}
+		else
+		{
 			setContactDefault(null);
 		}
 
-		if (!CompareUtil.isEmpty(getBankList())) {
-			try {
-				for (final TaxAgentBank tab : getBankList()) {
-					tab.valid();
-				}
-			} catch (ValidationException v) {
-				mb.addMessage(v.getMessages());
-			}
-
-			if (!getBankList().contains(getBankDefault())) {
-				// mb.addMessage(DBSMsgHandler.getMsg(TaxAgent.class,
-				// "bankDefaultEmpty"));
-			}
-		} else {
-			setBankDefault(null);
-		}
-
-		if (!mb.isEmpty()) {
+		if (!mb.isEmpty())
+		{
 			throw new ValidationException(mb.getMessages());
 		}
 	}

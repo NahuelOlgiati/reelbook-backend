@@ -4,10 +4,9 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
-
-import com.reelbook.server.model.BaseModel;
-import com.reelbook.server.model.mpi.Emptiable;
-import com.reelbook.server.util.QueryHintResult;
+import com.reelbook.core.model.BaseModel;
+import com.reelbook.core.model.mpi.Emptiable;
+import com.reelbook.core.service.util.QueryHintResult;
 
 public final class CompareUtil
 {

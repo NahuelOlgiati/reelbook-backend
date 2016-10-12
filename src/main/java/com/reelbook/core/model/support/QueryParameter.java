@@ -1,9 +1,8 @@
-package com.reelbook.server.model.support;
+package com.reelbook.core.model.support;
 
 import java.io.Serializable;
-
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.mpi.Validable;
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.mpi.Validable;
 
 @SuppressWarnings("serial")
 public abstract class QueryParameter implements Validable, Serializable

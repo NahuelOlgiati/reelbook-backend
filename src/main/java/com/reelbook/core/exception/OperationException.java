@@ -1,9 +1,7 @@
-package com.reelbook.server.exception;
+package com.reelbook.core.exception;
 
 import java.util.List;
 import javax.ejb.ApplicationException;
-
-import com.reelbook.core.exception.BaseException;
 
 @ApplicationException(rollback = true)
 @SuppressWarnings("serial")

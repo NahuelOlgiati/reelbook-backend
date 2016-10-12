@@ -1,7 +1,7 @@
-package com.reelbook.server.ejb;
+package com.reelbook.core.service.manager.local;
 
 import com.reelbook.core.exception.BaseException;
-import com.reelbook.server.model.BaseModel;
+import com.reelbook.core.model.BaseModel;
 
 public interface BaseValidationManager
 {

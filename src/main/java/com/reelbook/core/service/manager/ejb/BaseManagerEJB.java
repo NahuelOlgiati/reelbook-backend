@@ -1,16 +1,16 @@
-package com.reelbook.server.ejb;
+package com.reelbook.core.service.manager.ejb;
 
 import java.util.List;
 import javax.ejb.EJBException;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
-
+import com.reelbook.core.model.BaseModel;
+import com.reelbook.core.model.support.QueryHint;
+import com.reelbook.core.service.manager.local.BaseManager;
+import com.reelbook.core.service.util.JPAUtil;
+import com.reelbook.core.service.util.QueryHintResult;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.model.BaseModel;
-import com.reelbook.server.model.support.QueryHint;
-import com.reelbook.server.util.JPAUtil;
-import com.reelbook.server.util.QueryHintResult;
 
 public abstract class BaseManagerEJB<T extends BaseModel> extends BaseEJB implements BaseManager<T>
 {

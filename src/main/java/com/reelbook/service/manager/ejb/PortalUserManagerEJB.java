@@ -14,13 +14,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import com.reelbook.core.exception.BaseException;
+import com.reelbook.core.exception.ManagerException;
+import com.reelbook.core.service.util.PredicateBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.PortalUser;
 import com.reelbook.model.TaxPayer;
 import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.enumeration.TaxPayerTypeEnum;
-import com.reelbook.server.exception.ManagerException;
-import com.reelbook.server.util.PredicateBuilder;
 import com.reelbook.service.manager.local.PortalUserManagerLocal;
 
 

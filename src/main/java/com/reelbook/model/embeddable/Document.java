@@ -7,13 +7,12 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.mpi.Emptiable;
+import com.reelbook.core.model.mpi.Validable;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.DocumentType;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.mpi.Emptiable;
-import com.reelbook.server.model.mpi.Validable;
 
 @Embeddable
 @SuppressWarnings("serial")

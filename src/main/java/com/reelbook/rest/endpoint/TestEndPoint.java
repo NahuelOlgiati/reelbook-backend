@@ -9,10 +9,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+import com.reelbook.core.exception.ManagerException;
 import com.reelbook.model.DocumentType;
 import com.reelbook.rest.util.ResponseUtil;
-import com.reelbook.server.exception.ManagerException;
 import com.reelbook.service.msg.DBSMsgHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

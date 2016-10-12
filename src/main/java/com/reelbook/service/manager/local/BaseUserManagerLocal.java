@@ -1,15 +1,14 @@
 package com.reelbook.service.manager.local;
 
 import java.util.List;
-
+import com.reelbook.core.exception.ManagerException;
+import com.reelbook.core.model.support.QueryHint;
+import com.reelbook.core.service.manager.local.BasePersistenceManager;
+import com.reelbook.core.service.manager.local.BaseSimpleManager;
+import com.reelbook.core.service.util.QueryHintResult;
 import com.reelbook.model.Profile;
 import com.reelbook.model.User;
 import com.reelbook.model.embeddable.Document;
-import com.reelbook.server.ejb.BasePersistenceManager;
-import com.reelbook.server.ejb.BaseSimpleManager;
-import com.reelbook.server.exception.ManagerException;
-import com.reelbook.server.model.support.QueryHint;
-import com.reelbook.server.util.QueryHintResult;
 
 public interface BaseUserManagerLocal<T extends User> extends BasePersistenceManager<T>, BaseSimpleManager<T>
 {

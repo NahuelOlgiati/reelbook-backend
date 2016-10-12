@@ -18,15 +18,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-
+import com.reelbook.core.exception.ManagerException;
+import com.reelbook.core.model.support.QueryHint;
+import com.reelbook.core.service.manager.ejb.BaseEJB;
 import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.DocumentType;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.app.RoleEnum;
 import com.reelbook.rest.util.ResponseUtil;
-import com.reelbook.server.ejb.BaseEJB;
-import com.reelbook.server.exception.ManagerException;
-import com.reelbook.server.model.support.QueryHint;
 import com.reelbook.service.manager.local.DocumentTypeManagerLocal;
 
 //@Secured

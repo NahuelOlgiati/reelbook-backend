@@ -12,25 +12,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
+import org.hibernate.envers.Audited;
 import com.google.gson.annotations.SerializedName;
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.BaseSummarySimpleModel;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CharUtil;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.BaseSummarySimpleModel;
 
 @Entity
-@Table(name = "adonis_config_documenttype", uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"countryID", "description"}),
-		@UniqueConstraint(columnNames = {"countryID", "summaryDescription"})})
-//@Audited
+@Table(
+		name = "adonis_config_documenttype",
+		uniqueConstraints = {
+				@UniqueConstraint(columnNames = {"countryID", "description"}),
+				@UniqueConstraint(columnNames = {"countryID", "summaryDescription"})})
+@Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
 public class DocumentType extends BaseSummarySimpleModel
 {
 	@Id
-	@SerializedName(value="id")
+	@SerializedName(value = "id")
 	@SequenceGenerator(name = "id", sequenceName = "adonis_config_documenttype_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long documentTypeID;
@@ -160,7 +162,7 @@ public class DocumentType extends BaseSummarySimpleModel
 
 		if (CompareUtil.isEmpty(getCountry()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "countryEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "countryEmpty"));
 		}
 
 		if (!mb.isEmpty())

@@ -6,10 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
-
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.BaseModel;
 import com.reelbook.model.embeddable.Phone;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.BaseModel;
 
 @MappedSuperclass
 @SuppressWarnings("serial")

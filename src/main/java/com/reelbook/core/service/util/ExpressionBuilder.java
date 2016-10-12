@@ -1,4 +1,4 @@
-package com.reelbook.server.util;
+package com.reelbook.core.service.util;
 
 import javax.persistence.criteria.CriteriaBuilder;
 

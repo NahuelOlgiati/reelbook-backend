@@ -1,10 +1,9 @@
-package com.reelbook.server.model;
+package com.reelbook.core.model;
 
 import java.io.Serializable;
-
-import com.reelbook.server.model.mpi.Describable;
-import com.reelbook.server.model.mpi.Manageable;
-import com.reelbook.server.model.mpi.Validable;
+import com.reelbook.core.model.mpi.Describable;
+import com.reelbook.core.model.mpi.Manageable;
+import com.reelbook.core.model.mpi.Validable;
 
 @SuppressWarnings("serial")
 public abstract class BaseModel implements Manageable, Validable, Describable, Serializable

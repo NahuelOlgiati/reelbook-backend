@@ -6,15 +6,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
-
+import org.hibernate.envers.Audited;
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.BaseModel;
 import com.reelbook.model.embeddable.Document;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.BaseModel;
 
 @MappedSuperclass
-// @Audited
+@Audited
 @SuppressWarnings("serial")
-public abstract class Agent extends BaseModel {
+public abstract class Agent extends BaseModel
+{
 	@Id
 	@SequenceGenerator(name = "id", sequenceName = "adonis_config_agent_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
@@ -25,7 +26,8 @@ public abstract class Agent extends BaseModel {
 
 	/**
 	 */
-	protected Agent(Document document) {
+	protected Agent(Document document)
+	{
 		this.agentID = 0l;
 		this.document = document;
 	}
@@ -33,21 +35,25 @@ public abstract class Agent extends BaseModel {
 	/**
 	 */
 	@Override
-	public Long getID() {
+	public Long getID()
+	{
 		return agentID;
 	}
 
 	/**
 	 */
 	@Override
-	public void setID(Long id) {
+	public void setID(Long id)
+	{
 		this.agentID = id;
 	}
 
 	/**
 	 */
-	public Document getDocument() {
-		if (document == null) {
+	public Document getDocument()
+	{
+		if (document == null)
+		{
 			document = new Document();
 		}
 		return document;
@@ -56,7 +62,8 @@ public abstract class Agent extends BaseModel {
 	/**
 	 */
 	@Override
-	public void valid() throws ValidationException {
+	public void valid() throws ValidationException
+	{
 		getDocument().valid();
 	}
 }

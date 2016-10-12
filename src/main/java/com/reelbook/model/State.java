@@ -11,15 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
+import org.hibernate.envers.Audited;
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.BaseSummarySimpleModel;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.BaseSummarySimpleModel;
 
 @Entity
 @Table(name = "adonis_config_state")
-//@Audited
+@Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
 public class State extends BaseSummarySimpleModel

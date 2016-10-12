@@ -11,15 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
+import org.hibernate.envers.Audited;
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.BaseSummarySimpleModel;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.BaseSummarySimpleModel;
 
 @Entity
 @Table(name = "adonis_config_district")
-//@Audited
+@Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
 public class District extends BaseSummarySimpleModel
@@ -136,7 +136,7 @@ public class District extends BaseSummarySimpleModel
 
 		if (CompareUtil.isEmpty(getState()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "stateEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "stateEmpty"));
 		}
 
 		if (!mb.isEmpty())

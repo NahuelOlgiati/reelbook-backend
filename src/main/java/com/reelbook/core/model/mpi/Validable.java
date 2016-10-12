@@ -1,6 +1,6 @@
-package com.reelbook.server.model.mpi;
+package com.reelbook.core.model.mpi;
 
-import com.reelbook.server.exception.ValidationException;
+import com.reelbook.core.exception.ValidationException;
 
 public interface Validable
 {

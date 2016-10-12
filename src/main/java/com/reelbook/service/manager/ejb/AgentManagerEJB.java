@@ -5,24 +5,25 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-
+import com.reelbook.core.service.manager.ejb.BasePersistenceManagerEJB;
+import com.reelbook.core.service.util.PredicateBuilder;
 import com.reelbook.model.DocumentType;
 import com.reelbook.model.DocumentType_;
 import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.embeddable.Document_;
 import com.reelbook.model.msc.Agent;
-import com.reelbook.server.ejb.BasePersistenceManagerEJB;
-import com.reelbook.server.util.PredicateBuilder;
 import com.reelbook.service.manager.local.AgentManagerLocal;
 
-public abstract class AgentManagerEJB<T extends Agent> extends BasePersistenceManagerEJB<T>
-		implements AgentManagerLocal<T> {
+public abstract class AgentManagerEJB<T extends Agent> extends BasePersistenceManagerEJB<T> implements AgentManagerLocal<T>
+{
 	/**
 	 */
 	@Override
-	public T get(final Document d) {
+	public T get(final Document d)
+	{
 		T model = null;
-		try {
+		try
+		{
 			final CriteriaBuilder cb = em.getCriteriaBuilder();
 			final PredicateBuilder pb = new PredicateBuilder(cb);
 			final CriteriaQuery<T> cq = cb.createQuery(getModelClass());
@@ -33,12 +34,13 @@ public abstract class AgentManagerEJB<T extends Agent> extends BasePersistenceMa
 			final Path<String> documentNumber = document.get(Document_.documentNumber);
 
 			// Expressions.
-			cq.where(cb.and(pb.equal(documentTypeID, d.getDocumentType().getID()),
-					pb.equal(documentNumber, d.getDocumentNumber())));
+			cq.where(cb.and(pb.equal(documentTypeID, d.getDocumentType().getID()), pb.equal(documentNumber, d.getDocumentNumber())));
 
 			// Gets data.
 			model = getUnique(cq);
-		} catch (Throwable t) {
+		}
+		catch (Throwable t)
+		{
 			throw new EJBException(t.getMessage());
 		}
 		return model;

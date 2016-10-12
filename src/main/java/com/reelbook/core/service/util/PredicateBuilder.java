@@ -1,4 +1,4 @@
-package com.reelbook.server.util;
+package com.reelbook.core.service.util;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -7,9 +7,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
-
+import com.reelbook.core.model.BaseModel;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.model.BaseModel;
 
 public final class PredicateBuilder extends ExpressionBuilder
 {

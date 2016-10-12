@@ -1,4 +1,4 @@
-package com.reelbook.server.util;
+package com.reelbook.core.service.util;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

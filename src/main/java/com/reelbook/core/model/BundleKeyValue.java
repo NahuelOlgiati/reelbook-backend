@@ -1,4 +1,4 @@
-package com.reelbook.model;
+package com.reelbook.core.model;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -11,9 +11,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "adonis_common_bundlekeyvalue")
-@SqlResultSetMapping(name = "bundleKeyValueMap", entities = {@EntityResult(entityClass = BundleKeyValue.class, fields = {
-		@FieldResult(name = "key", column = "key"),
-		@FieldResult(name = "value", column = "value")})})
+@SqlResultSetMapping(
+		name = "bundleKeyValueMap",
+		entities = {
+				@EntityResult(
+						entityClass = BundleKeyValue.class,
+						fields = {@FieldResult(name = "key", column = "key"), @FieldResult(name = "value", column = "value")})})
 @SuppressWarnings("serial")
 public final class BundleKeyValue implements Serializable
 {

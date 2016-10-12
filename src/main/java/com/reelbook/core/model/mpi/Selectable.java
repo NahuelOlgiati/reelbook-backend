@@ -1,4 +1,4 @@
-package com.reelbook.server.model.mpi;
+package com.reelbook.core.model.mpi;
 
 public interface Selectable
 {

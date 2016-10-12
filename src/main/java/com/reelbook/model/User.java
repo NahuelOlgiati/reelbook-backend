@@ -2,7 +2,6 @@ package com.reelbook.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,17 +17,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
+import org.hibernate.envers.Audited;
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.BaseModel;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.enumeration.ProfileReservedEnum;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.BaseModel;
 
 @Entity
 @Table(name = "adonis_admin_user")
 @Inheritance(strategy = InheritanceType.JOINED)
-//@Audited
+@Audited
 @SuppressWarnings("serial")
 public abstract class User extends BaseModel
 {

@@ -1,7 +1,6 @@
 package com.reelbook.model;
 
 import java.util.List;
-
 import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
@@ -10,15 +9,15 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import org.hibernate.envers.Audited;
+import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.exception.ValidationException;
 
 @Entity
 @Table(name = "osiris_tax_portaluser")
 @Cacheable(value = true)
-//@Audited
+@Audited
 @SuppressWarnings("serial")
 public class PortalUser extends User
 {

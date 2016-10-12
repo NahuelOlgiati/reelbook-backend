@@ -11,15 +11,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+import com.reelbook.core.exception.ManagerException;
+import com.reelbook.core.model.support.QueryHint;
+import com.reelbook.core.service.manager.ejb.BaseEJB;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.PortalUser;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.app.RoleEnum;
 import com.reelbook.rest.util.ResponseUtil;
-import com.reelbook.server.ejb.BaseEJB;
-import com.reelbook.server.exception.ManagerException;
-import com.reelbook.server.model.support.QueryHint;
 import com.reelbook.service.manager.local.PortalUserManagerLocal;
 
 @Stateless

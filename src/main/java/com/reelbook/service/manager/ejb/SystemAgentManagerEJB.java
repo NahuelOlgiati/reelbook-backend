@@ -10,16 +10,15 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-
+import com.reelbook.core.exception.ManagerException;
+import com.reelbook.core.service.manager.ejb.BasePersistenceManagerEJB;
+import com.reelbook.core.service.util.PredicateBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.DocumentType;
 import com.reelbook.model.DocumentType_;
 import com.reelbook.model.SystemAgent;
 import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.embeddable.Document_;
-import com.reelbook.server.ejb.BasePersistenceManagerEJB;
-import com.reelbook.server.exception.ManagerException;
-import com.reelbook.server.util.PredicateBuilder;
 import com.reelbook.service.manager.local.SystemAgentManagerLocal;
 
 @Stateless

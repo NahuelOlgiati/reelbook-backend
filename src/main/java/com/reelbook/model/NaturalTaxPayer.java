@@ -1,7 +1,6 @@
 package com.reelbook.model;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -13,17 +12,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.enumeration.GenderEnum;
 import com.reelbook.model.enumeration.TaxPayerTypeEnum;
-import com.reelbook.server.exception.ValidationException;
 
 @Entity
 @Table(name = "osiris_tax_naturaltaxpayer")
-//@Audited
+@Audited
 @SuppressWarnings("serial")
 public class NaturalTaxPayer extends TaxPayer
 {
@@ -37,16 +37,16 @@ public class NaturalTaxPayer extends TaxPayer
 	private String maternalLastName;
 
 	@Enumerated(EnumType.STRING)
-//	@NotAudited
+	@NotAudited
 	private GenderEnum gender;
 
 	@Temporal(TemporalType.DATE)
-//	@NotAudited
+	@NotAudited
 	private Date birthDate;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "maritalStatusID")
-//	@NotAudited
+	@NotAudited
 	private MaritalStatus maritalStatus;
 
 	@Embedded
@@ -227,27 +227,27 @@ public class NaturalTaxPayer extends TaxPayer
 
 		if (CompareUtil.isEmpty(getFirstName()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "firstNameEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "firstNameEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getLastName()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "lastNameEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "lastNameEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getGender()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "genderEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "genderEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getBirthDate()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "birthDateEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "birthDateEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getMaritalStatus()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "maritalStatusEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "maritalStatusEmpty"));
 		}
 
 		if (!CompareUtil.isEmpty(getSecondaryDocument()))
@@ -268,7 +268,7 @@ public class NaturalTaxPayer extends TaxPayer
 
 		if (CompareUtil.isEmpty(getNaturalTaxPayerCategory()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "naturalTaxPayerCategoryEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "naturalTaxPayerCategoryEmpty"));
 		}
 
 		if (!mb.isEmpty())

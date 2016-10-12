@@ -2,7 +2,6 @@ package com.reelbook.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,48 +12,40 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.enumeration.TaxPayerTypeEnum;
 import com.reelbook.model.msc.TaxAgent;
-import com.reelbook.server.exception.ValidationException;
 
 @Entity
 @Table(name = "osiris_tax_taxpayer", uniqueConstraints = @UniqueConstraint(columnNames = {"documentTypeID", "documentNumber"}))
 @Inheritance(strategy = InheritanceType.JOINED)
-//@Audited
+@Audited
 @SuppressWarnings("serial")
-public abstract class TaxPayer extends TaxAgent<TaxPayerPhone, TaxPayerContact, TaxPayerBank>
+public abstract class TaxPayer extends TaxAgent<TaxPayerPhone, TaxPayerContact>
 {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "agentID")
-//	@NotAudited
+	@NotAudited
 	private List<TaxPayerPhone> phoneList;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "phoneDefaultID")
-//	@NotAudited
+	@NotAudited
 	private TaxPayerPhone phoneDefault;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "agentID")
-//	@NotAudited
+	@NotAudited
 	private List<TaxPayerContact> contactList;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "contactDefaultID")
-//	@NotAudited
+	@NotAudited
 	private TaxPayerContact contactDefault;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "agentID")
-//	@AuditMappedBy(mappedBy = "taxPayer")
-	private List<TaxPayerBank> bankList;
-
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "bankDefaultID")
-	private TaxPayerBank bankDefault;
 
 	/**
 	 */
@@ -65,8 +56,6 @@ public abstract class TaxPayer extends TaxAgent<TaxPayerPhone, TaxPayerContact, 
 		this.phoneDefault = null;
 		this.contactList = null;
 		this.contactDefault = null;
-		this.bankList = null;
-		this.bankDefault = null;
 	}
 
 	/**
@@ -130,34 +119,6 @@ public abstract class TaxPayer extends TaxAgent<TaxPayerPhone, TaxPayerContact, 
 	public void setContactDefault(TaxPayerContact contactDefault)
 	{
 		this.contactDefault = contactDefault;
-	}
-
-	/**
-	 */
-	@Override
-	public List<TaxPayerBank> getBankList()
-	{
-		if (bankList == null)
-		{
-			bankList = new ArrayList<TaxPayerBank>();
-		}
-		return bankList;
-	}
-
-	/**
-	 */
-	@Override
-	public TaxPayerBank getBankDefault()
-	{
-		return bankDefault;
-	}
-
-	/**
-	 */
-	@Override
-	public void setBankDefault(TaxPayerBank bankDefault)
-	{
-		this.bankDefault = bankDefault;
 	}
 
 	/**

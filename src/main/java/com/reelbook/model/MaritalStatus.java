@@ -8,8 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.reelbook.server.model.BaseSimpleModel;
+import com.reelbook.core.model.BaseSimpleModel;
 
 @Entity
 @Table(name = "adonis_config_maritalstatus")

@@ -8,16 +8,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
+import org.hibernate.envers.Audited;
+import com.reelbook.core.model.BaseSummarySimpleModel;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.model.BaseSummarySimpleModel;
 
 @Entity
 @Table(name = "adonis_config_country")
-// @Audited
+@Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
-public class Country extends BaseSummarySimpleModel {
+public class Country extends BaseSummarySimpleModel
+{
+
 	@Id
 	@SequenceGenerator(name = "id", sequenceName = "adonis_config_country_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
@@ -31,7 +33,8 @@ public class Country extends BaseSummarySimpleModel {
 
 	/**
 	 */
-	public Country(String description, String summaryDescription) {
+	public Country(String description, String summaryDescription)
+	{
 		this.countryID = 0l;
 		this.description = description;
 		this.summaryDescription = summaryDescription;
@@ -39,59 +42,68 @@ public class Country extends BaseSummarySimpleModel {
 
 	/**
 	 */
-	public Country() {
+	public Country()
+	{
 		this("", "");
 	}
 
 	/**
 	 */
 	@Override
-	public Long getID() {
+	public Long getID()
+	{
 		return countryID;
 	}
 
 	/**
 	 */
 	@Override
-	public void setID(Long id) {
+	public void setID(Long id)
+	{
 		this.countryID = id;
 	}
 
 	/**
 	 */
 	@Override
-	public String getDescription() {
+	public String getDescription()
+	{
 		return description;
 	}
 
 	/**
 	 */
 	@Override
-	public void setDescription(String description) {
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
 
 	/**
 	 */
 	@Override
-	public String getSummaryDescription() {
+	public String getSummaryDescription()
+	{
 		return summaryDescription;
 	}
 
 	/**
 	 */
 	@Override
-	public void setSummaryDescription(String summaryDescription) {
+	public void setSummaryDescription(String summaryDescription)
+	{
 		this.summaryDescription = summaryDescription;
 	}
 
 	/**
 	 */
 	@Override
-	public String getFullDescription() {
+	public String getFullDescription()
+	{
 		final StringBuilder sb = new StringBuilder();
 
-		if (!CompareUtil.isEmpty(getDescription())) {
+		if (!CompareUtil.isEmpty(getDescription()))
+		{
 			sb.append(getDescription().trim());
 		}
 		return sb.toString();

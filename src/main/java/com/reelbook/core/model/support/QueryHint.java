@@ -1,4 +1,4 @@
-package com.reelbook.server.model.support;
+package com.reelbook.core.model.support;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.reelbook.server.model;
+package com.reelbook.core.model;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,6 +1,6 @@
-package com.reelbook.server.model.mpi;
+package com.reelbook.core.model.mpi;
 
-import com.reelbook.server.model.BaseModel;
+import com.reelbook.core.model.BaseModel;
 
 public interface Clonable<T extends BaseModel>
 {

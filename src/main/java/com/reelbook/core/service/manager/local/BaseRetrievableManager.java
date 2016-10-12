@@ -1,8 +1,7 @@
-package com.reelbook.server.ejb;
+package com.reelbook.core.service.manager.local;
 
 import java.util.List;
-
-import com.reelbook.server.model.BaseModel;
+import com.reelbook.core.model.BaseModel;
 
 public interface BaseRetrievableManager<T extends BaseModel>
 {

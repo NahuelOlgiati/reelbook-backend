@@ -1,6 +1,6 @@
-package com.reelbook.server.ejb;
+package com.reelbook.core.service.manager.local;
 
-import com.reelbook.server.model.BaseRevisionModel;
+import com.reelbook.core.model.BaseRevisionModel;
 
 public interface BaseRevisionManager<T extends BaseRevisionModel>
 {

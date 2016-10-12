@@ -22,6 +22,7 @@
 		<version.hibernate-jpamodelgen>5.2.2.Final</version.hibernate-jpamodelgen>
 		<version.maven-processor-plugin>3.1.0</version.maven-processor-plugin>
 		<version.maven-compiler-plugin>2.5.1</version.maven-compiler-plugin>
+		<version.hibernate-envers>5.1.2.Final</version.hibernate-envers>
 	</properties>
 
 	<dependencyManagement>
@@ -62,6 +63,19 @@
 		<dependency>
 			<groupId>org.wildfly.swarm</groupId>
 			<artifactId>ejb</artifactId>
+		</dependency>
+
+		<!-- Envers -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+			<version>${version.hibernate-envers}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>dom4j</groupId>
+					<artifactId>dom4j</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Postgresql -->

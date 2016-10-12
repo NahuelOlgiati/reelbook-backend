@@ -1,12 +1,10 @@
 package com.reelbook.service.manager.local;
 
 import javax.ejb.Local;
-
+import com.reelbook.core.exception.ManagerException;
 import com.reelbook.model.PortalUser;
 import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.enumeration.TaxPayerTypeEnum;
-import com.reelbook.server.exception.ManagerException;
-
 
 @Local
 public interface PortalUserManagerLocal extends BaseUserManagerLocal<PortalUser>

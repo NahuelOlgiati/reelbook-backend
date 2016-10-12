@@ -12,15 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
+import org.hibernate.envers.Audited;
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.BaseSimpleModel;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.BaseSimpleModel;
 
 @Entity
 @Table(name = "adonis_config_city", uniqueConstraints = @UniqueConstraint(columnNames = {"districtID", "description"}))
-//@Audited
+@Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
 public class City extends BaseSimpleModel

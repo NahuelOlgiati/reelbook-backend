@@ -1,8 +1,8 @@
-package com.reelbook.server.ejb;
+package com.reelbook.core.service.manager.local;
 
-import com.reelbook.server.model.BaseModel;
-import com.reelbook.server.model.support.QueryHint;
-import com.reelbook.server.util.QueryHintResult;
+import com.reelbook.core.model.BaseModel;
+import com.reelbook.core.model.support.QueryHint;
+import com.reelbook.core.service.util.QueryHintResult;
 
 public interface BaseSimpleManager<T extends BaseModel>
 {

@@ -6,11 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
-
-import com.reelbook.server.model.BaseSummarySimpleModel;
+import org.hibernate.envers.Audited;
+import com.reelbook.core.model.BaseSummarySimpleModel;
 
 @MappedSuperclass
-//@Audited
+@Audited
 @SuppressWarnings("serial")
 public abstract class TaxAgentClassification extends BaseSummarySimpleModel
 {

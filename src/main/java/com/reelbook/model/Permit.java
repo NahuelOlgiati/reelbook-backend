@@ -7,12 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.reelbook.server.model.BaseSimpleModel;
+import org.hibernate.envers.Audited;
+import com.reelbook.core.model.BaseSimpleModel;
 
 @Entity
 @Table(name = "adonis_admin_permit")
-//@Audited
+@Audited
 @SuppressWarnings("serial")
 public class Permit extends BaseSimpleModel
 {

@@ -9,9 +9,9 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.Query;
+import com.reelbook.core.model.BundleKeyValue;
+import com.reelbook.core.service.manager.ejb.BaseEJB;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.model.BundleKeyValue;
-import com.reelbook.server.ejb.BaseEJB;
 import com.reelbook.service.manager.local.DBBundleManagerLocal;
 
 @Stateless

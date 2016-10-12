@@ -1,8 +1,8 @@
-package com.reelbook.server.model;
+package com.reelbook.core.model;
 
+import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.msg.enumeration.ModelMsgEnum;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.exception.ValidationException;
 import com.reelbook.service.msg.DBSMsgHandler;
 
 @SuppressWarnings("serial")

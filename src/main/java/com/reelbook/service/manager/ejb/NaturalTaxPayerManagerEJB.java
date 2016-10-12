@@ -2,7 +2,6 @@ package com.reelbook.service.manager.ejb;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -14,8 +13,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-
 import com.reelbook.core.exception.BaseException;
+import com.reelbook.core.model.support.QueryHint;
+import com.reelbook.core.service.util.PredicateBuilder;
+import com.reelbook.core.service.util.QueryHintResult;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.DocumentType;
 import com.reelbook.model.DocumentType_;
@@ -23,11 +24,7 @@ import com.reelbook.model.NaturalTaxPayer;
 import com.reelbook.model.NaturalTaxPayer_;
 import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.embeddable.Document_;
-import com.reelbook.server.model.support.QueryHint;
-import com.reelbook.server.util.PredicateBuilder;
-import com.reelbook.server.util.QueryHintResult;
 import com.reelbook.service.manager.local.NaturalTaxPayerManagerLocal;
-
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -133,17 +130,17 @@ public class NaturalTaxPayerManagerEJB extends BaseTaxPayerManagerEJB<NaturalTax
 
 		if ((!CompareUtil.isEmpty(model.getSecondaryDocumentRO())) && (model.getDocument().equals(model.getSecondaryDocumentRO())))
 		{
-//			throw new ManagerException(DBSMsgHandler.getMsg(NaturalTaxPayerManagerEJB.class, "documentEqualToSecondaryDocument"));
+			// throw new ManagerException(DBSMsgHandler.getMsg(NaturalTaxPayerManagerEJB.class, "documentEqualToSecondaryDocument"));
 		}
 
 		if (getDuplicatedException(model.getDocument(), model))
 		{
-//			throw new ManagerException(DBSMsgHandler.getMsg(NaturalTaxPayerManagerEJB.class, "duplicatedDocument"));
+			// throw new ManagerException(DBSMsgHandler.getMsg(NaturalTaxPayerManagerEJB.class, "duplicatedDocument"));
 		}
 
 		if (getDuplicatedException(model.getSecondaryDocumentRO(), model))
 		{
-//			throw new ManagerException(DBSMsgHandler.getMsg(NaturalTaxPayerManagerEJB.class, "duplicatedSecondaryDocument"));
+			// throw new ManagerException(DBSMsgHandler.getMsg(NaturalTaxPayerManagerEJB.class, "duplicatedSecondaryDocument"));
 		}
 
 		super.doBeforeAddUpdate(model);

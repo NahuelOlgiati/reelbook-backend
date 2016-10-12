@@ -1,4 +1,4 @@
-package com.reelbook.server.ejb;
+package com.reelbook.core.service.manager.ejb;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
@@ -6,11 +6,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.reelbook.core.exception.BaseException;
+import com.reelbook.core.exception.ManagerException;
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.BaseModel;
 import com.reelbook.core.msg.enumeration.DatabaseMsgEnum;
+import com.reelbook.core.service.manager.local.BasePersistenceManager;
+import com.reelbook.core.service.manager.local.BaseValidationManager;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.server.exception.ManagerException;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.BaseModel;
 import com.reelbook.service.msg.DBSMsgHandler;
 
 public abstract class BasePersistenceManagerEJB<T extends BaseModel> extends BaseManagerEJB<T> implements BasePersistenceManager<T>

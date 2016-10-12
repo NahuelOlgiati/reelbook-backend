@@ -6,14 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-
+import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.model.mpi.Describable;
+import com.reelbook.core.model.mpi.Emptiable;
+import com.reelbook.core.model.mpi.Validable;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.enumeration.PhoneTypeEnum;
-import com.reelbook.server.exception.ValidationException;
-import com.reelbook.server.model.mpi.Describable;
-import com.reelbook.server.model.mpi.Emptiable;
-import com.reelbook.server.model.mpi.Validable;
 
 @Embeddable
 @SuppressWarnings("serial")

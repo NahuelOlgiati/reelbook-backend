@@ -3,16 +3,16 @@ package com.reelbook.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
+import org.hibernate.envers.Audited;
+import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.msc.Agent;
-import com.reelbook.server.exception.ValidationException;
 
 @Entity
 @Table(name = "adonis_admin_systemagent")
-//@Audited
+@Audited
 @SuppressWarnings("serial")
 public class SystemAgent extends Agent
 {

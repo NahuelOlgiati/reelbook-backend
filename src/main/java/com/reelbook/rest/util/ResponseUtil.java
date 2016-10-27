@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import com.reelbook.core.service.util.QueryHintResult;
 
 public class ResponseUtil
 {
@@ -21,6 +22,13 @@ public class ResponseUtil
 	public static Response success(Object body)
 	{
 		return Response.status(Status.OK).entity(ResponseEntity.success(body)).type(MediaType.APPLICATION_JSON).build();
+	}
+	
+	/**
+	 */
+	public static Response success(QueryHintResult<?> queryHintResult)
+	{
+		return Response.status(Status.OK).entity(ResponseEntity.success(queryHintResult)).type(MediaType.APPLICATION_JSON).build();
 	}
 
 	/**

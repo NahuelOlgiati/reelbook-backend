@@ -28,26 +28,23 @@ import com.reelbook.service.manager.local.ArtistManagerLocal;
 
 @Stateless
 @Path("/artist")
-public class ArtistEndPoint extends BaseEJB {
+public class ArtistEndPoint extends BaseEJB
+{
 	@EJB
 	private ArtistManagerLocal artistML;
 
 	@GET
-	@RequiredRole({ RoleEnum.ADMIN })
+	@RequiredRole({RoleEnum.ADMIN})
 	@Produces(MediaType.APPLICATION_JSON)
-	public Artist[] get() {
-		return artistML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList()
-				.toArray(new Artist[0]);
-	}
-
-	@GET
-	@Path("/get:{id:[0-9][0-9]*}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findById(@PathParam("id") Long id) {
+	public Response getList()
+	{
 		Response r = null;
-		try {
-			r = ResponseUtil.success(artistML.get(id));
-		} catch (Exception e) {
+		try
+		{
+			r = ResponseUtil.success(artistML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList().toArray(new Artist[0]));
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -55,16 +52,36 @@ public class ArtistEndPoint extends BaseEJB {
 	}
 
 	@GET
-	@Path("/autocomplete:{description}")
+	@Path("/get:{id:[0-9][0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response autocomplete(@PathParam("description") String description,
-			@DefaultValue("0") @QueryParam("firstResult") Integer firstResult,
-			@DefaultValue("10") @QueryParam("maxResults") Integer maxResults) {
+	public Response get(@PathParam("id") Long id)
+	{
 		Response r = null;
-		try {
-			r = ResponseUtil
-					.success(artistML.getQueryHintResult(description, new QueryHint(firstResult, maxResults)));
-		} catch (Exception e) {
+		try
+		{
+			r = ResponseUtil.success(artistML.get(id));
+		}
+		catch (Exception e)
+		{
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
+	}
+
+	@GET
+	@Path("/pagedlist:{description}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response pagedlist(@PathParam("description") String description, @DefaultValue("0") @QueryParam("firstResult") Integer firstResult,
+			@DefaultValue("10") @QueryParam("maxResults") Integer maxResults)
+	{
+		Response r = null;
+		try
+		{
+			r = ResponseUtil.success(artistML.getQueryHintResult(description, new QueryHint(firstResult, maxResults)));
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -74,11 +91,15 @@ public class ArtistEndPoint extends BaseEJB {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response create(Artist artist) {
+	public Response create(Artist artist)
+	{
 		Response r = null;
-		try {
+		try
+		{
 			r = ResponseUtil.success(artistML.save(artist));
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -88,11 +109,15 @@ public class ArtistEndPoint extends BaseEJB {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(Artist artist) {
+	public Response update(Artist artist)
+	{
 		Response r = null;
-		try {
+		try
+		{
 			r = ResponseUtil.success(artistML.save(artist));
-		} catch (ManagerException e) {
+		}
+		catch (ManagerException e)
+		{
 			System.out.println("exception in update " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -102,11 +127,15 @@ public class ArtistEndPoint extends BaseEJB {
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response deleteById(@PathParam("id") Long id) {
+	public Response delete(@PathParam("id") Long id)
+	{
 		Response r = null;
-		try {
+		try
+		{
 			r = ResponseUtil.success(artistML.delete(id));
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -116,19 +145,24 @@ public class ArtistEndPoint extends BaseEJB {
 	@POST
 	@Path("/upload")
 	@Consumes("multipart/form-data")
-	public Response uploadFile(MultipartFormDataInput input) {
-
+	public Response uploadFile(MultipartFormDataInput input)
+	{
 		String uploadName = "uploadedFile";
 		String uploadFilePath = "/home/tallion.com.ar/nolgiati/Desktop/upload/";
 		Integer bufferSize = 8192;
 
-		try {
+		Response r = null;
+		try
+		{
 			FileUtil.upload(input, uploadName, uploadFilePath, bufferSize);
-		} catch (IOException e) {
-			e.printStackTrace();
+			r = ResponseUtil.success();
 		}
-
-		return ResponseUtil.success();
+		catch (IOException e)
+		{
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
 
 	}
 }

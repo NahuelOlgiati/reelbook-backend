@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -Djboss.http.port=$PORT -jar target/reelbook-backend-swarm.jar

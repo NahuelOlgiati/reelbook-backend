@@ -72,7 +72,7 @@ public class Main {
 //			ds.connectionUrl("jdbc:postgresql://localhost:5433/villegas");
 //			ds.userName("villegas");
 //			ds.password("villegas");
-			ds.connectionUrl("jdbc:postgres://azegohbknpbipq:Dzz7o_h73SEUpzwc7vhLItgDjM@ec2-54-243-201-3.compute-1.amazonaws.com:5432/d9gjeikkmi1qng");
+			ds.connectionUrl("jdbc:postgres://ec2-54-243-201-3.compute-1.amazonaws.com:5432/d9gjeikkmi1qng");
 			ds.userName("azegohbknpbipq");
 			ds.password("Dzz7o_h73SEUpzwc7vhLItgDjM");
 		});

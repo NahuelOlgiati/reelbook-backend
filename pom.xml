@@ -98,6 +98,13 @@
 			<version>${version.gson}</version>
 		</dependency>
 
+		<!-- Base64 -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.10</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -176,7 +183,7 @@
 					<compilerArgument>-proc:none</compilerArgument>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 

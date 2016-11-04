@@ -16,7 +16,7 @@ public class RevisionManagerEJB implements BaseRevisionManager<Revision>
 	/**
 	 */
 	@Override
-	public final Class<Revision> getRevisionModelClass()
+	public Class<Revision> getRevisionModelClass()
 	{
 		return Revision.class;
 	}

@@ -18,7 +18,7 @@ import org.hibernate.envers.RevisionTimestamp;
 @Table(name = "adonis_common_revision")
 @RevisionEntity
 @SuppressWarnings("serial")
-public final class Revision extends BaseRevisionModel
+public class Revision extends BaseRevisionModel
 {
 	@Id
 	@SequenceGenerator(name = "id", sequenceName = "adonis_common_revision_seq", allocationSize = 1)

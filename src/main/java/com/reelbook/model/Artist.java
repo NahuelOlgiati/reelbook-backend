@@ -1,6 +1,7 @@
 package com.reelbook.model;
 
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,25 +12,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import org.hibernate.envers.Audited;
 import com.google.gson.annotations.SerializedName;
 import com.reelbook.core.exception.ValidationException;
-import com.reelbook.core.model.BaseSummarySimpleModel;
+import com.reelbook.core.model.BaseSimpleModel;
 import com.reelbook.core.msg.MessageBuilder;
-import com.reelbook.core.util.CharUtil;
 import com.reelbook.core.util.CompareUtil;
 
 @Entity
-@Table(
-		name = "adonis_config_artist",
-		uniqueConstraints = {
-				@UniqueConstraint(columnNames = {"countryID", "description"}),
-				@UniqueConstraint(columnNames = {"countryID", "summaryDescription"})})
+@Table(name = "adonis_config_artist")
 @Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
-public class Artist extends BaseSummarySimpleModel
+public class Artist extends BaseSimpleModel
 {
 	@Id
 	@SerializedName(value = "id")
@@ -44,28 +39,25 @@ public class Artist extends BaseSummarySimpleModel
 	@Column(length = 50)
 	private String description;
 
-	@Column(length = 10)
-	private String summaryDescription;
-
-	@Column(length = 50)	
-	private String format;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "fileID")
+	private File file;
 
 	/**
 	 */
-	public Artist(Country country, String description, String summaryDescription)
+	public Artist(Country country, String description)
 	{
 		this.artistID = 0l;
 		this.country = country;
 		this.description = description;
-		this.summaryDescription = summaryDescription;
-		this.format = "";
+		this.file = null;
 	}
 
 	/**
 	 */
 	public Artist()
 	{
-		this(null, "", "");
+		this(null, "");
 	}
 
 	/**
@@ -98,6 +90,16 @@ public class Artist extends BaseSummarySimpleModel
 		this.country = country;
 	}
 
+	public File getFile()
+	{
+		return file;
+	}
+
+	public void setFile(File file)
+	{
+		this.file = file;
+	}
+
 	/**
 	 */
 	@Override
@@ -112,36 +114,6 @@ public class Artist extends BaseSummarySimpleModel
 	public void setDescription(String description)
 	{
 		this.description = description;
-	}
-
-	/**
-	 */
-	@Override
-	public String getSummaryDescription()
-	{
-		return summaryDescription;
-	}
-
-	/**
-	 */
-	@Override
-	public void setSummaryDescription(String summaryDescription)
-	{
-		this.summaryDescription = summaryDescription;
-	}
-
-	/**
-	 */
-	public String getFormat()
-	{
-		return format;
-	}
-
-	/**
-	 */
-	public void setFormat(String format)
-	{
-		this.format = format;
 	}
 
 	/**
@@ -169,24 +141,5 @@ public class Artist extends BaseSummarySimpleModel
 		{
 			throw new ValidationException(mb.getMessages());
 		}
-	}
-
-	/**
-	 */
-	@Override
-	public String getFullDescription()
-	{
-		final StringBuilder sb = new StringBuilder();
-
-		if (!CompareUtil.isEmpty(getSummaryDescription()))
-		{
-			if (!CompareUtil.isEmpty(getCountry()))
-			{
-				sb.append(getCountry().getSummaryDescription().trim());
-				sb.append(CharUtil.getPipeSeparator());
-			}
-			sb.append(getSummaryDescription());
-		}
-		return sb.toString();
 	}
 }

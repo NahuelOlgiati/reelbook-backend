@@ -44,10 +44,9 @@ public class ArtistManagerEJB extends BasePersistenceManagerEJB<Artist> implemen
 			final CriteriaQuery<Artist> cq = cb.createQuery(getModelClass());
 			final Root<Artist> artist = cq.from(getModelClass());
 			final Path<String> dtDescription = artist.get(Artist_.description);
-			final Path<String> dtSummaryDescription = artist.get(Artist_.summaryDescription);
 
 			// Expessions.
-			cq.where(cb.or(pb.like(dtDescription, description), pb.like(dtSummaryDescription, description)));
+			cq.where(cb.or(pb.like(dtDescription, description)));
 			cq.orderBy(cb.asc(dtDescription));
 
 			// Gets data.

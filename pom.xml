@@ -125,7 +125,8 @@
 				<configuration>
 					<mainClass>com.reelbook.app.Main</mainClass>
 					<jvmArguments>
-						<jvmArgument>-Xmx128m</jvmArgument>
+						<jvmArgument>-Xms512m</jvmArgument>
+						<jvmArgument>-Xmx1024m</jvmArgument>
 					</jvmArguments>
 				</configuration>
 				<executions>

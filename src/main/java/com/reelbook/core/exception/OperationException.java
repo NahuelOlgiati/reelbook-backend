@@ -7,15 +7,11 @@ import javax.ejb.ApplicationException;
 @SuppressWarnings("serial")
 public final class OperationException extends BaseException
 {
-	/**
-	 */
 	public OperationException(List<String> messages)
 	{
 		super(messages);
 	}
 
-	/**
-	 */
 	public OperationException(String message)
 	{
 		super(message);

@@ -13,15 +13,11 @@ import com.reelbook.model.msc.TaxAgentClassification;
 @SuppressWarnings("serial")
 public class NaturalTaxPayerCategory extends TaxAgentClassification
 {
-	/**
-	 */
 	public NaturalTaxPayerCategory(String description, String summaryDescription)
 	{
 		super(description, summaryDescription);
 	}
 
-	/**
-	 */
 	public NaturalTaxPayerCategory()
 	{
 		this("", "");

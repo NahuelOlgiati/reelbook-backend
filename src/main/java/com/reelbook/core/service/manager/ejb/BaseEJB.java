@@ -13,7 +13,6 @@ import com.reelbook.core.service.manager.local.BaseRevisionManager;
 
 public abstract class BaseEJB
 {
-
 	@PersistenceContext
 	protected EntityManager em;
 
@@ -23,15 +22,11 @@ public abstract class BaseEJB
 	@EJB
 	protected BaseRevisionManager<? extends BaseRevisionModel> rm;
 
-	/**
-	 */
 	public Principal getPrincipal()
 	{
 		return sc.getCallerPrincipal();
 	}
 
-	/**
-	 */
 	protected void doAudit() throws BaseException
 	{
 		AuditReaderFactory.get(em).getCurrentRevision(rm.getRevisionModelClass(), false).setUserName(getPrincipal().getName());

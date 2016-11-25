@@ -1,4 +1,5 @@
 package com.reelbook.model;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import org.hibernate.envers.Audited;
+import org.jboss.crypto.CryptoUtil;
 import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.model.BaseModel;
 import com.reelbook.core.msg.MessageBuilder;
@@ -29,7 +31,7 @@ import com.reelbook.model.enumeration.ProfileReservedEnum;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Audited
 @SuppressWarnings("serial")
-public abstract class User extends BaseModel
+public class User extends BaseModel
 {
 	@Id
 	@SequenceGenerator(name = "id", sequenceName = "adonis_admin_user_seq", allocationSize = 1)
@@ -42,121 +44,107 @@ public abstract class User extends BaseModel
 	@Column(length = 50)
 	private String userPassword;
 
+	@Column(length = 100, unique = true)
+	private String email;
+
+	@Basic
+	private Boolean validated;
+
 	@Basic
 	private Boolean active;
-
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "adonis_admin_user_profile", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = @JoinColumn(name = "profileID"))
-	private List<Profile> profiles;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "agentID")
 	private SystemAgent systemAgent;
 
-	/**
-	 */
-	protected User(String userName, String userPassword, List<Profile> profiles)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "adonis_admin_user_profile", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = @JoinColumn(name = "profileID"))
+	private List<Profile> profiles;
+
+	public User(String userName, String userPassword, List<Profile> profiles)
 	{
 		this.userID = 0l;
 		this.userName = userName;
-//		this.userPassword = CryptoUtil.createPasswordHash("MD5", "Base64", "UTF-8", userName, userPassword);
+		this.userPassword = CryptoUtil.createPasswordHash("MD5", "Base64", "UTF-8", userName, userPassword);
+		this.email = null;
+		this.validated = false;
 		this.active = true;
-		this.profiles = profiles;
 		this.systemAgent = null;
+		this.profiles = profiles;
 	}
-	
-	/**
-	 */
-	protected User()
+
+	public User()
 	{
 		this("", "", null);
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return userID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.userID = id;
 	}
 
-	/**
-	 */
 	public String getUserName()
 	{
 		return userName;
 	}
 
-	/**
-	 */
 	public void setUserName(String userName)
 	{
 		this.userName = userName;
 	}
 
-	/**
-	 */
 	public String getUserPassword()
 	{
 		return userPassword;
 	}
 
-	/**
-	 */
 	public void setUserPassword(String pass)
 	{
 		this.userPassword = getPasswordHash(this.userName, pass);
 	}
 
-	/**
-	 */
 	public boolean checkUserPassword(String pass)
 	{
 		return this.userPassword.equals(getPasswordHash(this.userName, pass));
 	}
 
-	/**
-	 */
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+
+	public Boolean getValidated()
+	{
+		return validated;
+	}
+
+	public void setValidated(Boolean validated)
+	{
+		this.validated = validated;
+	}
+
 	public Boolean getActive()
 	{
 		return active;
 	}
 
-	/**
-	 */
 	public void setActive(Boolean active)
 	{
 		this.active = active;
 	}
 
-	/**
-	 */
-	public List<Profile> getProfiles()
-	{
-		if (profiles == null)
-		{
-			profiles = new ArrayList<Profile>();
-		}
-		return profiles;
-	}
-
-	/**
-	 */
-	public void setProfiles(List<Profile> profiles)
-	{
-		this.profiles = profiles;
-	}
-
-	/**
-	 */
 	public SystemAgent getSystemAgent()
 	{
 		if (systemAgent == null)
@@ -166,15 +154,25 @@ public abstract class User extends BaseModel
 		return systemAgent;
 	}
 
-	/**
-	 */
 	public void setSystemAgent(SystemAgent systemAgent)
 	{
 		this.systemAgent = systemAgent;
 	}
 
-	/**
-	 */
+	public List<Profile> getProfiles()
+	{
+		if (profiles == null)
+		{
+			profiles = new ArrayList<Profile>();
+		}
+		return profiles;
+	}
+
+	public void setProfiles(List<Profile> profiles)
+	{
+		this.profiles = profiles;
+	}
+
 	@Override
 	public void initLazyElements()
 	{
@@ -182,8 +180,6 @@ public abstract class User extends BaseModel
 		getProfiles().size();
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -200,21 +196,21 @@ public abstract class User extends BaseModel
 
 		if (CompareUtil.isEmpty(getUserName()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(User.class, "userNameEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(User.class, "userNameEmpty"));
 		}
 		else if (isNew() && isUserNameReserved())
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(User.class, "userNameInvalid"));
+			// mb.addMessage(DBSMsgHandler.getMsg(User.class, "userNameInvalid"));
 		}
 
 		if (CompareUtil.isEmpty(getUserPassword()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(User.class, "userPasswordEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(User.class, "userPasswordEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getProfiles()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(User.class, "profilesEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(User.class, "profilesEmpty"));
 		}
 
 		if (!mb.isEmpty())
@@ -223,16 +219,12 @@ public abstract class User extends BaseModel
 		}
 	}
 
-	/**
-	 */
 	public Boolean isUserNameReserved()
 	{
-//		return UserReservedEnum.getNames().contains(getUserName());
+		// return UserReservedEnum.getNames().contains(getUserName());
 		return null;
 	}
 
-	/**
-	 */
 	public String getFullName()
 	{
 		final StringBuilder sb = new StringBuilder();
@@ -253,8 +245,6 @@ public abstract class User extends BaseModel
 		return sb.toString();
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{
@@ -276,8 +266,6 @@ public abstract class User extends BaseModel
 		return sb.toString();
 	}
 
-	/**
-	 */
 	public String getMembersDescription()
 	{
 		final StringBuilder sb = new StringBuilder();
@@ -298,11 +286,9 @@ public abstract class User extends BaseModel
 		return sb.toString();
 	}
 
-	/**
-	 */
 	private String getPasswordHash(final String userName, final String pass)
 	{
-//		return CryptoUtil.createPasswordHash("MD5", "Base64", "UTF-8", userName, pass);
+		// return CryptoUtil.createPasswordHash("MD5", "Base64", "UTF-8", userName, pass);
 		return null;
 	}
 }

@@ -22,32 +22,24 @@ public abstract class TaxAgentContact extends BaseModel
 	@Embedded
 	private Contact contact;
 
-	/**
-	 */
 	protected TaxAgentContact(Contact contact)
 	{
 		this.taxAgentContactID = 0l;
 		this.contact = contact;
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return taxAgentContactID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.taxAgentContactID = id;
 	}
 
-	/**
-	 */
 	public Contact getContact()
 	{
 		if (contact == null)
@@ -57,32 +49,24 @@ public abstract class TaxAgentContact extends BaseModel
 		return contact;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
 		getContact().valid();
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{
 		return getContact().getFullDescription();
 	}
 
-	/**
-	 */
 	@Override
 	public int hashCode()
 	{
 		return getContact().hashCode();
 	}
 
-	/**
-	 */
 	@Override
 	public boolean equals(Object to)
 	{

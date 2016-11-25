@@ -16,8 +16,7 @@ import com.reelbook.service.manager.local.AgentManagerLocal;
 
 public abstract class AgentManagerEJB<T extends Agent> extends BasePersistenceManagerEJB<T> implements AgentManagerLocal<T>
 {
-	/**
-	 */
+
 	@Override
 	public T get(final Document d)
 	{

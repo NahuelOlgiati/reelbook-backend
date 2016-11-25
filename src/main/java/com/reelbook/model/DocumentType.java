@@ -50,8 +50,6 @@ public class DocumentType extends BaseSummarySimpleModel
 	@Column(length = 50)
 	private String format;
 
-	/**
-	 */
 	public DocumentType(Country country, String description, String summaryDescription)
 	{
 		this.documentTypeID = 0l;
@@ -61,91 +59,67 @@ public class DocumentType extends BaseSummarySimpleModel
 		this.format = "";
 	}
 
-	/**
-	 */
 	public DocumentType()
 	{
 		this(null, "", "");
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return documentTypeID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.documentTypeID = id;
 	}
 
-	/**
-	 */
 	public Country getCountry()
 	{
 		return country;
 	}
 
-	/**
-	 */
 	public void setCountry(Country country)
 	{
 		this.country = country;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
 
-	/**
-	 */
 	@Override
 	public String getSummaryDescription()
 	{
 		return summaryDescription;
 	}
 
-	/**
-	 */
 	@Override
 	public void setSummaryDescription(String summaryDescription)
 	{
 		this.summaryDescription = summaryDescription;
 	}
 
-	/**
-	 */
 	public String getFormat()
 	{
 		return format;
 	}
 
-	/**
-	 */
 	public void setFormat(String format)
 	{
 		this.format = format;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -171,8 +145,6 @@ public class DocumentType extends BaseSummarySimpleModel
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{

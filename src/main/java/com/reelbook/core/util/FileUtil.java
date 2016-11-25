@@ -15,9 +15,6 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 public final class FileUtil
 {
-
-	/**
-	 */
 	public static final Map<String, String> getBase64Map(MultipartFormDataInput input, String uploadName, Integer bufferSize) throws IOException
 	{
 		Map<String, String> bytes = new HashMap<String, String>();
@@ -35,8 +32,6 @@ public final class FileUtil
 		return bytes;
 	}
 
-	/**
-	 */
 	public static final void upload(MultipartFormDataInput input, String uploadName, String uploadFilePath, Integer bufferSize) throws IOException
 	{
 
@@ -54,8 +49,6 @@ public final class FileUtil
 		}
 	}
 
-	/**
-	 */
 	public static final String getFileName(MultivaluedMap<String, String> header)
 	{
 
@@ -75,8 +68,6 @@ public final class FileUtil
 		return "unknown";
 	}
 
-	/**
-	 */
 	public static final void writeFile(byte[] content, String filename) throws IOException
 	{
 		File file = new File(filename);
@@ -93,8 +84,6 @@ public final class FileUtil
 		fop.close();
 	}
 
-	/**
-	 */
 	public static final byte[] readStream(InputStream input, Integer bufferSize) throws IOException
 	{
 		byte[] buffer = new byte[bufferSize];

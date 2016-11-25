@@ -14,8 +14,6 @@ import com.reelbook.core.util.CompareUtil;
 
 public abstract class BaseManagerEJB<T extends BaseModel> extends BaseEJB implements BaseManager<T>
 {
-	/**
-	 */
 	@Override
 	public T get(final Long modelID)
 	{
@@ -31,8 +29,6 @@ public abstract class BaseManagerEJB<T extends BaseModel> extends BaseEJB implem
 		return model;
 	}
 
-	/**
-	 */
 	@Override
 	public T getFULL(final Long modelID)
 	{
@@ -51,8 +47,6 @@ public abstract class BaseManagerEJB<T extends BaseModel> extends BaseEJB implem
 		return model;
 	}
 
-	/**
-	 */
 	protected final <X> X getUnique(final CriteriaQuery<X> criteriaQuery)
 	{
 		X model = null;
@@ -71,8 +65,6 @@ public abstract class BaseManagerEJB<T extends BaseModel> extends BaseEJB implem
 		return model;
 	}
 
-	/**
-	 */
 	protected final <X> List<X> getList(final CriteriaQuery<X> criteriaQuery, final QueryHint queryHint)
 	{
 		List<X> modelList = null;
@@ -90,8 +82,6 @@ public abstract class BaseManagerEJB<T extends BaseModel> extends BaseEJB implem
 		return modelList;
 	}
 
-	/**
-	 */
 	protected final <X> QueryHintResult<X> getQueryHintResult(final CriteriaQuery<X> criteriaQuery, final QueryHint queryHint)
 	{
 		QueryHintResult<X> queryHintResult = null;
@@ -109,8 +99,6 @@ public abstract class BaseManagerEJB<T extends BaseModel> extends BaseEJB implem
 		return queryHintResult;
 	}
 
-	/**
-	 */
 	protected final <X> List<X> getList(final CriteriaQuery<X> criteriaQuery)
 	{
 		List<X> modelList = null;

@@ -14,15 +14,11 @@ public class JPAUtil
 {
 	private static volatile long aliasCount = 0;
 
-	/** 
-	 */
 	public static Integer count(EntityManager em, CriteriaQuery<?> criteria)
 	{
 		return em.createQuery(countCriteria(em.getCriteriaBuilder(), criteria)).getSingleResult().intValue();
 	}
 
-	/**
-	 */
 	public static CriteriaQuery<Long> countCriteria(CriteriaBuilder builder, CriteriaQuery<?> criteria)
 	{
 		CriteriaQuery<Long> countCriteria = builder.createQuery(Long.class);
@@ -41,8 +37,6 @@ public class JPAUtil
 		return countCriteria;
 	}
 
-	/**
-	 */
 	public static Expression<?> getExpressionToCount(CriteriaQuery<?> criteria, CriteriaQuery<Long> countCriteria)
 	{
 		Expression<?> expression;
@@ -65,8 +59,6 @@ public class JPAUtil
 		return expression;
 	}
 
-	/**
-	 */
 	public static void copyCriteriaNoSelection(CriteriaQuery<?> from, CriteriaQuery<?> to)
 	{
 		for (Root<?> root : from.getRoots())
@@ -80,8 +72,6 @@ public class JPAUtil
 		to.where(from.getRestriction());
 	}
 
-	/**
-	 */
 	public static Root<?> findRoot(CriteriaQuery<?> query, Class<?> clazz)
 	{
 		for (Root<?> r : query.getRoots())
@@ -94,8 +84,6 @@ public class JPAUtil
 		return query.getRoots().iterator().next();
 	}
 
-	/**
-	 */
 	public static void copyJoins(From<?, ?> from, From<?, ?> to, Boolean copyFetches)
 	{
 		for (Join<?, ?> j : from.getJoins())
@@ -115,8 +103,6 @@ public class JPAUtil
 		}
 	}
 
-	/**
-	 */
 	public static void copyFetches(Fetch<?, ?> from, Fetch<?, ?> to)
 	{
 		for (Fetch<?, ?> f : from.getFetches())
@@ -126,8 +112,6 @@ public class JPAUtil
 		}
 	}
 
-	/**
-	 */
 	public static synchronized String getOrCreateAlias(Selection<?> selection)
 	{
 		if (aliasCount > 1000)

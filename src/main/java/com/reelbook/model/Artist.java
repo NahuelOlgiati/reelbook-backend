@@ -43,8 +43,6 @@ public class Artist extends BaseSimpleModel
 	@JoinColumn(name = "fileID")
 	private File file;
 
-	/**
-	 */
 	public Artist(Country country, String description)
 	{
 		this.artistID = 0l;
@@ -53,38 +51,28 @@ public class Artist extends BaseSimpleModel
 		this.file = null;
 	}
 
-	/**
-	 */
 	public Artist()
 	{
 		this(null, "");
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return artistID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.artistID = id;
 	}
 
-	/**
-	 */
 	public Country getCountry()
 	{
 		return country;
 	}
 
-	/**
-	 */
 	public void setCountry(Country country)
 	{
 		this.country = country;
@@ -100,24 +88,18 @@ public class Artist extends BaseSimpleModel
 		this.file = file;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{

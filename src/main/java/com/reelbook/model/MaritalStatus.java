@@ -24,47 +24,35 @@ public class MaritalStatus extends BaseSimpleModel
 	@Column(length = 50, unique = true)
 	private String description;
 
-	/**
-	 */
 	public MaritalStatus(String description)
 	{
 		this.maritalStatusID = 0l;
 		this.description = description;
 	}
 
-	/**
-	 */
 	public MaritalStatus()
 	{
 		this("");
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return maritalStatusID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.maritalStatusID = id;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{

@@ -12,15 +12,11 @@ import com.reelbook.core.util.CompareUtil;
 
 public final class PredicateBuilder extends ExpressionBuilder
 {
-	/**
-	 */
 	public PredicateBuilder(CriteriaBuilder cb)
 	{
 		super(cb);
 	}
 
-	/**
-	 */
 	public final Predicate like(final Expression<String> expression, final String value)
 	{
 		Predicate p = cb.conjunction();
@@ -34,8 +30,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-	 */
 	public final Predicate equal(final Expression<String> expression, final String value)
 	{
 		Predicate p = cb.conjunction();
@@ -47,8 +41,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-	 */
 	public final Predicate equal(final Expression<Integer> expression, final Integer value)
 	{
 		Predicate p = cb.conjunction();
@@ -60,8 +52,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-	 */
 	public final Predicate equal(final Expression<Long> expression, final Long value)
 	{
 		Predicate p = cb.conjunction();
@@ -73,8 +63,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-	 */
 	public final Predicate equal(final Expression<Double> expression, final Double value)
 	{
 		Predicate p = cb.conjunction();
@@ -86,8 +74,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-	 */
 	public final Predicate equal(final Expression<BigDecimal> expression, final BigDecimal value)
 	{
 		Predicate p = cb.conjunction();
@@ -99,8 +85,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-	 */
 	public final Predicate equal(final Expression<Boolean> expression, final Boolean value)
 	{
 		Predicate p = cb.conjunction();
@@ -112,8 +96,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-     */
 	public final <T extends Enum<?>> Predicate equal(final Expression<T> expression, final T value)
 	{
 		Predicate p = cb.conjunction();
@@ -125,8 +107,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-	 */
 	public final <T extends BaseModel> Predicate equal(final Expression<T> expression, final T value)
 	{
 		Predicate p = cb.conjunction();
@@ -138,9 +118,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-	 * Creates an inclusive between expression. If range parameters are missing they resolve to a true expression.
-	 */
 	public final <Y extends java.lang.Comparable<? super Y>> Predicate between(final Expression<Y> expression, final Y from, final Y to)
 	{
 		Predicate pa = cb.conjunction();
@@ -157,9 +134,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return cb.and(pa, pb);
 	}
 
-	/**
-	 * Creates an inclusive between expression. If range parameters are missing they resolve to a true expression.
-	 */
 	public final Predicate between(final Expression<BigDecimal> expression, final BigDecimal from, final BigDecimal to)
 	{
 		Predicate pa = cb.conjunction();
@@ -176,9 +150,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return cb.and(pa, pb);
 	}
 
-	/**
-	 * Creates an inclusive between expression. If range parameters are missing they resolve to a true expression.
-	 */
 	public final Predicate between(final Path<Date> date, final Path<Date> from, final Path<Date> to)
 	{
 		Predicate pa = cb.conjunction();
@@ -195,9 +166,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return cb.and(pa, pb);
 	}
 
-	/**
-	 * Creates an inclusive between expression. If range parameter is missing they resolve to a true expression.
-	 */
 	public final Predicate between(final Date date, final Path<Date> from, final Path<Date> to)
 	{
 		Predicate pa = cb.conjunction();
@@ -211,8 +179,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return cb.and(pa, pb);
 	}
 
-	/**
-	 */
 	public final <T> Predicate in(final Expression<T> expression, final List<T> values)
 	{
 		Predicate p = cb.conjunction();
@@ -231,8 +197,6 @@ public final class PredicateBuilder extends ExpressionBuilder
 		return p;
 	}
 
-	/**
-	 */
 	public final Predicate isTrue(final Expression<Boolean> expression, final Boolean value)
 	{
 		Predicate p = cb.conjunction();

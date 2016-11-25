@@ -10,16 +10,10 @@ import com.reelbook.service.msg.DBSMsgHandler;
 @SuppressWarnings("serial")
 public abstract class BaseParentSimpleModel<T extends BaseParentSimpleModel<T>> extends BaseSimpleModel
 {
-	/**
-	 */
 	public abstract T getParent();
 
-	/**
-	 */
 	public abstract void setParent(T parent);
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -53,8 +47,6 @@ public abstract class BaseParentSimpleModel<T extends BaseParentSimpleModel<T>> 
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{

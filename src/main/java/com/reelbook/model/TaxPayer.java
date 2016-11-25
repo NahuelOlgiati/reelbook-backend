@@ -47,8 +47,6 @@ public abstract class TaxPayer extends TaxAgent<TaxPayerPhone, TaxPayerContact>
 	@NotAudited
 	private TaxPayerContact contactDefault;
 
-	/**
-	 */
 	protected TaxPayer(Document document)
 	{
 		super(document);
@@ -58,15 +56,11 @@ public abstract class TaxPayer extends TaxAgent<TaxPayerPhone, TaxPayerContact>
 		this.contactDefault = null;
 	}
 
-	/**
-	 */
 	public TaxPayer()
 	{
 		this(null);
 	}
 
-	/**
-	 */
 	@Override
 	public List<TaxPayerPhone> getPhoneList()
 	{
@@ -77,24 +71,18 @@ public abstract class TaxPayer extends TaxAgent<TaxPayerPhone, TaxPayerContact>
 		return phoneList;
 	}
 
-	/**
-	 */
 	@Override
 	public TaxPayerPhone getPhoneDefault()
 	{
 		return phoneDefault;
 	}
 
-	/**
-	 */
 	@Override
 	public void setPhoneDefault(TaxPayerPhone phoneDefault)
 	{
 		this.phoneDefault = phoneDefault;
 	}
 
-	/**
-	 */
 	@Override
 	public List<TaxPayerContact> getContactList()
 	{
@@ -105,35 +93,25 @@ public abstract class TaxPayer extends TaxAgent<TaxPayerPhone, TaxPayerContact>
 		return contactList;
 	}
 
-	/**
-	 */
 	@Override
 	public TaxPayerContact getContactDefault()
 	{
 		return contactDefault;
 	}
 
-	/**
-	 */
 	@Override
 	public void setContactDefault(TaxPayerContact contactDefault)
 	{
 		this.contactDefault = contactDefault;
 	}
 
-	/**
-	 */
 	public String getFullName()
 	{
 		return "";
 	}
 
-	/**
-	 */
 	public abstract TaxPayerTypeEnum getTaxPayerType();
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{

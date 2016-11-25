@@ -26,35 +26,25 @@ public final class BundleKeyValue implements Serializable
 	@Column(length = 500)
 	private String value;
 
-	/**
-	 */
 	public BundleKeyValue()
 	{
 	}
 
-	/**
-	 */
 	public final String getKey()
 	{
 		return key;
 	}
 
-	/**
-	 */
 	public final void setKey(String key)
 	{
 		this.key = key;
 	}
 
-	/**
-	 */
 	public final String getValue()
 	{
 		return value;
 	}
 
-	/**
-	 */
 	public final void setValue(String value)
 	{
 		this.value = value;

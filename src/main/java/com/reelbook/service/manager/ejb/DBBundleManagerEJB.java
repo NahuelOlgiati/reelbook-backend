@@ -1,7 +1,6 @@
 package com.reelbook.service.manager.ejb;
 
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -20,8 +19,7 @@ import com.reelbook.service.manager.local.DBBundleManagerLocal;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class DBBundleManagerEJB extends BaseEJB implements DBBundleManagerLocal
 {
-	/**
-	 */
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public Object[][] getContents()

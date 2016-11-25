@@ -6,8 +6,6 @@ public abstract class ExpressionBuilder
 {
 	protected final CriteriaBuilder cb;
 
-	/**
-	 */
 	protected ExpressionBuilder(CriteriaBuilder cb)
 	{
 		this.cb = cb;

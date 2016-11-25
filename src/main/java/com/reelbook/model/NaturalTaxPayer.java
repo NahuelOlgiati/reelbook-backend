@@ -56,8 +56,6 @@ public class NaturalTaxPayer extends TaxPayer
 	@JoinColumn(name = "naturalTaxPayerCategoryID")
 	private NaturalTaxPayerCategory naturalTaxPayerCategory;
 
-	/**
-	 */
 	public NaturalTaxPayer(Document document)
 	{
 		super(document);
@@ -71,99 +69,71 @@ public class NaturalTaxPayer extends TaxPayer
 		this.naturalTaxPayerCategory = null;
 	}
 
-	/**
-	 */
 	public NaturalTaxPayer()
 	{
 		this(null);
 	}
 
-	/**
-	 */
 	public String getFirstName()
 	{
 		return firstName;
 	}
 
-	/**
-	 */
 	public void setFirstName(String firstName)
 	{
 		this.firstName = firstName;
 	}
 
-	/**
-	 */
 	public String getLastName()
 	{
 		return lastName;
 	}
 
-	/**
-	 */
 	public void setLastName(String lastName)
 	{
 		this.lastName = lastName;
 	}
 
-	/**
-	 */
 	public String getMaternalLastName()
 	{
 		return maternalLastName;
 	}
 
-	/**
-	 */
 	public void setMaternalLastName(String maternalLastName)
 	{
 		this.maternalLastName = maternalLastName;
 	}
 
-	/**
-	 */
 	public GenderEnum getGender()
 	{
 		return gender;
 	}
 
-	/**
-	 */
 	public void setGender(GenderEnum gender)
 	{
 		this.gender = gender;
 	}
 
-	/**
-	 */
 	public Date getBirthDate()
 	{
 		return birthDate;
 	}
 
-	/**
-	 */
 	public void setBirthDate(Date birthDate)
 	{
 		this.birthDate = birthDate;
 	}
 
-	/**
-	 */
 	public MaritalStatus getMaritalStatus()
 	{
 		return maritalStatus;
 	}
 
-	/**
-	 */
 	public void setMaritalStatus(MaritalStatus maritalStatus)
 	{
 		this.maritalStatus = maritalStatus;
 	}
 
-	/**
-	 */
 	public Document getSecondaryDocument()
 	{
 		if (secondaryDocument == null)
@@ -173,44 +143,32 @@ public class NaturalTaxPayer extends TaxPayer
 		return secondaryDocument;
 	}
 
-	/**
-	 */
 	public Document getSecondaryDocumentRO()
 	{
 		return secondaryDocument;
 	}
 
-	/**
-	 */
 	public void setSecondaryDocument(Document secondaryDocument)
 	{
 		this.secondaryDocument = secondaryDocument;
 	}
 
-	/**
-	 */
 	public NaturalTaxPayerCategory getNaturalTaxPayerCategory()
 	{
 		return naturalTaxPayerCategory;
 	}
 
-	/**
-	 */
 	public void setNaturalTaxPayerCategory(NaturalTaxPayerCategory naturalTaxPayerCategory)
 	{
 		this.naturalTaxPayerCategory = naturalTaxPayerCategory;
 	}
 
-	/**
-	 */
 	@Override
 	public TaxPayerTypeEnum getTaxPayerType()
 	{
 		return TaxPayerTypeEnum.NATURAL;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -277,8 +235,6 @@ public class NaturalTaxPayer extends TaxPayer
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{
@@ -313,8 +269,6 @@ public class NaturalTaxPayer extends TaxPayer
 		return sb.toString();
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullName()
 	{

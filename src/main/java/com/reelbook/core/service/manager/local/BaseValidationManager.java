@@ -5,7 +5,5 @@ import com.reelbook.core.model.BaseModel;
 
 public interface BaseValidationManager
 {
-	/**
-	 */
 	public abstract <T extends BaseModel> void valid(T model) throws BaseException;
 }

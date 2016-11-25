@@ -9,11 +9,8 @@ import com.reelbook.model.embeddable.Document;
 @Local
 public interface SystemAgentManagerLocal extends BasePersistenceManager<SystemAgent>
 {
-	/**
-	 */
+
 	public abstract SystemAgent get(final Document d);
 
-	/**
-	 */
 	public abstract SystemAgent getOrCreate(final Document d, final String firstName, final String lastName) throws ManagerException;
 }

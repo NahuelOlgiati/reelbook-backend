@@ -30,8 +30,6 @@ public class Permit extends BaseSimpleModel
 	@Column(length = 300)
 	private String description;
 
-	/**
-	 */
 	public Permit(String module, String code, String description)
 	{
 		this.permitID = 0l;
@@ -40,75 +38,55 @@ public class Permit extends BaseSimpleModel
 		this.description = description;
 	}
 
-	/**
-	 */
 	public Permit()
 	{
 		this("", "", "");
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return permitID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.permitID = id;
 	}
 
-	/**
-	 */
 	public String getModule()
 	{
 		return module;
 	}
 
-	/**
-	 */
 	public void setModule(String module)
 	{
 		this.module = module;
 	}
 
-	/**
-	 */
 	public String getCode()
 	{
 		return code;
 	}
 
-	/**
-	 */
 	public void setCode(String code)
 	{
 		this.code = code;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{

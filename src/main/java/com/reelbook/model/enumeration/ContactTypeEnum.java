@@ -9,16 +9,12 @@ public enum ContactTypeEnum implements LabeledValued<ContactTypeEnum>
 	SMS,
 	OTHER;
 
-	/**
-	 */
 	@Override
 	public String getLabel()
 	{
 		return DBSMsgHandler.getMsg(this);
 	}
 
-	/**
-	 */
 	@Override
 	public ContactTypeEnum getValue()
 	{

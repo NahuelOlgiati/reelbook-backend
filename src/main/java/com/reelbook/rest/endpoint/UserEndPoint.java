@@ -15,25 +15,25 @@ import com.reelbook.core.exception.ManagerException;
 import com.reelbook.core.model.support.QueryHint;
 import com.reelbook.core.service.manager.ejb.BaseEJB;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.model.PortalUser;
+import com.reelbook.model.User;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.app.RoleEnum;
 import com.reelbook.rest.util.ResponseUtil;
-import com.reelbook.service.manager.local.PortalUserManagerLocal;
+import com.reelbook.service.manager.local.UserManagerLocal;
 
 @Stateless
 @Path("/user")
 public class UserEndPoint extends BaseEJB
 {
 	@EJB
-	private PortalUserManagerLocal portalUserML;
+	private UserManagerLocal userML;
 
 	@GET
 	@RequiredRole({RoleEnum.ADMIN})
 	@Produces(MediaType.APPLICATION_JSON)
-	public PortalUser[] get()
+	public User[] get()
 	{
-		return portalUserML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList().toArray(new PortalUser[0]);
+		return userML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList().toArray(new User[0]);
 	}
 
 	@GET
@@ -41,7 +41,7 @@ public class UserEndPoint extends BaseEJB
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findById(@PathParam("id") Long id)
 	{
-		final PortalUser user = portalUserML.getFULL(id);
+		final User user = userML.getFULL(id);
 		if (CompareUtil.isEmpty(user))
 		{
 			return ResponseUtil.notFound();
@@ -52,12 +52,12 @@ public class UserEndPoint extends BaseEJB
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response create(PortalUser portalUser)
+	public Response create(User User)
 	{
 		Response r = null;
 		try
 		{
-			portalUserML.save(portalUser);
+			userML.save(User);
 		}
 		catch (ManagerException e)
 		{
@@ -66,16 +66,16 @@ public class UserEndPoint extends BaseEJB
 		}
 		return r;
 	}
-	
+
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response update(PortalUser user)
+	public Response update(User user)
 	{
 		Response r = null;
 		try
 		{
-			portalUserML.save(user);
+			userML.save(user);
 			r = ResponseUtil.success();
 		}
 		catch (ManagerException e)

@@ -6,7 +6,5 @@ import com.reelbook.core.service.util.QueryHintResult;
 
 public interface BaseSimpleManager<T extends BaseModel>
 {
-	/**
-	 */
 	public abstract QueryHintResult<T> getQueryHintResult(final String description, final QueryHint queryHint);
 }

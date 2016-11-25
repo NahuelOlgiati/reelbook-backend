@@ -1,7 +1,6 @@
 package com.reelbook.model.embeddable;
 
 import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -55,8 +54,6 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 	@Column(length = 500)
 	private String addNotes;
 
-	/**
-	 */
 	public Address(Street addStreet, Integer addNumber)
 	{
 		this.addStreet = addStreet;
@@ -71,22 +68,16 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 		this.addNotes = "";
 	}
 
-	/**
-	 */
 	public Address()
 	{
 		this(null, 0);
 	}
 
-	/**
-	 */
 	public Street getAddStreet()
 	{
 		return addStreet;
 	}
 
-	/**
-	 */
 	public void setAddStreet(Street addStreet)
 	{
 		this.addStreet = addStreet;
@@ -99,134 +90,96 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 		}
 	}
 
-	/**
-	 */
 	public Integer getAddNumber()
 	{
 		return addNumber;
 	}
 
-	/**
-	 */
 	public void setAddNumber(Integer addNumber)
 	{
 		this.addNumber = addNumber;
 	}
 
-	/**
-	 */
 	public String getAddFloor()
 	{
 		return addFloor;
 	}
 
-	/**
-	 */
 	public void setAddFloor(String addFloor)
 	{
 		this.addFloor = addFloor;
 	}
 
-	/**
-	 */
 	public String getAddApartment()
 	{
 		return addApartment;
 	}
 
-	/**
-	 */
 	public void setAddApartment(String addApartment)
 	{
 		this.addApartment = addApartment;
 	}
 
-	/**
-	 */
 	public String getAddZipCode()
 	{
 		return addZipCode;
 	}
 
-	/**
-	 */
 	public void setAddZipCode(String addZipCode)
 	{
 		this.addZipCode = addZipCode;
 	}
 
-	/**
-	 */
 	public Street getAddStreet1()
 	{
 		return addStreet1;
 	}
 
-	/**
-	 */
 	public void setAddStreet1(Street addStreet1)
 	{
 		this.addStreet1 = addStreet1;
 	}
 
-	/**
-	 */
 	public Street getAddStreet2()
 	{
 		return addStreet2;
 	}
 
-	/**
-	 */
 	public void setAddStreet2(Street addStreet2)
 	{
 		this.addStreet2 = addStreet2;
 	}
 
-	/**
-	 */
 	public Zone getZone()
 	{
 		return zone;
 	}
 
-	/**
-	 */
 	public void setZone(Zone zone)
 	{
 		this.zone = zone;
 	}
 
-	/**
-	 */
 	public String getResidenceName()
 	{
 		return residenceName;
 	}
 
-	/**
-	 */
 	public void setResidenceName(String residenceName)
 	{
 		this.residenceName = residenceName;
 	}
 
-	/**
-	 */
 	public String getAddNotes()
 	{
 		return addNotes;
 	}
 
-	/**
-	 */
 	public void setAddNotes(String addNotes)
 	{
 		this.addNotes = addNotes;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -234,12 +187,12 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 
 		if (CompareUtil.isEmpty(getAddStreet()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "addStreetEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "addStreetEmpty"));
 		}
 
 		if (CompareUtil.isNegative(getAddNumber()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "addNumberInvalid"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "addNumberInvalid"));
 		}
 
 		if (!mb.isEmpty())
@@ -248,16 +201,12 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public boolean isBlank()
 	{
 		return CompareUtil.isEmpty(getAddStreet());
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{
@@ -291,8 +240,6 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 		return sb.toString();
 	}
 
-	/**
-	 */
 	public String getDescription()
 	{
 		final StringBuilder sb = new StringBuilder();
@@ -320,8 +267,6 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 		return sb.toString();
 	}
 
-	/**
-	 */
 	public void copy(Address address)
 	{
 		this.addStreet = address.getAddStreet();
@@ -336,8 +281,6 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 		this.addNotes = address.getAddNotes();
 	}
 
-	/**
-	 */
 	@Override
 	public int hashCode()
 	{
@@ -367,8 +310,6 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 		return hashCode;
 	}
 
-	/**
-	 */
 	@Override
 	public boolean equals(Object to)
 	{
@@ -380,8 +321,6 @@ public class Address implements Validable, Emptiable, Describable, Serializable
 				&& equals(getResidenceName(), a.getResidenceName()) && equals(getAddNotes(), a.getAddNotes());
 	}
 
-	/**
-	 */
 	private final boolean equals(Object a1, Object a2)
 	{
 		if (a1 == null)

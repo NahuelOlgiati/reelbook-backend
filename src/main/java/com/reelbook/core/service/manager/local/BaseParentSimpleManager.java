@@ -6,7 +6,5 @@ import com.reelbook.core.model.support.QueryHint;
 
 public interface BaseParentSimpleManager<T extends BaseParentSimpleModel<T>> extends BaseSimpleManager<T>
 {
-	/**
-	 */
 	public abstract List<T> getLeaveList(final String description, final QueryHint qh);
 }

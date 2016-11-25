@@ -33,8 +33,6 @@ public class Revision extends BaseRevisionModel
 	@Column(length = 100)
 	private String userName;
 
-	/**
-	 */
 	public Revision(Date date, String userName)
 	{
 		this.revisionID = 0l;
@@ -42,55 +40,41 @@ public class Revision extends BaseRevisionModel
 		this.userName = userName;
 	}
 
-	/**
-	 */
 	public Revision()
 	{
 		this(null, "");
 	}
 
-	/**
-	 */
 	@Override
 	public final Long getID()
 	{
 		return revisionID;
 	}
 
-	/**
-	 */
 	@Override
 	public final void setID(Long id)
 	{
 		this.revisionID = id;
 	}
 
-	/**
-	 */
 	@Override
 	public final Date getDate()
 	{
 		return date;
 	}
 
-	/**
-	 */
 	@Override
 	public final void setDate(Date date)
 	{
 		this.date = date;
 	}
 
-	/**
-	 */
 	@Override
 	public final String getUserName()
 	{
 		return userName;
 	}
 
-	/**
-	 */
 	@Override
 	public final void setUserName(String userName)
 	{

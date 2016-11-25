@@ -26,16 +26,12 @@ import com.reelbook.service.manager.local.SystemAgentManagerLocal;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class SystemAgentManagerEJB extends BasePersistenceManagerEJB<SystemAgent> implements SystemAgentManagerLocal
 {
-	/**
-	 */
 	@Override
 	public Class<SystemAgent> getModelClass()
 	{
 		return SystemAgent.class;
 	}
 
-	/**
-	 */
 	@Override
 	public SystemAgent get(final Document d)
 	{
@@ -64,8 +60,6 @@ public class SystemAgentManagerEJB extends BasePersistenceManagerEJB<SystemAgent
 		return model;
 	}
 
-	/**
-	 */
 	@Override
 	public SystemAgent getOrCreate(final Document d, final String firstName, final String lastName) throws ManagerException
 	{

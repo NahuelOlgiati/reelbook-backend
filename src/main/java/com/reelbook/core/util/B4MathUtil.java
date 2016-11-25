@@ -6,14 +6,10 @@ public class B4MathUtil extends MathUtil
 {
 	private static B4MathUtil me;
 
-	/**
-	 */
 	private B4MathUtil()
 	{
 	}
 
-	/**
-	 */
 	public static final synchronized B4MathUtil getMe()
 	{
 		if (me == null)
@@ -23,16 +19,12 @@ public class B4MathUtil extends MathUtil
 		return me;
 	}
 
-	/**
-	 */
 	@Override
 	public final int getScale()
 	{
 		return 4;
 	}
 
-	/**
-	 */
 	@Override
 	public final RoundingMode getRoundingMode()
 	{

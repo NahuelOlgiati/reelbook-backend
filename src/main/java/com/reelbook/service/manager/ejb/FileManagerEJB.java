@@ -14,8 +14,6 @@ import com.reelbook.service.manager.local.FileManagerLocal;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class FileManagerEJB extends BasePersistenceManagerEJB<File> implements FileManagerLocal
 {
-	/**
-	 */
 	@Override
 	public Class<File> getModelClass()
 	{

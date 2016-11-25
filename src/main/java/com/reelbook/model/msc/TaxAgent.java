@@ -21,7 +21,6 @@ import com.reelbook.model.embeddable.Document;
 @SuppressWarnings("serial")
 public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContact> extends Agent
 {
-
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "countryID")
 	@NotAudited
@@ -33,8 +32,6 @@ public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContac
 	@Column(length = 500)
 	private String notes;
 
-	/**
-	 */
 	protected TaxAgent(Document document)
 	{
 		super(document);
@@ -43,22 +40,16 @@ public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContac
 		this.notes = "";
 	}
 
-	/**
-	 */
 	public Country getCountry()
 	{
 		return country;
 	}
 
-	/**
-	 */
 	public void setCountry(Country country)
 	{
 		this.country = country;
 	}
 
-	/**
-	 */
 	public Address getLegalAddress()
 	{
 		if (legalAddress == null)
@@ -68,46 +59,28 @@ public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContac
 		return legalAddress;
 	}
 
-	/**
-	 */
 	public String getNotes()
 	{
 		return notes;
 	}
 
-	/**
-	 */
 	public void setNotes(String notes)
 	{
 		this.notes = notes;
 	}
 
-	/**
-	 */
 	public abstract List<P> getPhoneList();
 
-	/**
-	 */
 	public abstract P getPhoneDefault();
 
-	/**
-	 */
 	public abstract void setPhoneDefault(P phoneDefault);
 
-	/**
-	 */
 	public abstract List<C> getContactList();
 
-	/**
-	 */
 	public abstract C getContactDefault();
 
-	/**
-	 */
 	public abstract void setContactDefault(C contactDefault);
 
-	/**
-	 */
 	@Override
 	public void initLazyElements()
 	{
@@ -116,8 +89,6 @@ public abstract class TaxAgent<P extends TaxAgentPhone, C extends TaxAgentContac
 		getContactList().size();
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{

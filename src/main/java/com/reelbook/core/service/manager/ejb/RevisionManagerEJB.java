@@ -13,8 +13,6 @@ import com.reelbook.core.service.manager.local.BaseRevisionManager;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class RevisionManagerEJB implements BaseRevisionManager<Revision>
 {
-	/**
-	 */
 	@Override
 	public Class<Revision> getRevisionModelClass()
 	{

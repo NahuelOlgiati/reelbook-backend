@@ -7,8 +7,6 @@ import javax.ejb.TimerConfig;
 
 public final class TimerUtil
 {
-	/**
-	 */
 	public static final <T extends Serializable> void scheduleStart(final SessionContext sc, final Date date, final T info, final Boolean persistent)
 	{
 		final TimerConfig timerConfig = new TimerConfig();

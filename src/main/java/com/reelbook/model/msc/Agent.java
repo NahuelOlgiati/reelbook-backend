@@ -24,32 +24,24 @@ public abstract class Agent extends BaseModel
 	@Embedded
 	private Document document;
 
-	/**
-	 */
 	protected Agent(Document document)
 	{
 		this.agentID = 0l;
 		this.document = document;
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return agentID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.agentID = id;
 	}
 
-	/**
-	 */
 	public Document getDocument()
 	{
 		if (document == null)
@@ -59,8 +51,6 @@ public abstract class Agent extends BaseModel
 		return document;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{

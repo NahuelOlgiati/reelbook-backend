@@ -39,8 +39,6 @@ public class State extends BaseSummarySimpleModel
 	@Column(length = 10, unique = true)
 	private String summaryDescription;
 
-	/**
-	 */
 	public State(Country country, String description, String summaryDescription)
 	{
 		this.stateID = 0l;
@@ -49,77 +47,57 @@ public class State extends BaseSummarySimpleModel
 		this.summaryDescription = summaryDescription;
 	}
 
-	/**
-	 */
 	public State()
 	{
 		this(null, "", "");
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return stateID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.stateID = id;
 	}
 
-	/**
-	 */
 	public Country getCountry()
 	{
 		return country;
 	}
 
-	/**
-	 */
 	public void setCountry(Country country)
 	{
 		this.country = country;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
 
-	/**
-	 */
 	@Override
 	public String getSummaryDescription()
 	{
 		return summaryDescription;
 	}
 
-	/**
-	 */
 	@Override
 	public void setSummaryDescription(String summaryDescription)
 	{
 		this.summaryDescription = summaryDescription;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -136,7 +114,7 @@ public class State extends BaseSummarySimpleModel
 
 		if (CompareUtil.isEmpty(getCountry()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "countryEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "countryEmpty"));
 		}
 
 		if (!mb.isEmpty())
@@ -145,8 +123,6 @@ public class State extends BaseSummarySimpleModel
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{

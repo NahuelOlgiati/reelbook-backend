@@ -23,16 +23,12 @@ import com.reelbook.service.manager.local.ArtistManagerLocal;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class ArtistManagerEJB extends BasePersistenceManagerEJB<Artist> implements ArtistManagerLocal
 {
-	/**
-	 */
 	@Override
 	public Class<Artist> getModelClass()
 	{
 		return Artist.class;
 	}
 
-	/**
-	 */
 	@Override
 	public QueryHintResult<Artist> getQueryHintResult(final String description, final QueryHint queryHint)
 	{

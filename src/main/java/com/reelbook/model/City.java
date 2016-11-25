@@ -37,8 +37,6 @@ public class City extends BaseSimpleModel
 	@Column(length = 50)
 	private String description;
 
-	/**
-	 */
 	public City(District district, String description)
 	{
 		this.cityID = 0l;
@@ -46,61 +44,45 @@ public class City extends BaseSimpleModel
 		this.description = description;
 	}
 
-	/**
-	 */
 	public City()
 	{
 		this(null, "");
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return cityID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.cityID = id;
 	}
 
-	/**
-	 */
 	public District getDistrict()
 	{
 		return district;
 	}
 
-	/**
-	 */
 	public void setDistrict(District district)
 	{
 		this.district = district;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -117,7 +99,7 @@ public class City extends BaseSimpleModel
 
 		if (CompareUtil.isEmpty(getDistrict()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "districtEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "districtEmpty"));
 		}
 
 		if (!mb.isEmpty())
@@ -126,8 +108,6 @@ public class City extends BaseSimpleModel
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{

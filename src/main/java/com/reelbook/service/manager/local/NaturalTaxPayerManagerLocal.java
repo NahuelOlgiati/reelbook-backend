@@ -10,11 +10,8 @@ import com.reelbook.model.embeddable.Document;
 @Local
 public interface NaturalTaxPayerManagerLocal extends BaseTaxPayerManagerLocal<NaturalTaxPayer>, BaseSimpleManager<NaturalTaxPayer>
 {
-	/**
-	 */
+
 	public abstract List<NaturalTaxPayer> getNaturalTaxPayerByDocument(final Document document, final QueryHint queryHint);
 
-	/**
-	 */
 	public abstract boolean getDuplicatedException(final Document document, final NaturalTaxPayer naturalTaxPayer);
 }

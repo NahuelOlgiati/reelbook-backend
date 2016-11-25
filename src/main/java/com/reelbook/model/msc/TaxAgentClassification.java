@@ -25,8 +25,6 @@ public abstract class TaxAgentClassification extends BaseSummarySimpleModel
 	@Column(length = 10, unique = true)
 	private String summaryDescription;
 
-	/**
-	 */
 	protected TaxAgentClassification(String description, String summaryDescription)
 	{
 		this.taxAgentClassificationID = 0l;
@@ -34,48 +32,36 @@ public abstract class TaxAgentClassification extends BaseSummarySimpleModel
 		this.summaryDescription = summaryDescription;
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return taxAgentClassificationID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.taxAgentClassificationID = id;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
 
-	/**
-	 */
 	@Override
 	public String getSummaryDescription()
 	{
 		return summaryDescription;
 	}
 
-	/**
-	 */
 	@Override
 	public void setSummaryDescription(String summaryDescription)
 	{

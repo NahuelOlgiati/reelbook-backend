@@ -31,16 +31,12 @@ import com.reelbook.service.manager.local.NaturalTaxPayerManagerLocal;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class NaturalTaxPayerManagerEJB extends BaseTaxPayerManagerEJB<NaturalTaxPayer> implements NaturalTaxPayerManagerLocal
 {
-	/**
-	 */
 	@Override
 	public Class<NaturalTaxPayer> getModelClass()
 	{
 		return NaturalTaxPayer.class;
 	}
 
-	/**
-	 */
 	@Override
 	public QueryHintResult<NaturalTaxPayer> getQueryHintResult(final String description, final QueryHint queryHint)
 	{
@@ -73,8 +69,6 @@ public class NaturalTaxPayerManagerEJB extends BaseTaxPayerManagerEJB<NaturalTax
 		return queryHintResult;
 	}
 
-	/**
-	 */
 	@Override
 	public List<NaturalTaxPayer> getNaturalTaxPayerByDocument(final Document document, final QueryHint queryHint)
 	{
@@ -114,8 +108,6 @@ public class NaturalTaxPayerManagerEJB extends BaseTaxPayerManagerEJB<NaturalTax
 		return naturalTaxPayerList;
 	}
 
-	/**
-	 */
 	@Override
 	protected void doBeforeAddUpdate(final NaturalTaxPayer model) throws BaseException
 	{
@@ -146,8 +138,6 @@ public class NaturalTaxPayerManagerEJB extends BaseTaxPayerManagerEJB<NaturalTax
 		super.doBeforeAddUpdate(model);
 	}
 
-	/**
-	 */
 	@Override
 	public boolean getDuplicatedException(final Document document, final NaturalTaxPayer naturalTaxPayer)
 	{

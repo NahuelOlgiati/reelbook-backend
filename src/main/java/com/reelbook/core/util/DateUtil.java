@@ -17,8 +17,6 @@ public final class DateUtil
 	public static final Date EMPTY_DATE = getDate("01/01/1900");
 	public static final Date FINAL_DATE = getDate("01/01/5000");
 
-	/**
-	 */
 	public static final Date getDate(final Integer year, final Integer month, final Integer day)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -33,8 +31,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date getDate(final String stringDate, final String format)
 	{
 		Date date;
@@ -49,29 +45,21 @@ public final class DateUtil
 		return date;
 	}
 
-	/**
-	 */
 	public static final Date getDate(final String stringDate)
 	{
 		return getDate(stringDate, SIMPLE_DATE_FORMAT);
 	}
 
-	/**
-	 */
 	public static final String getDate(final Date date, final String format)
 	{
 		return new SimpleDateFormat(format).format(date);
 	}
 
-	/**
-	 */
 	public static final String getDate(final Date date)
 	{
 		return getDate(date, SIMPLE_DATE_FORMAT);
 	}
 
-	/**
-	 */
 	public static final Date getDateFDYear(final Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -85,8 +73,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date getDateLDYear(final Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -100,8 +86,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date getDateFDMonth(final Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -114,8 +98,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date getDateLDMonth(final Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -128,8 +110,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date getDateFDQuarter(Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -155,8 +135,6 @@ public final class DateUtil
 		return getDateFDMonth(c.getTime());
 	}
 
-	/**
-	 */
 	public static final Date getDateLDQuarter(Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -182,8 +160,6 @@ public final class DateUtil
 		return getDateLDMonth(c.getTime());
 	}
 
-	/**
-	 */
 	public static final Date getDateFD(final Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -192,8 +168,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date getDateFT(final Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -205,8 +179,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date getDateLT(final Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -218,8 +190,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final int getYear(final Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -227,8 +197,6 @@ public final class DateUtil
 		return c.get(Calendar.YEAR);
 	}
 
-	/**
-	 */
 	public static final int getMonth(final Date date)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -236,8 +204,6 @@ public final class DateUtil
 		return c.get(Calendar.MONTH);
 	}
 
-	/**
-	 */
 	public static final Date addMinutes(final Date date, final int minutes)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -246,8 +212,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date addDays(final Date date, final int days)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -256,8 +220,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date addMonths(final Date date, final int months)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -266,8 +228,6 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final Date addYears(final Date date, final int years)
 	{
 		final Calendar c = Calendar.getInstance();
@@ -276,43 +236,31 @@ public final class DateUtil
 		return c.getTime();
 	}
 
-	/**
-	 */
 	public static final long getTime()
 	{
 		return System.currentTimeMillis();
 	}
 
-	/**
-	 */
 	public static final long getElapsedTime(final long startTime)
 	{
 		return getTime() - startTime;
 	}
 
-	/**
-	 */
 	public static final long getDiffTime(final Date date1, final Date date2)
 	{
 		return date1.getTime() - date2.getTime();
 	}
 
-	/**
-	 */
 	public static final long getDiffDays(final Date date1, final Date date2)
 	{
 		return getDiffTime(date1, date2) / (24 * 60 * 60 * 1000);
 	}
 
-	/**
-	 */
 	public static final long getDiffMonths(final Date date1, final Date date2)
 	{
 		return (getYear(date1) - getYear(date2)) * 12 + (getMonth(date1) - getMonth(date2));
 	}
 
-	/**
-	 */
 	public static final long getDiffYears(final Date date1, final Date date2)
 	{
 		return (getYear(date1) - getYear(date2));

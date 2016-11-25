@@ -9,9 +9,10 @@ import org.wildfly.swarm.jpa.JPAFraction;
 import org.wildfly.swarm.logging.LoggingFraction;
 import org.wildfly.swarm.swagger.SwaggerArchive;
 
-public class Main {
-
-	public static void main(String[] args) throws Exception {
+public class Main
+{
+	public static void main(String[] args) throws Exception
+	{
 
 		Swarm swarm = new Swarm();
 
@@ -58,11 +59,13 @@ public class Main {
 	// });
 	// }
 
-	private static JPAFraction getJpaFraction() {
+	private static JPAFraction getJpaFraction()
+	{
 		return new JPAFraction().defaultDatasource("jboss/datasources/reelbookDS");
 	}
 
-	private static DatasourcesFraction getDatasourcesFraction() {
+	private static DatasourcesFraction getDatasourcesFraction()
+	{
 		return new DatasourcesFraction().jdbcDriver("org.postgresql", (d) -> {
 			d.driverClassName("org.postgresql.Driver");
 			d.xaDatasourceClass("org.postgresql.xa.PGXADataSource");
@@ -72,9 +75,9 @@ public class Main {
 			ds.connectionUrl("jdbc:postgresql://localhost:5433/villegas");
 			ds.userName("villegas");
 			ds.password("villegas");
-//			ds.connectionUrl("jdbc:postgres://ec2-54-243-201-3.compute-1.amazonaws.com:5432/d9gjeikkmi1qng");
-//			ds.userName("azegohbknpbipq");
-//			ds.password("Dzz7o_h73SEUpzwc7vhLItgDjM");
+			// ds.connectionUrl("jdbc:postgres://ec2-54-243-201-3.compute-1.amazonaws.com:5432/d9gjeikkmi1qng");
+			// ds.userName("azegohbknpbipq");
+			// ds.password("Dzz7o_h73SEUpzwc7vhLItgDjM");
 		});
 	}
 }

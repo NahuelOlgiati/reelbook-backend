@@ -23,16 +23,12 @@ import com.reelbook.service.manager.local.DocumentTypeManagerLocal;
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class DocumentTypeManagerEJB extends BasePersistenceManagerEJB<DocumentType> implements DocumentTypeManagerLocal
 {
-	/**
-	 */
 	@Override
 	public Class<DocumentType> getModelClass()
 	{
 		return DocumentType.class;
 	}
 
-	/**
-	 */
 	@Override
 	public QueryHintResult<DocumentType> getQueryHintResult(final String description, final QueryHint queryHint)
 	{

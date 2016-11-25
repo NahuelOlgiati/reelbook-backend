@@ -34,8 +34,6 @@ public class Street extends BaseSimpleModel
 	@Column(length = 300)
 	private String description;
 
-	/**
-	 */
 	public Street(City city, String description)
 	{
 		this.streetID = 0l;
@@ -43,61 +41,45 @@ public class Street extends BaseSimpleModel
 		this.description = description;
 	}
 
-	/**
-	 */
 	public Street()
 	{
 		this(null, "");
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return streetID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.streetID = id;
 	}
 
-	/**
-	 */
 	public City getCity()
 	{
 		return city;
 	}
 
-	/**
-	 */
 	public void setCity(City city)
 	{
 		this.city = city;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -114,7 +96,7 @@ public class Street extends BaseSimpleModel
 
 		if (CompareUtil.isEmpty(getCity()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "cityEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "cityEmpty"));
 		}
 
 		if (!mb.isEmpty())
@@ -123,8 +105,6 @@ public class Street extends BaseSimpleModel
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{

@@ -31,8 +31,6 @@ public class File extends BaseModel
 	@Lob
 	private String content;
 
-	/**
-	 */
 	public File(String fileName, String content)
 	{
 		this.fileID = 0l;
@@ -40,23 +38,17 @@ public class File extends BaseModel
 		this.content = content;
 	}
 
-	/**
-	 */
 	public File()
 	{
 		this(null, null);
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return fileID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
@@ -83,8 +75,6 @@ public class File extends BaseModel
 		this.content = content;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{

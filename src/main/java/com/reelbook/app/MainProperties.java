@@ -6,15 +6,11 @@ public final class MainProperties extends MessageHandler
 {
 	private static MainProperties me;
 
-	/**
-	 */
 	private MainProperties()
 	{
 		super("main");
 	}
 
-	/**
-	 */
 	public static final synchronized MainProperties getMe()
 	{
 		if (me == null)

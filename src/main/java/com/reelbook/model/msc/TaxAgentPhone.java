@@ -22,32 +22,24 @@ public abstract class TaxAgentPhone extends BaseModel
 	@Embedded
 	private Phone phone;
 
-	/**
-	 */
 	protected TaxAgentPhone(Phone phone)
 	{
 		this.taxAgentPhoneID = 0l;
 		this.phone = phone;
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return taxAgentPhoneID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.taxAgentPhoneID = id;
 	}
 
-	/**
-	 */
 	public Phone getPhone()
 	{
 		if (phone == null)
@@ -57,32 +49,24 @@ public abstract class TaxAgentPhone extends BaseModel
 		return phone;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
 		getPhone().valid();
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{
 		return getPhone().getFullDescription();
 	}
 
-	/**
-	 */
 	@Override
 	public int hashCode()
 	{
 		return getPhone().hashCode();
 	}
 
-	/**
-	 */
 	@Override
 	public boolean equals(Object to)
 	{

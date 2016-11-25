@@ -36,12 +36,12 @@ public class Profile extends BaseModel
 	private String groupName;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "adonis_admin_profile_permit", joinColumns = @JoinColumn(name = "profileID"), inverseJoinColumns = @JoinColumn(
-			name = "permitID"))
+	@JoinTable(
+			name = "adonis_admin_profile_permit",
+			joinColumns = @JoinColumn(name = "profileID"),
+			inverseJoinColumns = @JoinColumn(name = "permitID"))
 	private List<Permit> permits;
 
-	/**
-	*/
 	public Profile(String groupName, List<Permit> permits)
 	{
 		this.profileID = 0l;
@@ -49,45 +49,33 @@ public class Profile extends BaseModel
 		this.permits = permits;
 	}
 
-	/**
-	*/
 	public Profile()
 	{
 		this(null, null);
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return profileID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.profileID = id;
 	}
 
-	/**
-	 */
 	public String getGroupName()
 	{
 		return groupName;
 	}
 
-	/**
-	 */
 	public void setGroupName(String groupName)
 	{
 		this.groupName = groupName;
 	}
 
-	/**
-	 */
 	public List<Permit> getPermits()
 	{
 		if (permits == null)
@@ -97,8 +85,6 @@ public class Profile extends BaseModel
 		return permits;
 	}
 
-	/**
-	 */
 	public List<Permit> getSortedPermits()
 	{
 		Collections.sort(getPermits(), new Comparator<Permit>()
@@ -118,15 +104,11 @@ public class Profile extends BaseModel
 		return getPermits();
 	}
 
-	/**
-	 */
 	public void setPermits(List<Permit> permits)
 	{
 		this.permits = permits;
 	}
 
-	/** 
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -135,12 +117,12 @@ public class Profile extends BaseModel
 
 		if (CompareUtil.isEmpty(getGroupName()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(Profile.class, "groupNameEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(Profile.class, "groupNameEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getPermits()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(Profile.class, "permitsEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(Profile.class, "permitsEmpty"));
 		}
 
 		if (!mb.isEmpty())

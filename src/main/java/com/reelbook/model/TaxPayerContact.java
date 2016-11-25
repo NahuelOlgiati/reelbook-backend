@@ -5,7 +5,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import com.reelbook.model.embeddable.Contact;
 import com.reelbook.model.msc.TaxAgentContact;
 
@@ -18,23 +17,17 @@ public class TaxPayerContact extends TaxAgentContact
 	@JoinColumn(name = "agentID", insertable = false, updatable = false)
 	private TaxPayer taxPayer;
 
-	/**
-	 */
 	public TaxPayerContact(Contact contact)
 	{
 		super(contact);
 		this.taxPayer = null;
 	}
 
-	/**
-	 */
 	public TaxPayerContact()
 	{
 		this(null);
 	}
 
-	/**
-	 */
 	public TaxPayer getTaxPayer()
 	{
 		return taxPayer;

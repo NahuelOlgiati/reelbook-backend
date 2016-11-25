@@ -6,7 +6,6 @@ import com.reelbook.model.msc.Agent;
 
 public interface AgentManagerLocal<T extends Agent> extends BasePersistenceManager<T>
 {
-	/**
-	 */
+
 	public abstract T get(final Document document);
 }

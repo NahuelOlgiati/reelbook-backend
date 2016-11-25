@@ -8,16 +8,10 @@ import com.reelbook.service.msg.DBSMsgHandler;
 @SuppressWarnings("serial")
 public abstract class BaseSimpleModel extends BaseModel
 {
-	/**
-	 */
 	public abstract String getDescription();
 
-	/**
-	 */
 	public abstract void setDescription(String description);
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -27,8 +21,6 @@ public abstract class BaseSimpleModel extends BaseModel
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{

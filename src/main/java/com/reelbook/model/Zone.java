@@ -34,8 +34,6 @@ public class Zone extends BaseSimpleModel
 	@Column(length = 50)
 	private String description;
 
-	/**
-	 */
 	public Zone(City city, String description)
 	{
 		this.zoneID = 0l;
@@ -43,61 +41,45 @@ public class Zone extends BaseSimpleModel
 		this.description = description;
 	}
 
-	/**
-	 */
 	public Zone()
 	{
 		this(null, "");
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return zoneID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.zoneID = id;
 	}
 
-	/**
-	 */
 	public City getCity()
 	{
 		return city;
 	}
 
-	/**
-	 */
 	public void setCity(City city)
 	{
 		this.city = city;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -114,7 +96,7 @@ public class Zone extends BaseSimpleModel
 
 		if (CompareUtil.isEmpty(getCity()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "cityEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "cityEmpty"));
 		}
 
 		if (!mb.isEmpty())

@@ -39,8 +39,6 @@ public class District extends BaseSummarySimpleModel
 	@Column(length = 10, unique = true)
 	private String summaryDescription;
 
-	/**
-	 */
 	public District(State state, String description, String summaryDescription)
 	{
 		this.districtID = 0l;
@@ -49,77 +47,57 @@ public class District extends BaseSummarySimpleModel
 		this.summaryDescription = summaryDescription;
 	}
 
-	/**
-	 */
 	public District()
 	{
 		this(null, "", "");
 	}
 
-	/**
-	 */
 	@Override
 	public Long getID()
 	{
 		return districtID;
 	}
 
-	/**
-	 */
 	@Override
 	public void setID(Long id)
 	{
 		this.districtID = id;
 	}
 
-	/**
-	 */
 	public State getState()
 	{
 		return state;
 	}
 
-	/**
-	 */
 	public void setState(State state)
 	{
 		this.state = state;
 	}
 
-	/**
-	 */
 	@Override
 	public String getDescription()
 	{
 		return description;
 	}
 
-	/**
-	 */
 	@Override
 	public void setDescription(String description)
 	{
 		this.description = description;
 	}
 
-	/**
-	 */
 	@Override
 	public String getSummaryDescription()
 	{
 		return summaryDescription;
 	}
 
-	/**
-	 */
 	@Override
 	public void setSummaryDescription(String summaryDescription)
 	{
 		this.summaryDescription = summaryDescription;
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -145,8 +123,6 @@ public class District extends BaseSummarySimpleModel
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{

@@ -4,22 +4,17 @@ import java.security.Principal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import com.reelbook.model.Permit;
 import com.reelbook.model.Profile;
 import com.reelbook.model.User;
 
-/**
- */
 public class UserPrincipal implements Principal
 {
 	private User user;
 	private Set<String> roles;
 	private Date signinDate;
 
-	/**
-	 */
-	public UserPrincipal(User user, Date signinDate)
+	public UserPrincipal(User user)
 	{
 		this.user = user;
 		this.roles = new HashSet<String>();
@@ -30,32 +25,24 @@ public class UserPrincipal implements Principal
 				this.roles.add(permit.getCode());
 			}
 		}
-		this.signinDate = signinDate;
+		this.signinDate = new Date();
 	}
 
-	/**
-	 */
 	public User getUser()
 	{
 		return user;
 	}
 
-	/**
-	 */
 	public Set<String> getRoles()
 	{
 		return roles;
 	}
 
-	/**
-	 */
 	public Date getSigninDate()
 	{
 		return signinDate;
 	}
 
-	/**
-	 */
 	@Override
 	public String getName()
 	{

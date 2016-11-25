@@ -7,15 +7,11 @@ import javax.ejb.ApplicationException;
 @SuppressWarnings("serial")
 public final class ValidationException extends BaseException
 {
-	/**
-	 */
 	public ValidationException(List<String> messages)
 	{
 		super(messages);
 	}
 
-	/**
-	 */
 	public ValidationException(String message)
 	{
 		super(message);

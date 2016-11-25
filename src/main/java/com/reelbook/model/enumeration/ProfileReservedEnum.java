@@ -9,8 +9,6 @@ public enum ProfileReservedEnum
 	ADMIN,
 	PORTAL;
 
-	/**
-	 */
 	public static final List<String> getNames()
 	{
 		final List<String> names = new ArrayList<String>();

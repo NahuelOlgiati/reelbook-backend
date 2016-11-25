@@ -4,7 +4,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJBException;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
 import com.reelbook.core.exception.BaseException;
 import com.reelbook.core.exception.ManagerException;
 import com.reelbook.core.exception.ValidationException;
@@ -19,8 +18,6 @@ public abstract class BasePersistenceManagerEJB<T extends BaseModel> extends Bas
 {
 	protected BaseValidationManager vm;
 
-	/**
-	 */
 	@PostConstruct
 	private final void initValidationManager()
 	{
@@ -35,8 +32,6 @@ public abstract class BasePersistenceManagerEJB<T extends BaseModel> extends Bas
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public T save(final T model) throws ManagerException
 	{
@@ -74,8 +69,6 @@ public abstract class BasePersistenceManagerEJB<T extends BaseModel> extends Bas
 		return model;
 	}
 
-	/**
-	 */
 	@Override
 	public T delete(final Long modelID) throws ManagerException
 	{
@@ -102,14 +95,10 @@ public abstract class BasePersistenceManagerEJB<T extends BaseModel> extends Bas
 		return model;
 	}
 
-	/**
-	 */
 	protected void doBeforeValid(final T model) throws BaseException
 	{
 	}
 
-	/**
-	 */
 	private final void doValid(final T model) throws BaseException
 	{
 		if (CompareUtil.isEmpty(vm))
@@ -122,71 +111,49 @@ public abstract class BasePersistenceManagerEJB<T extends BaseModel> extends Bas
 		}
 	}
 
-	/**
-	 */
 	private final void doAdd(final T model) throws BaseException
 	{
 		em.persist(model);
 	}
 
-	/**
-	 */
 	private final T doUpdate(final T model) throws BaseException
 	{
 		return em.merge(model);
 	}
 
-	/**
-	 */
 	private final void doDelete(final T model) throws BaseException
 	{
 		em.remove(model);
 	}
 
-	/**
-	 */
 	protected void doBeforeAdd(final T model) throws BaseException
 	{
 	}
 
-	/**
-	 */
 	protected void doBeforeUpdate(final T model) throws BaseException
 	{
 	}
 
-	/**
-	 */
 	protected void doBeforeAddUpdate(final T model) throws BaseException
 	{
 	}
 
-	/**
-	 */
 	protected void doBeforeDelete(final T model) throws BaseException
 	{
 	}
 
-	/**
-	 */
 	protected void doAfterAdd(final T model) throws BaseException
 	{
 	}
 
-	/**
-	 */
 	protected void doAfterUpdate(final T model) throws BaseException
 	{
 	}
 
-	/**
-	 */
 	protected void doAfterAddUpdate(final T model) throws BaseException
 	{
 	}
 
-	/**
-	 */
 	protected void doAfterDelete(final T model) throws BaseException
 	{
 	}

@@ -1,7 +1,6 @@
 package com.reelbook.model.embeddable;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
@@ -30,8 +29,6 @@ public class Phone implements Validable, Emptiable, Describable, Serializable
 	@Column(length = 30)
 	private String phoneNumber;
 
-	/**
-	 */
 	public Phone(PhoneTypeEnum phoneType, String phoneCountryCode, String phoneCountryArea, String phoneNumber)
 	{
 		this.phoneType = phoneType;
@@ -40,79 +37,57 @@ public class Phone implements Validable, Emptiable, Describable, Serializable
 		this.phoneNumber = phoneNumber;
 	}
 
-	/**
-	 */
 	public Phone()
 	{
 		this(PhoneTypeEnum.HOME, "", "", "");
 	}
 
-	/**
-	 */
 	public PhoneTypeEnum getPhoneType()
 	{
 		return phoneType;
 	}
 
-	/**
-	 */
 	public void setPhoneType(PhoneTypeEnum phoneType)
 	{
 		this.phoneType = phoneType;
 	}
 
-	/**
-	 */
 	public String getPhoneCountryCode()
 	{
 		return phoneCountryCode;
 	}
 
-	/**
-	 */
 	public void setPhoneCountryCode(String phoneCountryCode)
 	{
 		this.phoneCountryCode = phoneCountryCode;
 	}
 
-	/**
-	 */
 	public String getPhoneCountryArea()
 	{
 		return phoneCountryArea;
 	}
 
-	/**
-	 */
 	public void setPhoneCountryArea(String phoneCountryArea)
 	{
 		this.phoneCountryArea = phoneCountryArea;
 	}
 
-	/**
-	 */
 	public String getPhoneNumber()
 	{
 		return phoneNumber;
 	}
 
-	/**
-	 */
 	public void setPhoneNumber(String phoneNumber)
 	{
 		this.phoneNumber = phoneNumber;
 	}
 
-	/**
-	 */
 	@Override
 	public boolean isBlank()
 	{
 		return CompareUtil.isEmpty(getPhoneCountryCode()) || CompareUtil.isEmpty(getPhoneCountryArea()) || CompareUtil.isEmpty(getPhoneNumber());
 	}
 
-	/**
-	 */
 	@Override
 	public void valid() throws ValidationException
 	{
@@ -120,22 +95,22 @@ public class Phone implements Validable, Emptiable, Describable, Serializable
 
 		if (CompareUtil.isEmpty(getPhoneType()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "phoneTypeEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "phoneTypeEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getPhoneCountryCode()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "phoneCountryCodeEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "phoneCountryCodeEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getPhoneCountryArea()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "phoneCountryAreaEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "phoneCountryAreaEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getPhoneNumber()))
 		{
-//			mb.addMessage(DBSMsgHandler.getMsg(getClass(), "phoneNumberEmpty"));
+			// mb.addMessage(DBSMsgHandler.getMsg(getClass(), "phoneNumberEmpty"));
 		}
 
 		if (!mb.isEmpty())
@@ -144,8 +119,6 @@ public class Phone implements Validable, Emptiable, Describable, Serializable
 		}
 	}
 
-	/**
-	 */
 	@Override
 	public String getFullDescription()
 	{
@@ -179,16 +152,12 @@ public class Phone implements Validable, Emptiable, Describable, Serializable
 		return sb.toString();
 	}
 
-	/**
-	 */
 	@Override
 	public int hashCode()
 	{
 		return getPhoneType().hashCode() + getPhoneCountryCode().hashCode() + getPhoneCountryArea().hashCode() + getPhoneNumber().hashCode();
 	}
 
-	/**
-	 */
 	@Override
 	public boolean equals(Object to)
 	{

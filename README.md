@@ -1,6 +1,6 @@
 # Commands
 mvn clean package
-mvn wildfly-swarm:run
+mvn wildfly-swarm:run -Dswarm.project.stage=development@tallion
 
 # URL
 http://localhost:8080/rest/swagger.json
@@ -10,8 +10,6 @@ https://augury.angular.io/
 https://github.com/mshauneu/chrome-swagger-ui
 
 # Info
-http://ksoong.org/wildfly-swarm
-=======
 http://ksoong.org/wildfly-swarm
 
 # Debug

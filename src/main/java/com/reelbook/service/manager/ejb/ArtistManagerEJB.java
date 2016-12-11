@@ -1,5 +1,7 @@
 package com.reelbook.service.manager.ejb;
 
+import java.util.List;
+
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -10,6 +12,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+
 import com.reelbook.core.model.support.QueryHint;
 import com.reelbook.core.service.manager.ejb.BasePersistenceManagerEJB;
 import com.reelbook.core.service.util.PredicateBuilder;
@@ -43,6 +46,32 @@ public class ArtistManagerEJB extends BasePersistenceManagerEJB<Artist> implemen
 
 			// Expessions.
 			cq.where(cb.or(pb.like(dtDescription, description)));
+			cq.orderBy(cb.asc(dtDescription));
+
+			// Gets data.
+			queryHintResult = getQueryHintResult(cq, queryHint);
+		}
+		catch (Throwable t)
+		{
+			throw new EJBException(t.getMessage());
+		}
+		return queryHintResult;
+	}
+	
+	@Override
+	public QueryHintResult<Artist> getQueryHintResult(final List<String> descriptionList, final QueryHint queryHint)
+	{
+		QueryHintResult<Artist> queryHintResult = null;
+		try
+		{
+			final CriteriaBuilder cb = em.getCriteriaBuilder();
+			final PredicateBuilder pb = new PredicateBuilder(cb);
+			final CriteriaQuery<Artist> cq = cb.createQuery(getModelClass());
+			final Root<Artist> artist = cq.from(getModelClass());
+			final Path<String> dtDescription = artist.get(Artist_.description);
+
+			// Expessions.
+			cq.where(cb.or(pb.in(dtDescription, descriptionList)));
 			cq.orderBy(cb.asc(dtDescription));
 
 			// Gets data.

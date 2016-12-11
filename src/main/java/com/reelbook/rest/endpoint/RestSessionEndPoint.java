@@ -25,10 +25,10 @@ public class RestSessionEndPoint
 	@Path("/user")
 	@ApiOperation(value = "signup", notes = "Retorna usuario en sesion")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response signup(@ApiParam @FormParam("token") String token) {
 		try {
-			return Response.ok(UserPrincipalMap.get(token)).build();
+			return ResponseUtil.success(UserPrincipalMap.get(token).getUser());
 		} catch (Exception e) {
 			return ResponseUtil.fatalException();
 		}

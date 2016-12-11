@@ -54,10 +54,10 @@ public class AuthenticationEndPoint extends BaseEJB {
 	@ApiResponses(value = { @ApiResponse(code = 405, message = "Invalid input", response = Response.class) })
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response signup(@ApiParam @FormParam("email") String email, @ApiParam @FormParam("username") String username,
+	public Response signup(@ApiParam @FormParam("email") String email, @ApiParam @FormParam("userName") String userName,
 			@ApiParam @FormParam("password") String password) {
 		try {
-			final User newUser = new User(username, password, new ArrayList<Profile>());
+			final User newUser = new User(userName, password, new ArrayList<Profile>());
 			userML.save(newUser);
 			em.flush();
 			return Response.ok(newUser).build();
@@ -70,14 +70,14 @@ public class AuthenticationEndPoint extends BaseEJB {
 	@Path("/signin")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response signin(@FormParam("username") String username, @FormParam("password") String password,
+	public Response signin(@FormParam("userName") String userName, @FormParam("password") String password,
 			@Context HttpServletRequest servletRequest) {
 		try {
 			User user;
-			if ("caca".equals(username)) {
+			if ("caca".equals(userName)) {
 				user = getDummyUser();
 			} else {
-				user = userML.getFULL(username);
+				user = userML.getFULL(userName);
 				if (CompareUtil.isEmpty(user)) {
 					return ResponseUtil.notFound();
 				}

@@ -46,9 +46,12 @@ public class Main
 			d.driverModuleName("org.postgresql");
 		}).dataSource("reelbookDS", (ds) -> {
 			ds.driverName("org.postgresql");
-			ds.connectionUrl(stageConfig.resolve("database.connection.url").getValue());
-			ds.userName(stageConfig.resolve("database.connection.userName").getValue());
-			ds.password(stageConfig.resolve("database.connection.password").getValue());
+			//ds.connectionUrl(stageConfig.resolve("database.connection.url").getValue());
+			//ds.userName(stageConfig.resolve("database.connection.userName").getValue());
+			//ds.password(stageConfig.resolve("database.connection.password").getValue());
+			ds.connectionUrl("jdbc:postgresql://ec2-54-235-247-224.compute-1.amazonaws.com:5432/d5hskcb50gue2b");
+			ds.userName("ccgfaepvdinocb");
+			ds.password("b5802b30a700000762d32d79ea123fa98f3bfac28417ef6072487d810ca6d6cf");
 		});
 	}
 }

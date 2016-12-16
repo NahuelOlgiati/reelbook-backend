@@ -1,1 +1,1 @@
-web:    java $JAVA_OPTS -Djboss.http.port=$PORT -Djboss.bind.address=0.0.0.0 -jar target/reelbook-backend-swarm.jar -Dswarm.project.stage=heroku
+web:    java -Xmx96m -Xss256k -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=48m -Dswarm.http.port=$PORT -Dswarm.project.stage=heroku -jar target/reelbook-backend-swarm.jar

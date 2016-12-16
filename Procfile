@@ -1,1 +1,1 @@
-web:    java -Xmx96m -Xss256k -Dfile.encoding=UTF-8 -XX:MaxMetaspaceSize=48m -Dswarm.http.port=$PORT -Dswarm.project.stage=heroku -jar target/reelbook-backend-swarm.jar
+web:    java -Dfile.encoding=UTF-8 -Dswarm.http.port=$PORT -Dswarm.project.stage=heroku -jar target/reelbook-backend-swarm.jar

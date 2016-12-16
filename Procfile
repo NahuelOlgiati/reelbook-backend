@@ -1,1 +1,1 @@
-web:    java $JAVA_OPTS -Djboss.http.port=$PORT -jar target/reelbook-backend-swarm.jar -Dswarm.project.stage=heroku
+web:    java $JAVA_OPTS -Djboss.http.port=$PORT -Djboss.bind.address=0.0.0.0 -jar target/reelbook-backend-swarm.jar -Dswarm.project.stage=heroku

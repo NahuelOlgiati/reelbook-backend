@@ -1,0 +1,1 @@
+web:    java -jar target/reelbook-backend-swarm.jar -Dswarm.project.stage=heroku

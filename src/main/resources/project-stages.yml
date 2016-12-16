@@ -24,6 +24,6 @@ project:
     stage: heroku
 database:
     connection:
-        url: "jdbc:postgres://ec2-54-235-247-224.compute-1.amazonaws.com:5432/d5hskcb50gue2b"
+        url: "jdbc:postgresql://ec2-54-235-247-224.compute-1.amazonaws.com:5432/d5hskcb50gue2b"
         userName: "ccgfaepvdinocb"
         password: "b5802b30a700000762d32d79ea123fa98f3bfac28417ef6072487d810ca6d6cf"

@@ -23,3 +23,5 @@ java -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=y -jar ree
 sudo git push heroku master
 
 sudo heroku logs --tail
+
+http://reelbook-backend.herokuapp.com/rest/test/text

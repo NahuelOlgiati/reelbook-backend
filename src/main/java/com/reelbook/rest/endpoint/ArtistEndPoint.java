@@ -1,7 +1,9 @@
 package com.reelbook.rest.endpoint;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -16,10 +18,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
+
+import com.reelbook.core.endpoint.BaseManagerEnpoint;
 import com.reelbook.core.exception.ManagerException;
 import com.reelbook.core.model.support.QueryHint;
-import com.reelbook.core.service.manager.ejb.BaseEJB;
 import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.Artist;
 import com.reelbook.model.File;
@@ -31,7 +35,7 @@ import com.reelbook.service.manager.local.FileManagerLocal;
 
 @Stateless
 @Path("/artist")
-public class ArtistEndPoint extends BaseEJB
+public class ArtistEndPoint extends BaseManagerEnpoint<Artist>
 {
 	@EJB
 	private ArtistManagerLocal artistML;
@@ -84,6 +88,25 @@ public class ArtistEndPoint extends BaseEJB
 		try
 		{
 			r = ResponseUtil.success(artistML.getQueryHintResult(description, new QueryHint(firstResult, maxResults)));
+		}
+		catch (Exception e)
+		{
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
+	}
+	
+	@GET
+	@Path("/withtags")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response withtags(@DefaultValue("0") @QueryParam("firstResult") Integer firstResult,
+			@DefaultValue("10") @QueryParam("maxResults") Integer maxResults, @QueryParam("tag") List<String> tagList)
+	{
+		Response r = null;
+		try
+		{
+			r = ResponseUtil.success(artistML.getQueryHintResult(tagList, new QueryHint(firstResult, maxResults)));
 		}
 		catch (Exception e)
 		{

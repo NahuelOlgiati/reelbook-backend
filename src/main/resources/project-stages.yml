@@ -1,16 +1,16 @@
 database:
     connection:
-        url: "jdbc:postgresql://localhost:5433/villegas"
-        userName: "villegas"
-        password: "villegas"
+        url: "jdbc:postgresql://localhost:5433/reelbook"
+        userName: "postgres"
+        password: "postgres"
 ---
 project:
     stage: development@tallion
 database:
     connection:
-        url: "jdbc:postgresql://localhost:5433/villegas"
-        userName: "villegas"
-        password: "villegas"
+        url: "jdbc:postgresql://localhost:5433/reelbook"
+        userName: "postgres"
+        password: "postgres"
 ---
 project:
     stage: development@coloso

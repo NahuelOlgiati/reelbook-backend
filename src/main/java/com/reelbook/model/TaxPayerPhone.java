@@ -9,7 +9,7 @@ import com.reelbook.model.embeddable.Phone;
 import com.reelbook.model.msc.TaxAgentPhone;
 
 @Entity
-@Table(name = "osiris_tax_taxpayerphone")
+@Table(name = "taxpayerphone")
 @SuppressWarnings("serial")
 public class TaxPayerPhone extends TaxAgentPhone
 {

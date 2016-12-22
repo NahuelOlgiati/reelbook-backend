@@ -33,7 +33,7 @@ public class TestEndPoint {
 	public String text() {
 		return "Howdy at " + new Date();
 	}
-	
+
 	@GET
 	@Path("/model")
 	@ApiOperation(value = "Test Text Plain", response = Response.class)
@@ -41,7 +41,7 @@ public class TestEndPoint {
 	public Response model() {
 		List<Profile> profiles = new ArrayList<>();
 		profiles.add(new Profile("Perfil", null));
-		User newUser = new User("Hola", "caracola", profiles);
+		User newUser = new User("Hola", "caracola", "caracola", "caracola", profiles);
 		return Response.ok(newUser).build();
 	}
 

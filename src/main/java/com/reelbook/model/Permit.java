@@ -11,13 +11,13 @@ import org.hibernate.envers.Audited;
 import com.reelbook.core.model.BaseSimpleModel;
 
 @Entity
-@Table(name = "adonis_admin_permit")
+@Table(name = "permit")
 @Audited
 @SuppressWarnings("serial")
 public class Permit extends BaseSimpleModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_admin_permit_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "permit_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long permitID;
 

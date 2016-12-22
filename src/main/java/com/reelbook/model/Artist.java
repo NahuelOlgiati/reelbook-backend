@@ -20,7 +20,7 @@ import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 
 @Entity
-@Table(name = "adonis_config_artist")
+@Table(name = "artist")
 @Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
@@ -28,7 +28,7 @@ public class Artist extends BaseSimpleModel
 {
 	@Id
 	@SerializedName(value = "id")
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_artist_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "artist_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long artistID;
 

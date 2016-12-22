@@ -17,7 +17,7 @@ import com.reelbook.model.embeddable.Document;
 public abstract class Agent extends BaseModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_agent_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "agent_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long agentID;
 

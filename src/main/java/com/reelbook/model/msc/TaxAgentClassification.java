@@ -15,7 +15,7 @@ import com.reelbook.core.model.BaseSummarySimpleModel;
 public abstract class TaxAgentClassification extends BaseSummarySimpleModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_erp_taxagentclassification_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "taxagentclassification_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long taxAgentClassificationID;
 

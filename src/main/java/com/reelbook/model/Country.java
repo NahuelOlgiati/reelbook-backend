@@ -13,14 +13,14 @@ import com.reelbook.core.model.BaseSummarySimpleModel;
 import com.reelbook.core.util.CompareUtil;
 
 @Entity
-@Table(name = "adonis_config_country")
+@Table(name = "country")
 @Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
 public class Country extends BaseSummarySimpleModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_country_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "country_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long countryID;
 

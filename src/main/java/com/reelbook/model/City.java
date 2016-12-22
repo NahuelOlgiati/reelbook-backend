@@ -19,14 +19,14 @@ import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 
 @Entity
-@Table(name = "adonis_config_city", uniqueConstraints = @UniqueConstraint(columnNames = {"districtID", "description"}))
+@Table(name = "city", uniqueConstraints = @UniqueConstraint(columnNames = {"districtID", "description"}))
 @Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
 public class City extends BaseSimpleModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_city_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "city_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long cityID;
 

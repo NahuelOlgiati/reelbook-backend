@@ -15,7 +15,7 @@ import com.reelbook.model.embeddable.Contact;
 public abstract class TaxAgentContact extends BaseModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_erp_taxagentcontact_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "taxagentcontact_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long taxAgentContactID;
 

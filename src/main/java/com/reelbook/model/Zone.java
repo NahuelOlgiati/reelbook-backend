@@ -17,13 +17,13 @@ import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 
 @Entity
-@Table(name = "adonis_config_zone")
+@Table(name = "zone")
 @Audited
 @SuppressWarnings("serial")
 public class Zone extends BaseSimpleModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_zone_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "zone_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long zoneID;
 

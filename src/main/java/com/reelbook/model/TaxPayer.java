@@ -21,7 +21,7 @@ import com.reelbook.model.enumeration.TaxPayerTypeEnum;
 import com.reelbook.model.msc.TaxAgent;
 
 @Entity
-@Table(name = "osiris_tax_taxpayer", uniqueConstraints = @UniqueConstraint(columnNames = {"documentTypeID", "documentNumber"}))
+@Table(name = "taxpayer", uniqueConstraints = @UniqueConstraint(columnNames = {"documentTypeID", "documentNumber"}))
 @Inheritance(strategy = InheritanceType.JOINED)
 @Audited
 @SuppressWarnings("serial")

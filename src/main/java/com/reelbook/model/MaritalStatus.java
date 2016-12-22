@@ -11,13 +11,13 @@ import javax.persistence.Table;
 import com.reelbook.core.model.BaseSimpleModel;
 
 @Entity
-@Table(name = "adonis_config_maritalstatus")
+@Table(name = "maritalstatus")
 @Cacheable(value = true)
 @SuppressWarnings("serial")
 public class MaritalStatus extends BaseSimpleModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_maritalstatus_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "maritalstatus_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long maritalStatusID;
 

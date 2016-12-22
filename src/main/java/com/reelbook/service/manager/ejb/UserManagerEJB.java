@@ -1,6 +1,7 @@
 package com.reelbook.service.manager.ejb;
 
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -10,12 +11,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+
 import com.reelbook.core.model.support.QueryHint;
 import com.reelbook.core.service.util.PredicateBuilder;
 import com.reelbook.core.service.util.QueryHintResult;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.model.SystemAgent;
-import com.reelbook.model.SystemAgent_;
 import com.reelbook.model.User;
 import com.reelbook.model.User_;
 import com.reelbook.service.manager.local.UserManagerLocal;
@@ -39,9 +39,8 @@ public class UserManagerEJB extends BaseUserManagerEJB<User> implements UserMana
 		final PredicateBuilder pb = new PredicateBuilder(cb);
 		final CriteriaQuery<User> cq = cb.createQuery(getModelClass());
 		final Root<User> user = cq.from(getModelClass());
-		final Path<SystemAgent> systemAgent = user.get(User_.systemAgent);
-		final Path<String> firstName = systemAgent.get(SystemAgent_.firstName);
-		final Path<String> lastName = systemAgent.get(SystemAgent_.lastName);
+		final Path<String> firstName = user.get(User_.firstName);
+		final Path<String> lastName = user.get(User_.lastName);
 		final Path<String> userName = user.get(User_.userName);
 		final Path<String> email = user.get(User_.email);
 		final Path<Boolean> active = user.get(User_.active);

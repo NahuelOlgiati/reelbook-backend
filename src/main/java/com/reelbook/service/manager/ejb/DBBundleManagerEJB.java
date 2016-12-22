@@ -24,7 +24,7 @@ public class DBBundleManagerEJB extends BaseEJB implements DBBundleManagerLocal
 	@SuppressWarnings("unchecked")
 	public Object[][] getContents()
 	{
-		final Query createNativeQuery = em.createNativeQuery("SELECT * FROM  " + "adonis_common_bundlekeyvalue", "bundleKeyValueMap");
+		final Query createNativeQuery = em.createNativeQuery("SELECT * FROM  " + "bundlekeyvalue", "bundleKeyValueMap");
 		final List<BundleKeyValue> list = createNativeQuery.getResultList();
 		final Object[][] contents = new Object[list.size()][2];
 		if (!CompareUtil.isEmpty(list))

@@ -2,6 +2,7 @@ package com.reelbook.service.manager.ejb;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ejb.EJBException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -10,6 +11,7 @@ import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
 import com.reelbook.core.exception.BaseException;
 import com.reelbook.core.exception.ManagerException;
 import com.reelbook.core.model.support.QueryHint;
@@ -17,27 +19,21 @@ import com.reelbook.core.service.manager.ejb.BasePersistenceManagerEJB;
 import com.reelbook.core.service.util.PredicateBuilder;
 import com.reelbook.core.service.util.QueryHintResult;
 import com.reelbook.core.util.CompareUtil;
-import com.reelbook.model.DocumentType;
-import com.reelbook.model.DocumentType_;
 import com.reelbook.model.Profile;
-import com.reelbook.model.SystemAgent;
-import com.reelbook.model.SystemAgent_;
 import com.reelbook.model.User;
 import com.reelbook.model.User_;
 import com.reelbook.model.embeddable.Document;
-import com.reelbook.model.embeddable.Document_;
 import com.reelbook.service.manager.local.BaseUserManagerLocal;
 
-public abstract class BaseUserManagerEJB<T extends User> extends BasePersistenceManagerEJB<T> implements BaseUserManagerLocal<T>
-{
+public abstract class BaseUserManagerEJB<T extends User> extends BasePersistenceManagerEJB<T>
+		implements BaseUserManagerLocal<T> {
 	// @EJB
 	// private ProfileManagerLocal profileML;
 	// @EJB
 	// private UserManagerLocal userML;
 
 	@Override
-	protected void doBeforeValid(T model) throws BaseException
-	{
+	protected void doBeforeValid(T model) throws BaseException {
 		super.doBeforeValid(model);
 
 		// final Profile basicProfile = profileML.getBasic();
@@ -56,20 +52,17 @@ public abstract class BaseUserManagerEJB<T extends User> extends BasePersistence
 	}
 
 	@Override
-	protected void doBeforeAdd(T model) throws BaseException
-	{
+	protected void doBeforeAdd(T model) throws BaseException {
 		super.doBeforeAdd(model);
 
 		// userML.validUserNameDuplication(model);
 	}
 
 	@Override
-	protected void doBeforeDelete(T model) throws BaseException
-	{
+	protected void doBeforeDelete(T model) throws BaseException {
 		super.doBeforeDelete(model);
 
-		if (model.isUserNameReserved())
-		{
+		if (model.isUserNameReserved()) {
 			// throw new
 			// ValidationException(DBSMsgHandler.getMsg(BaseUserManagerEJB.class,
 			// "canNotDeleteUserName"));
@@ -77,11 +70,9 @@ public abstract class BaseUserManagerEJB<T extends User> extends BasePersistence
 	}
 
 	@Override
-	public T getCurrent()
-	{
+	public T getCurrent() {
 		T model = null;
-		try
-		{
+		try {
 			final CriteriaBuilder cb = em.getCriteriaBuilder();
 			final PredicateBuilder pb = new PredicateBuilder(cb);
 			final CriteriaQuery<T> cq = cb.createQuery(getModelClass());
@@ -93,24 +84,19 @@ public abstract class BaseUserManagerEJB<T extends User> extends BasePersistence
 
 			// Gets data.
 			model = getUnique(cq);
-			if (!CompareUtil.isEmpty(model))
-			{
+			if (!CompareUtil.isEmpty(model)) {
 				model.initLazyElements();
 			}
-		}
-		catch (Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new EJBException(t.getMessage());
 		}
 		return model;
 	}
 
 	@Override
-	public T get(final String userName)
-	{
+	public T get(final String userName) {
 		T model = null;
-		try
-		{
+		try {
 			final CriteriaBuilder cb = em.getCriteriaBuilder();
 			final PredicateBuilder pb = new PredicateBuilder(cb);
 			final CriteriaQuery<T> cq = cb.createQuery(getModelClass());
@@ -122,60 +108,56 @@ public abstract class BaseUserManagerEJB<T extends User> extends BasePersistence
 
 			// Gets data.
 			model = getUnique(cq);
-		}
-		catch (Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new EJBException(t.getMessage());
 		}
 		return model;
 	}
 
 	@Override
-	public T getFULL(final String userName)
-	{
+	public T getFULL(final String userName) {
 		T model = get(userName);
-		if (!CompareUtil.isEmpty(model))
-		{
+		if (!CompareUtil.isEmpty(model)) {
 			model.initLazyElements();
 		}
 		return model;
 	}
 
 	@Override
-	public T get(final Document d)
-	{
+	public T get(final Document d) {
 		T model = null;
-		try
-		{
-			final CriteriaBuilder cb = em.getCriteriaBuilder();
-			final PredicateBuilder pb = new PredicateBuilder(cb);
-			final CriteriaQuery<T> cq = cb.createQuery(getModelClass());
-			final Root<T> user = cq.from(getModelClass());
-			final Path<SystemAgent> systemAgent = user.get(User_.systemAgent);
-			final Path<Document> document = systemAgent.get("document");
-			final Path<DocumentType> documentType = document.get(Document_.documentType);
-			final Path<Long> documentTypeID = documentType.get(DocumentType_.documentTypeID);
-			final Path<String> documentNumber = document.get(Document_.documentNumber);
-
-			// Expressions.
-			cq.where(cb.and(pb.equal(documentTypeID, d.getDocumentType().getID()), pb.equal(documentNumber, d.getDocumentNumber())));
-
-			// Gets data.
-			model = getUnique(cq);
-		}
-		catch (Throwable t)
-		{
+		try {
+			// final CriteriaBuilder cb = em.getCriteriaBuilder();
+			// final PredicateBuilder pb = new PredicateBuilder(cb);
+			// final CriteriaQuery<T> cq = cb.createQuery(getModelClass());
+			// final Root<T> user = cq.from(getModelClass());
+			// final Path<SystemAgent> systemAgent =
+			// user.get(User_.systemAgent);
+			// final Path<Document> document = systemAgent.get("document");
+			// final Path<DocumentType> documentType =
+			// document.get(Document_.documentType);
+			// final Path<Long> documentTypeID =
+			// documentType.get(DocumentType_.documentTypeID);
+			// final Path<String> documentNumber =
+			// document.get(Document_.documentNumber);
+			//
+			// // Expressions.
+			// cq.where(cb.and(pb.equal(documentTypeID,
+			// d.getDocumentType().getID()), pb.equal(documentNumber,
+			// d.getDocumentNumber())));
+			//
+			// // Gets data.
+			// model = getUnique(cq);
+		} catch (Throwable t) {
 			throw new EJBException(t.getMessage());
 		}
 		return model;
 	}
 
 	@Override
-	public List<T> getList(final Profile profile)
-	{
+	public List<T> getList(final Profile profile) {
 		List<T> userList = null;
-		try
-		{
+		try {
 			final CriteriaBuilder cb = em.getCriteriaBuilder();
 			final CriteriaQuery<T> cq = cb.createQuery(getModelClass());
 			final Root<T> user = cq.from(getModelClass());
@@ -186,40 +168,32 @@ public abstract class BaseUserManagerEJB<T extends User> extends BasePersistence
 
 			// Gets data.
 			userList = getList(cq);
-		}
-		catch (Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new EJBException(t.getMessage());
 		}
 		return userList;
 	}
 
 	@Override
-	public QueryHintResult<T> getQueryHintResult(final Boolean excludeReserved, final Boolean active, final String description,
-			final QueryHint queryHint)
-	{
+	public QueryHintResult<T> getQueryHintResult(final Boolean excludeReserved, final Boolean active,
+			final String description, final QueryHint queryHint) {
 		QueryHintResult<T> queryHintResult = null;
-		try
-		{
+		try {
 			final CriteriaBuilder cb = em.getCriteriaBuilder();
 			final PredicateBuilder pb = new PredicateBuilder(cb);
 			final CriteriaQuery<T> cq = cb.createQuery(getModelClass());
 			final Root<T> user = cq.from(getModelClass());
 			final Path<Boolean> userActive = user.get(User_.active);
 			final Path<String> userName = user.get(User_.userName);
-			final Path<SystemAgent> systemAgent = user.get(User_.systemAgent);
-			final Path<String> firstName = systemAgent.get(SystemAgent_.firstName);
-			final Path<String> lastName = systemAgent.get(SystemAgent_.lastName);
-			final Path<Document> document = systemAgent.get("document");
-			final Path<String> documentNumber = document.get(Document_.documentNumber);
+			final Path<String> firstName = user.get(User_.firstName);
+			final Path<String> lastName = user.get(User_.lastName);
 
 			// Expressions.
 			final List<Predicate> predicateList = new ArrayList<Predicate>();
 			predicateList.add(pb.equal(userActive, active));
-			predicateList.add(cb.or(pb.like(userName, description), pb.like(lastName, description), pb.like(firstName, description),
-					pb.like(documentNumber, description)));
-			if (excludeReserved)
-			{
+			predicateList.add(cb.or(pb.like(userName, description), pb.like(lastName, description),
+					pb.like(firstName, description)));
+			if (excludeReserved) {
 				// predicateList.add(cb.not(pb.in(userName,
 				// UserReservedEnum.getNames())));
 			}
@@ -233,32 +207,27 @@ public abstract class BaseUserManagerEJB<T extends User> extends BasePersistence
 
 			// Gets data.
 			queryHintResult = getQueryHintResult(cq, queryHint);
-		}
-		catch (Throwable t)
-		{
+		} catch (Throwable t) {
 			throw new EJBException(t.getMessage());
 		}
 		return queryHintResult;
 	}
 
 	@Override
-	public QueryHintResult<T> getQueryHintResult(final Boolean active, final String description, final QueryHint queryHint)
-	{
+	public QueryHintResult<T> getQueryHintResult(final Boolean active, final String description,
+			final QueryHint queryHint) {
 		return getQueryHintResult(Boolean.FALSE, active, description, queryHint);
 	}
 
 	@Override
-	public QueryHintResult<T> getQueryHintResult(final String description, final QueryHint queryHint)
-	{
+	public QueryHintResult<T> getQueryHintResult(final String description, final QueryHint queryHint) {
 		return getQueryHintResult(Boolean.FALSE, null, description, queryHint);
 	}
 
 	@Override
-	public void validSystemAgentDuplication(final Document d) throws ManagerException
-	{
+	public void validSystemAgentDuplication(final Document d) throws ManagerException {
 		final T user = get(d);
-		if (!CompareUtil.isEmpty(user))
-		{
+		if (!CompareUtil.isEmpty(user)) {
 			// throw new
 			// ManagerException(DBSMsgHandler.getMsg(BaseUserManagerEJB.class,
 			// "systemAgentDuplicatedException"));

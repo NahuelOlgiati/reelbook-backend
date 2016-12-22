@@ -14,14 +14,14 @@ import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.model.BaseModel;
 
 @Entity
-@Table(name = "adonis_config_file")
+@Table(name = "file")
 @Audited
 @SuppressWarnings("serial")
 public class File extends BaseModel
 {
 	@Id
 	@SerializedName(value = "id")
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_file_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "file_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long fileID;
 

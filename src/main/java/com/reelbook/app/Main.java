@@ -2,6 +2,7 @@ package com.reelbook.app;
 
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.wildfly.swarm.Swarm;
+import org.wildfly.swarm.config.logging.Level;
 import org.wildfly.swarm.datasources.DatasourcesFraction;
 import org.wildfly.swarm.ejb.EJBFraction;
 import org.wildfly.swarm.jaxrs.JAXRSArchive;
@@ -15,9 +16,10 @@ public class Main
 	public static void main(String[] args) throws Exception
 	{
 		Swarm swarm = new Swarm();
+		StageConfig stageConfig = swarm.stageConfig();
 
-		swarm.fraction(LoggingFraction.createDefaultLoggingFraction());
-		swarm.fraction(getDatasourcesFraction(swarm.stageConfig()));
+		swarm.fraction(getLoggingFraction(stageConfig));
+		swarm.fraction(getDatasourcesFraction(stageConfig));
 		swarm.fraction(getJpaFraction());
 		swarm.fraction(EJBFraction.createDefaultFraction());
 		swarm.start();
@@ -31,6 +33,11 @@ public class Main
 
 		deployment.addAllDependencies();
 		swarm.deploy(deployment);
+	}
+
+	private static LoggingFraction getLoggingFraction(StageConfig stageConfig) 
+	{
+		return LoggingFraction.createDefaultLoggingFraction(Level.valueOf(stageConfig.resolve("logger.level").getValue()));
 	}
 
 	private static JPAFraction getJpaFraction()

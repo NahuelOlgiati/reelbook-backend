@@ -3,6 +3,8 @@ database:
         url: "jdbc:postgresql://localhost:5433/reelbook"
         userName: "postgres"
         password: "postgres"
+logger:
+    level: DEBUG
 ---
 project:
     stage: development@tallion
@@ -11,6 +13,8 @@ database:
         url: "jdbc:postgresql://localhost:5433/reelbook"
         userName: "postgres"
         password: "postgres"
+logger:
+    level: INFO
 ---
 project:
     stage: development@coloso
@@ -19,6 +23,8 @@ database:
         url: "jdbc:postgresql://localhost:5432/reelbook"
         userName: "postgres"
         password: "postgres"
+logger:
+    level: INFO
 ---
 project:
     stage: heroku
@@ -27,3 +33,5 @@ database:
         url: "jdbc:postgresql://ec2-54-235-247-224.compute-1.amazonaws.com:5432/d5hskcb50gue2b"
         userName: "ccgfaepvdinocb"
         password: "b5802b30a700000762d32d79ea123fa98f3bfac28417ef6072487d810ca6d6cf"
+logger:
+    level: INFO

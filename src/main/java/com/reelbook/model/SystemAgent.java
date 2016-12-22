@@ -11,7 +11,7 @@ import com.reelbook.model.embeddable.Document;
 import com.reelbook.model.msc.Agent;
 
 @Entity
-@Table(name = "adonis_admin_systemagent")
+@Table(name = "systemagent")
 @Audited
 @SuppressWarnings("serial")
 public class SystemAgent extends Agent

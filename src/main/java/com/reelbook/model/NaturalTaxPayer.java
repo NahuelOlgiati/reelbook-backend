@@ -22,7 +22,7 @@ import com.reelbook.model.enumeration.GenderEnum;
 import com.reelbook.model.enumeration.TaxPayerTypeEnum;
 
 @Entity
-@Table(name = "osiris_tax_naturaltaxpayer")
+@Table(name = "naturaltaxpayer")
 @Audited
 @SuppressWarnings("serial")
 public class NaturalTaxPayer extends TaxPayer

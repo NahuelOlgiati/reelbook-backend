@@ -17,13 +17,13 @@ import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 
 @Entity
-@Table(name = "adonis_config_street")
+@Table(name = "street")
 @Audited
 @SuppressWarnings("serial")
 public class Street extends BaseSimpleModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_street_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "street_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long streetID;
 

@@ -22,13 +22,13 @@ import com.reelbook.core.util.CompareUtil;
 import com.reelbook.service.msg.DBSMsgHandler;
 
 @Entity
-@Table(name = "parking_core_restsession")
+@Table(name = "restsession")
 @Audited
 @SuppressWarnings("serial")
 public class RestSession extends BaseModel
 {
 	@Id
-	@SequenceGenerator(name = "restSessionID", sequenceName = "parking_core_restsession_seq", allocationSize = 1)
+	@SequenceGenerator(name = "restSessionID", sequenceName = "restsession_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "restSessionID")
 	private Long restSessionID;
 

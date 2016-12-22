@@ -18,14 +18,14 @@ import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 
 @Entity
-@Table(name = "adonis_config_state")
+@Table(name = "state")
 @Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")
 public class State extends BaseSummarySimpleModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_state_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "state_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long stateID;
 

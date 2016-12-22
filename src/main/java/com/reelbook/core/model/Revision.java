@@ -15,13 +15,13 @@ import org.hibernate.envers.RevisionNumber;
 import org.hibernate.envers.RevisionTimestamp;
 
 @Entity
-@Table(name = "adonis_common_revision")
+@Table(name = "revision")
 @RevisionEntity
 @SuppressWarnings("serial")
 public class Revision extends BaseRevisionModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_common_revision_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "revision_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	@RevisionNumber
 	private Long revisionID;

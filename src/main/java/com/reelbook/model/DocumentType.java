@@ -22,7 +22,7 @@ import com.reelbook.core.util.CompareUtil;
 
 @Entity
 @Table(
-		name = "adonis_config_documenttype",
+		name = "documenttype",
 		uniqueConstraints = {
 				@UniqueConstraint(columnNames = {"countryID", "description"}),
 				@UniqueConstraint(columnNames = {"countryID", "summaryDescription"})})
@@ -33,7 +33,7 @@ public class DocumentType extends BaseSummarySimpleModel
 {
 	@Id
 	@SerializedName(value = "id")
-	@SequenceGenerator(name = "id", sequenceName = "adonis_config_documenttype_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "documenttype_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long documentTypeID;
 

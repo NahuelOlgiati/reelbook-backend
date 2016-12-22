@@ -9,7 +9,7 @@ import com.reelbook.model.embeddable.Contact;
 import com.reelbook.model.msc.TaxAgentContact;
 
 @Entity
-@Table(name = "osiris_tax_taxpayercontact")
+@Table(name = "taxpayercontact")
 @SuppressWarnings("serial")
 public class TaxPayerContact extends TaxAgentContact
 {

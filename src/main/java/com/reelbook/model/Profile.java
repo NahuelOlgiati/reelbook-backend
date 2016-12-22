@@ -22,13 +22,13 @@ import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 
 @Entity
-@Table(name = "adonis_admin_profile")
+@Table(name = "profile")
 @Audited
 @SuppressWarnings("serial")
 public class Profile extends BaseModel
 {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "adonis_admin_profile_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "profile_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long profileID;
 
@@ -37,7 +37,7 @@ public class Profile extends BaseModel
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-			name = "adonis_admin_profile_permit",
+			name = "profile_permit",
 			joinColumns = @JoinColumn(name = "profileID"),
 			inverseJoinColumns = @JoinColumn(name = "permitID"))
 	private List<Permit> permits;

@@ -10,7 +10,7 @@ import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "adonis_common_bundlekeyvalue")
+@Table(name = "bundlekeyvalue")
 @SqlResultSetMapping(
 		name = "bundleKeyValueMap",
 		entities = {

@@ -7,7 +7,7 @@ import org.hibernate.envers.Audited;
 import com.reelbook.model.msc.TaxAgentClassification;
 
 @Entity
-@Table(name = "osiris_tax_naturaltaxpayercategory")
+@Table(name = "naturaltaxpayercategory")
 @Audited
 @Cacheable(value = true)
 @SuppressWarnings("serial")

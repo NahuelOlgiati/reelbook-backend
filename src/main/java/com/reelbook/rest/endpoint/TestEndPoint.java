@@ -3,22 +3,21 @@ package com.reelbook.rest.endpoint;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import com.reelbook.core.exception.ValidationException;
 import com.reelbook.model.DocumentType;
 import com.reelbook.model.Profile;
 import com.reelbook.model.User;
 import com.reelbook.rest.util.ResponseUtil;
 import com.reelbook.service.msg.DBSMsgHandler;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -32,6 +31,17 @@ public class TestEndPoint {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String text() {
 		return "Howdy at " + new Date();
+	}
+	@GET
+	@Path("/ip")
+	@ApiOperation(value = "Get Req IP", response = Response.class)
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response ip(@Context HttpServletRequest req) {
+		String remoteHost = req.getRemoteHost();
+	    String remoteAddr = req.getRemoteAddr();
+	    int remotePort = req.getRemotePort();
+	    String msg = remoteHost + " (" + remoteAddr + ":" + remotePort + ")";
+	    return Response.ok(msg).build();
 	}
 
 	@GET

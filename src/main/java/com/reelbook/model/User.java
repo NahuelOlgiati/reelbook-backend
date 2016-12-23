@@ -32,7 +32,7 @@ import com.reelbook.model.enumeration.ProfileReservedEnum;
 @SuppressWarnings("serial")
 public class User extends BaseModel {
 	@Id
-	@SequenceGenerator(name = "id", sequenceName = "user_seq", allocationSize = 1)
+	@SequenceGenerator(name = "id", sequenceName = "basic_user_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long userID;
 

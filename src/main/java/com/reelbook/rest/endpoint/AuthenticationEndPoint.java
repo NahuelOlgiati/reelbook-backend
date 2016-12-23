@@ -77,8 +77,7 @@ public class AuthenticationEndPoint extends BaseEJB
 			restSession = restSessionML.save(restSession);
 			user = userML.get(user.getID());
 			UserPrincipalMap.put(restSession.getToken(), user);
-			String token = restSession.getToken();
-			return ResponseUtil.success(token);
+			return ResponseUtil.success(restSession);
 		} catch (Exception e) {
 			return ResponseUtil.fatalException();
 		}

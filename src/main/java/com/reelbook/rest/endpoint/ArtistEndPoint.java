@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -16,6 +17,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -28,7 +31,11 @@ import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.Artist;
 import com.reelbook.model.File;
 import com.reelbook.rest.annotation.RequiredRole;
+import com.reelbook.rest.annotation.Secured;
 import com.reelbook.rest.app.RoleEnum;
+import com.reelbook.rest.app.UserPrincipal;
+import com.reelbook.rest.app.UserPrincipalMap;
+import com.reelbook.rest.util.ResponseHeader;
 import com.reelbook.rest.util.ResponseUtil;
 import com.reelbook.service.manager.local.ArtistManagerLocal;
 import com.reelbook.service.manager.local.FileManagerLocal;
@@ -116,15 +123,39 @@ public class ArtistEndPoint extends BaseManagerEnpoint<Artist>
 		return r;
 	}
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	// TODO See Interface
 	public Response create(Artist artist)
 	{
 		Response r = null;
 		try
 		{
 			r = ResponseUtil.success(artistML.save(artist));
+		}
+		catch (Exception e)
+		{
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
+	}
+	
+	@POST
+	@Secured
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response create(Artist artist, @Context HttpServletRequest req)
+	{
+		Response r = null;
+		try
+		{
+			String authorization = req.getHeader(HttpHeaders.AUTHORIZATION);
+			String token = authorization.replace("Basic ", "");
+			UserPrincipal authenticatedUser = UserPrincipalMap.get(token);
+			Long userID = authenticatedUser.getUser().getID();
+			artist.setUserID(userID);
+			Response response = create(artist);
+			response.getHeaders().add(ResponseHeader.REFRESH_SESSION_USER, true);
+			r = response;
 		}
 		catch (Exception e)
 		{

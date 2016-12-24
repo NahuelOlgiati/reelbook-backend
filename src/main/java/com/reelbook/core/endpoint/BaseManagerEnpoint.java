@@ -4,7 +4,7 @@ import javax.ws.rs.core.Response;
 
 import com.reelbook.core.model.BaseModel;
 
-public abstract class BaseManagerEnpoint<T extends BaseModel> 
+public abstract class BaseManagerEnpoint<T extends BaseModel>
 {
 	public abstract Response getList();
 

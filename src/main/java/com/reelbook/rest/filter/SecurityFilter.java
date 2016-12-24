@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.annotation.Priority;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -15,12 +16,16 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
+
 import org.jboss.resteasy.core.ResourceMethodInvoker;
+
+import com.reelbook.core.exception.ValidationException;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.annotation.Secured;
 import com.reelbook.rest.app.RoleEnum;
 import com.reelbook.rest.app.UserPrincipal;
 import com.reelbook.rest.app.UserPrincipalMap;
+import com.reelbook.rest.util.ResponseUtil;
 
 @Secured
 @Provider
@@ -31,11 +36,12 @@ public class SecurityFilter implements ContainerRequestFilter
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException
-	{
+	{	
+		Response unauthorized = ResponseUtil.exceptionMessage(new ValidationException(Arrays.asList(Status.UNAUTHORIZED.name())).getMessages());
 		String authorization = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 		if (authorization == null || authorization.isEmpty())
 		{
-			requestContext.abortWith(Response.status(Status.UNAUTHORIZED).build());
+			requestContext.abortWith(unauthorized);
 			return;
 		}
 
@@ -43,7 +49,7 @@ public class SecurityFilter implements ContainerRequestFilter
 		UserPrincipal authenticatedUser = UserPrincipalMap.get(token);
 		if (authenticatedUser == null)
 		{
-			requestContext.abortWith(Response.status(Status.UNAUTHORIZED).build());
+			requestContext.abortWith(unauthorized);
 			return;
 		}
 
@@ -85,7 +91,7 @@ public class SecurityFilter implements ContainerRequestFilter
 			{
 				if (!requestContext.getSecurityContext().isUserInRole(role.name()))
 				{
-					requestContext.abortWith(Response.status(Status.UNAUTHORIZED).build());
+					requestContext.abortWith(unauthorized);
 					return;
 				}
 			}

@@ -65,14 +65,14 @@ public class AuthenticationEndPoint extends BaseEJB
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response signin(@FormParam("userName") String userName, @FormParam("password") String password,
-			@Context HttpServletRequest servletRequest) {
+			@Context HttpServletRequest req) {
 		try {
 			User user = userML.getFULL(userName);
 			if (CompareUtil.isEmpty(user)) {
 				return ResponseUtil.notFound();
 			}
 
-			RestSession restSession = new RestSession(user, null, servletRequest.getHeader("X-FORWARDED-FOR"),
+			RestSession restSession = new RestSession(user, null, req.getRemoteHost(),
 					Boolean.TRUE);
 			restSession = restSessionML.save(restSession);
 			user = userML.get(user.getID());

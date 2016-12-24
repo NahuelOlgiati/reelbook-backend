@@ -2,6 +2,7 @@ package com.reelbook.service.manager.ejb;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -13,23 +14,37 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import com.reelbook.core.exception.BaseException;
 import com.reelbook.core.model.support.QueryHint;
 import com.reelbook.core.service.manager.ejb.BasePersistenceManagerEJB;
 import com.reelbook.core.service.util.PredicateBuilder;
 import com.reelbook.core.service.util.QueryHintResult;
 import com.reelbook.model.Artist;
 import com.reelbook.model.Artist_;
+import com.reelbook.model.User;
 import com.reelbook.service.manager.local.ArtistManagerLocal;
+import com.reelbook.service.manager.local.UserManagerLocal;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class ArtistManagerEJB extends BasePersistenceManagerEJB<Artist> implements ArtistManagerLocal
 {
+	@EJB
+	private UserManagerLocal userML;
+	
 	@Override
 	public Class<Artist> getModelClass()
 	{
 		return Artist.class;
+	}
+	
+	@Override
+	protected void doAfterAdd(Artist model) throws BaseException 
+	{
+		super.doAfterAdd(model);
+		User user = userML.get(model.getUserID());
+		user.setArtistID(model.getID());
 	}
 
 	@Override

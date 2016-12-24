@@ -30,7 +30,8 @@ import com.reelbook.model.enumeration.ProfileReservedEnum;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Audited
 @SuppressWarnings("serial")
-public class User extends BaseModel {
+public class User extends BaseModel 
+{
 	@Id
 	@SequenceGenerator(name = "id", sequenceName = "basic_user_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
@@ -50,6 +51,9 @@ public class User extends BaseModel {
 
 	@Column(length = 100, unique = true)
 	private String email;
+	
+	@Basic
+	private Long artistID;
 
 	@Basic
 	private Boolean validated;
@@ -129,6 +133,14 @@ public class User extends BaseModel {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Long getArtistID() {
+		return artistID;
+	}
+
+	public void setArtistID(Long id) {
+		this.artistID = id;
 	}
 
 	public Boolean getValidated() {

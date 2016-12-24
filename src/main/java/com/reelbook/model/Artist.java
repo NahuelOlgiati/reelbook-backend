@@ -1,5 +1,6 @@
 package com.reelbook.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,8 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 import org.hibernate.envers.Audited;
-import com.google.gson.annotations.SerializedName;
+
 import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.model.BaseSimpleModel;
 import com.reelbook.core.msg.MessageBuilder;
@@ -27,7 +29,6 @@ import com.reelbook.core.util.CompareUtil;
 public class Artist extends BaseSimpleModel
 {
 	@Id
-	@SerializedName(value = "id")
 	@SequenceGenerator(name = "id", sequenceName = "artist_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long artistID;
@@ -38,6 +39,9 @@ public class Artist extends BaseSimpleModel
 
 	@Column(length = 50)
 	private String description;
+	
+	@Basic
+	private Long userID;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "fileID")
@@ -86,6 +90,16 @@ public class Artist extends BaseSimpleModel
 	public void setFile(File file)
 	{
 		this.file = file;
+	}
+	
+	public Long getUserID() 
+	{
+		return userID;
+	}
+
+	public void setUserID(Long id) 
+	{
+		this.userID = id;
 	}
 
 	@Override

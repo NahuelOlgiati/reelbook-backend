@@ -2,11 +2,15 @@ package com.reelbook.rest.endpoint;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -26,6 +30,20 @@ public class RestSessionEndPoint
 {
 	@EJB
 	private UserManagerLocal userML;
+	
+	@GET
+	@ApiOperation(value = "getSession", notes = "Retorna sesion")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response getSession(@Context HttpServletRequest req) {
+		try {
+			String authorization = req.getHeader(HttpHeaders.AUTHORIZATION);
+			String token = authorization.replace("Basic ", "");
+			return ResponseUtil.success(UserPrincipalMap.get(token));
+		} catch (Exception e) {
+			return ResponseUtil.fatalException();
+		}
+	}
 	
 	@POST
 	@Path("/user")

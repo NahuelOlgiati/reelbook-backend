@@ -37,7 +37,7 @@ public class SecurityFilter implements ContainerRequestFilter
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException
 	{	
-		Response unauthorized = ResponseUtil.exceptionMessage(new ValidationException(Arrays.asList(Status.UNAUTHORIZED.name())).getMessages());
+		Response unauthorized = ResponseUtil.exceptionMessage(new ValidationException(Status.UNAUTHORIZED.name()).getMessages());
 		String authorization = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 		if (authorization == null || authorization.isEmpty())
 		{

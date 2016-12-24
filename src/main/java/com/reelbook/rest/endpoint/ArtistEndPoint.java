@@ -25,7 +25,6 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import com.reelbook.core.endpoint.BaseManagerEnpoint;
-import com.reelbook.core.exception.ManagerException;
 import com.reelbook.core.model.support.QueryHint;
 import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.Artist;
@@ -175,7 +174,7 @@ public class ArtistEndPoint extends BaseManagerEnpoint<Artist>
 		{
 			r = ResponseUtil.success(artistML.save(artist));
 		}
-		catch (ManagerException e)
+		catch (Exception e)
 		{
 			System.out.println("exception in update " + e);
 			r = ResponseUtil.fatalException();

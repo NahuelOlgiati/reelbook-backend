@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.service.manager.ejb.BaseEJB;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.Profile;
@@ -69,7 +70,7 @@ public class AuthenticationEndPoint extends BaseEJB
 		try {
 			User user = userML.getFULL(userName);
 			if (CompareUtil.isEmpty(user)) {
-				return ResponseUtil.notFound();
+				return ResponseUtil.exceptionMessage(new ValidationException("El usuario no existe").getMessages());
 			}
 
 			RestSession restSession = new RestSession(user, null, req.getRemoteHost(),

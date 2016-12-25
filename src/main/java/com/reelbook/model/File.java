@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import org.hibernate.envers.Audited;
 import com.google.gson.annotations.SerializedName;
 import com.reelbook.core.exception.ValidationException;
@@ -16,6 +19,7 @@ import com.reelbook.core.model.BaseModel;
 @Entity
 @Table(name = "file")
 @Audited
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class File extends BaseModel
 {

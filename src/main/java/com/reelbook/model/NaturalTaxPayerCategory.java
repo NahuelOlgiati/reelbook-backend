@@ -3,6 +3,9 @@ package com.reelbook.model;
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import org.hibernate.envers.Audited;
 import com.reelbook.model.msc.TaxAgentClassification;
 
@@ -10,6 +13,7 @@ import com.reelbook.model.msc.TaxAgentClassification;
 @Table(name = "naturaltaxpayercategory")
 @Audited
 @Cacheable(value = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class NaturalTaxPayerCategory extends TaxAgentClassification
 {

@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import org.hibernate.envers.Audited;
 import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.model.BaseSummarySimpleModel;
@@ -21,6 +24,7 @@ import com.reelbook.core.util.CompareUtil;
 @Table(name = "district")
 @Audited
 @Cacheable(value = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class District extends BaseSummarySimpleModel
 {

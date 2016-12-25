@@ -7,12 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import org.hibernate.envers.Audited;
 import com.reelbook.core.model.BaseSimpleModel;
 
 @Entity
 @Table(name = "permit")
 @Audited
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class Permit extends BaseSimpleModel
 {

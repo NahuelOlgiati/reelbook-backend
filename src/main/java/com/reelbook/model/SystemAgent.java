@@ -3,6 +3,9 @@ package com.reelbook.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import org.hibernate.envers.Audited;
 import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.msg.MessageBuilder;
@@ -13,6 +16,7 @@ import com.reelbook.model.msc.Agent;
 @Entity
 @Table(name = "systemagent")
 @Audited
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class SystemAgent extends Agent
 {

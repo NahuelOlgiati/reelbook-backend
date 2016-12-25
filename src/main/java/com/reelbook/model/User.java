@@ -17,6 +17,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import org.hibernate.envers.Audited;
 import org.jboss.crypto.CryptoUtil;
 import com.reelbook.core.exception.ValidationException;
@@ -29,6 +32,7 @@ import com.reelbook.model.enumeration.ProfileReservedEnum;
 @Table(name = "basic_user")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Audited
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class User extends BaseModel 
 {

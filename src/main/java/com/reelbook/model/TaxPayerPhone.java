@@ -5,11 +5,15 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import com.reelbook.model.embeddable.Phone;
 import com.reelbook.model.msc.TaxAgentPhone;
 
 @Entity
 @Table(name = "taxpayerphone")
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class TaxPayerPhone extends TaxAgentPhone
 {

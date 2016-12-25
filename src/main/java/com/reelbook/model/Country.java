@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import org.hibernate.envers.Audited;
 import com.reelbook.core.model.BaseSummarySimpleModel;
 import com.reelbook.core.util.CompareUtil;
@@ -16,6 +19,7 @@ import com.reelbook.core.util.CompareUtil;
 @Table(name = "country")
 @Audited
 @Cacheable(value = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class Country extends BaseSummarySimpleModel
 {

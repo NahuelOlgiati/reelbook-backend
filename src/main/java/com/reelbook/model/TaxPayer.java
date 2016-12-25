@@ -12,6 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import com.reelbook.core.exception.ValidationException;
@@ -24,6 +27,7 @@ import com.reelbook.model.msc.TaxAgent;
 @Table(name = "taxpayer", uniqueConstraints = @UniqueConstraint(columnNames = {"documentTypeID", "documentNumber"}))
 @Inheritance(strategy = InheritanceType.JOINED)
 @Audited
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public abstract class TaxPayer extends TaxAgent<TaxPayerPhone, TaxPayerContact>
 {

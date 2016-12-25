@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import com.reelbook.core.exception.ValidationException;
@@ -24,6 +27,7 @@ import com.reelbook.model.enumeration.TaxPayerTypeEnum;
 @Entity
 @Table(name = "naturaltaxpayer")
 @Audited
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class NaturalTaxPayer extends TaxPayer
 {

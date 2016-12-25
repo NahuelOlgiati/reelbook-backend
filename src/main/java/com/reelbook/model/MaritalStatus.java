@@ -8,11 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import com.reelbook.core.model.BaseSimpleModel;
 
 @Entity
 @Table(name = "maritalstatus")
 @Cacheable(value = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
 public class MaritalStatus extends BaseSimpleModel
 {

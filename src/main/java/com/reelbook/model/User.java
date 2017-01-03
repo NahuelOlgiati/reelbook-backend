@@ -58,6 +58,9 @@ public class User extends BaseModel
 	
 	@Basic
 	private Long artistID;
+	
+	@Basic
+	private Long audioVisualID;
 
 	@Basic
 	private Boolean validated;
@@ -145,6 +148,16 @@ public class User extends BaseModel
 
 	public void setArtistID(Long id) {
 		this.artistID = id;
+	}
+	
+	public Long getAudioVisualID()
+	{
+		return audioVisualID;
+	}
+
+	public void setAudioVisualID(Long audioVisualID)
+	{
+		this.audioVisualID = audioVisualID;
 	}
 
 	public Boolean getValidated() {

@@ -15,6 +15,23 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 public final class FileUtil
 {
+	public static final Map<String, byte[]> getByteArrayMap(MultipartFormDataInput input, String uploadName, Integer bufferSize) throws IOException
+	{
+		Map<String, byte[]> bytes = new HashMap<String, byte[]>();
+		Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+		List<InputPart> inputParts = uploadForm.get(uploadName);
+
+		for (InputPart inputPart : inputParts)
+		{
+			MultivaluedMap<String, String> header = inputPart.getHeaders();
+			String fileName = getFileName(header);
+			InputStream inputStream = inputPart.getBody(InputStream.class, null);
+			byte[] stream = readStream(inputStream, bufferSize);
+			bytes.put(fileName, stream);
+		}
+		return bytes;
+	}
+
 	public static final Map<String, String> getBase64Map(MultipartFormDataInput input, String uploadName, Integer bufferSize) throws IOException
 	{
 		Map<String, String> bytes = new HashMap<String, String>();

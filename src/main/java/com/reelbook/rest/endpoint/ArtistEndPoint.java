@@ -1,5 +1,6 @@
 package com.reelbook.rest.endpoint;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -20,8 +21,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-
+import org.apache.commons.codec.binary.Base64;
+import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import com.reelbook.core.endpoint.BaseManagerEnpoint;
@@ -228,6 +231,5 @@ public class ArtistEndPoint extends BaseManagerEnpoint<Artist>
 			r = ResponseUtil.fatalException();
 		}
 		return r;
-
 	}
 }

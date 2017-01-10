@@ -2,10 +2,17 @@ package com.reelbook.rest.endpoint;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
 import java.io.Writer;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.WritableByteChannel;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -13,6 +20,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -20,6 +28,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
@@ -164,4 +173,78 @@ public class UserEndPoint extends BaseManagerEnpoint<User> {
 		}
 		return r;
 	}
+	
+	
+	final int chunk_size = 1024 * 1024; // 1MB chunks
+	
+	@GET
+	@Path("/mp3")
+    @Produces("audio/mp3")
+    public Response streamAudio(@HeaderParam("Range") String range) throws Exception {
+        File file = new File("/home/nahuel/Desktop/reelbook/reelbook-backend/src/main/resources/ScottJoplin-TheEntertainer1902.mp3");
+        return buildStream(file, range);
+    }
+	
+	@GET
+	@Path("/mp4")
+    @Produces("video/mp4")
+    public Response streamVideo(@HeaderParam("Range") String range) throws Exception {
+        File file = new File("/home/nahuel/Desktop/reelbook/reelbook-backend/src/main/resources/test.mp4");
+        return buildStream(file, range);
+    }
+
+    /**
+     * response = target.header("Range", "bytes=0-50").get(ClientResponse.class);
+     * @param asset Media file
+     * @param range range header
+     * @return Streaming output
+     * @throws Exception IOException if an error occurs in streaming.
+     */
+    private Response buildStream(final File asset, final String range) throws Exception {
+        // range not requested : Firefox, Opera, IE do not send range headers
+        if (range == null) {
+            StreamingOutput streamer = new StreamingOutput() {
+                @Override
+                public void write(final OutputStream output) throws IOException, WebApplicationException {
+
+                    final FileChannel inputChannel = new FileInputStream(asset).getChannel();
+                    final WritableByteChannel outputChannel = Channels.newChannel(output);
+                    try {
+                        inputChannel.transferTo(0, inputChannel.size(), outputChannel);
+                    } finally {
+                        // closing the channels
+                        inputChannel.close();
+                        outputChannel.close();
+                    }
+                }
+            };
+            return Response.ok(streamer).status(200).header(HttpHeaders.CONTENT_LENGTH, asset.length()).build();
+        }
+
+        String[] ranges = range.split("=")[1].split("-");
+        final int from = Integer.parseInt(ranges[0]);
+        /**
+         * Chunk media if the range upper bound is unspecified. Chrome sends "bytes=0-"
+         */
+        int to = chunk_size + from;
+        if (to >= asset.length()) {
+            to = (int) (asset.length() - 1);
+        }
+        if (ranges.length == 2) {
+            to = Integer.parseInt(ranges[1]);
+        }
+
+        final String responseRange = String.format("bytes %d-%d/%d", from, to, asset.length());
+        final RandomAccessFile raf = new RandomAccessFile(asset, "r");
+        raf.seek(from);
+
+        final int len = to - from + 1;
+        final MediaStreamer streamer = new MediaStreamer(len, raf);
+        Response.ResponseBuilder res = Response.ok(streamer).status(206)
+                .header("Accept-Ranges", "bytes")
+                .header("Content-Range", responseRange)
+                .header(HttpHeaders.CONTENT_LENGTH, streamer.getLenth())
+                .header(HttpHeaders.LAST_MODIFIED, new Date(asset.lastModified()));
+        return res.build();
+    }
 }

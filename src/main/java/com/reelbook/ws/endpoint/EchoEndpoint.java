@@ -58,12 +58,18 @@ public class EchoEndpoint
 		Video video = videoML.get(1l);
 		List<Object[]> pgLargeObjecList = pgLargeObjectML.getList(video.getoID());
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		int num = 0;
 		for (Object[] pgLargeObject : pgLargeObjecList)
 		{
 			BigInteger object = (BigInteger)pgLargeObject[0];
 			Integer object1 = (Integer)pgLargeObject[1];
 			byte[] object2 = (byte[])pgLargeObject[2];
 			outStream.write(object2, 0, object2.length);
+			num = num + 1;
+			if (num >= 2000)
+			{
+				break;
+			}
 		}
 		ByteBuffer byteData = ByteBuffer.wrap(outStream.toByteArray());
 		return byteData;

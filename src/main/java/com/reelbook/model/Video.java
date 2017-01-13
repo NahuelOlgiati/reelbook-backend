@@ -1,5 +1,6 @@
 package com.reelbook.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-
 import org.hibernate.envers.Audited;
 import com.google.gson.annotations.SerializedName;
 import com.reelbook.core.exception.ValidationException;
@@ -34,6 +34,10 @@ public class Video extends BaseModel
 
 	@Lob
 	private byte[] content;
+
+	@Basic
+	@Column(name = "content", insertable = false, updatable = false)
+	private Long oID;
 
 	public Video(String fileName, byte[] content)
 	{
@@ -77,6 +81,16 @@ public class Video extends BaseModel
 	public void setContent(byte[] content)
 	{
 		this.content = content;
+	}
+
+	public Long getoID()
+	{
+		return oID;
+	}
+
+	public void setoID(Long oID)
+	{
+		this.oID = oID;
 	}
 
 	@Override

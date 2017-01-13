@@ -10,14 +10,14 @@ import org.wildfly.swarm.jpa.JPAFraction;
 import org.wildfly.swarm.logging.LoggingFraction;
 import org.wildfly.swarm.spi.api.StageConfig;
 import org.wildfly.swarm.swagger.SwaggerArchive;
+import org.wildfly.swarm.undertow.UndertowFraction;
 
-public class Main
-{
-	public static void main(String[] args) throws Exception
-	{
+public class Main {
+	public static void main(String[] args) throws Exception {
 		Swarm swarm = new Swarm();
 		StageConfig stageConfig = swarm.stageConfig();
 
+		swarm.fraction(getUndertowFraction());
 		swarm.fraction(getLoggingFraction(stageConfig));
 		swarm.fraction(getDatasourcesFraction(stageConfig));
 		swarm.fraction(getJpaFraction());
@@ -35,18 +35,23 @@ public class Main
 		swarm.deploy(deployment);
 	}
 
-	private static LoggingFraction getLoggingFraction(StageConfig stageConfig) 
-	{
-		return LoggingFraction.createDefaultLoggingFraction(Level.valueOf(stageConfig.resolve("logger.level").getValue()));
+	private static UndertowFraction getUndertowFraction() {
+		UndertowFraction undertowFraction = UndertowFraction.createDefaultFraction();
+		undertowFraction.subresources().server("default-server").subresources().httpListener("default")
+				.maxPostSize(15728640l);
+		return undertowFraction;
 	}
 
-	private static JPAFraction getJpaFraction()
-	{
+	private static LoggingFraction getLoggingFraction(StageConfig stageConfig) {
+		return LoggingFraction
+				.createDefaultLoggingFraction(Level.valueOf(stageConfig.resolve("logger.level").getValue()));
+	}
+
+	private static JPAFraction getJpaFraction() {
 		return new JPAFraction().defaultDatasource("jboss/datasources/reelbookDS");
 	}
 
-	private static DatasourcesFraction getDatasourcesFraction(StageConfig stageConfig)
-	{
+	private static DatasourcesFraction getDatasourcesFraction(StageConfig stageConfig) {
 		return new DatasourcesFraction().jdbcDriver("org.postgresql", (d) -> {
 			d.driverClassName("org.postgresql.Driver");
 			d.xaDatasourceClass("org.postgresql.xa.PGXADataSource");

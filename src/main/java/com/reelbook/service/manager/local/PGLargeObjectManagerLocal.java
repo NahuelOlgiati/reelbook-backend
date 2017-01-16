@@ -7,4 +7,6 @@ import javax.ejb.Local;
 public interface PGLargeObjectManagerLocal
 {
 	public abstract List<Object[]> getList(Long getoID);
+
+	public abstract Long getCount(Long oID);
 }

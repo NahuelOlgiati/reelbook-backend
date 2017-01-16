@@ -59,4 +59,35 @@ public class PGLargeObjectManagerEJB extends BaseEJB implements PGLargeObjectMan
 		}
 		return list;
 	}
+	
+	@Override
+	public Long getCount(Long oID)
+	{
+		Long count = null;
+		try
+		{		
+			count = ((Number)em.createNativeQuery("SELECT count(*) FROM  pg_largeobject WHERE loid=" + oID.toString())
+                    .getSingleResult()).longValue();
+//			final EntityManager em = Persistence.createEntityManagerFactory("pg_catalog").createEntityManager();
+//			final CriteriaBuilder cb = em.getCriteriaBuilder();
+//			final PredicateBuilder pb = new PredicateBuilder(cb);
+//			final CriteriaQuery<PGLargeObject> cq = cb.createQuery(PGLargeObject.class);
+//			final Root<PGLargeObject> pgLargeObject = cq.from(PGLargeObject.class);
+//			final Path<Long> loID = pgLargeObject.get(PGLargeObject_.loID);
+//			final Path<Integer> pageNo = pgLargeObject.get(PGLargeObject_.pageNo);
+//
+//			// Expressions.
+//			cq.where(cb.equal(loID, oID));
+//			cq.orderBy(cb.asc(pageNo));
+//
+//			// Gets data.
+//			final TypedQuery<PGLargeObject> tq = em.createQuery(cq);
+//			list = tq.getResultList();
+		}
+		catch (final Throwable t)
+		{
+			throw new EJBException(t.getMessage());
+		}
+		return count;
+	}
 }

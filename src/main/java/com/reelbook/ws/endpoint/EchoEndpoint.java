@@ -1,7 +1,6 @@
 package com.reelbook.ws.endpoint;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,11 +9,8 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.persistence.Basic;
-import javax.persistence.Id;
 import javax.websocket.OnMessage;
 import javax.websocket.server.ServerEndpoint;
-import com.reelbook.model.PGLargeObject;
 import com.reelbook.model.Video;
 import com.reelbook.service.manager.local.PGLargeObjectManagerLocal;
 import com.reelbook.service.manager.local.VideoManagerLocal;
@@ -56,23 +52,24 @@ public class EchoEndpoint
 	private ByteBuffer readToByteBuffer(InputStream inStream) throws IOException
 	{
 		Video video = videoML.get(1l);
-		List<Object[]> pgLargeObjecList = pgLargeObjectML.getList(video.getoID());
-		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-		int num = 0;
-		for (Object[] pgLargeObject : pgLargeObjecList)
-		{
-			BigInteger object = (BigInteger)pgLargeObject[0];
-			Integer object1 = (Integer)pgLargeObject[1];
-			byte[] object2 = (byte[])pgLargeObject[2];
-			outStream.write(object2, 0, object2.length);
-			num = num + 1;
-			if (num >= 2000)
-			{
-				break;
-			}
-		}
-		ByteBuffer byteData = ByteBuffer.wrap(outStream.toByteArray());
-		return byteData;
+//		List<Object[]> pgLargeObjecList = pgLargeObjectML.getList(video.getoID());
+//		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+//		int num = 0;
+//		for (Object[] pgLargeObject : pgLargeObjecList)
+//		{
+//			BigInteger object = (BigInteger)pgLargeObject[0];
+//			Integer object1 = (Integer)pgLargeObject[1];
+//			byte[] object2 = (byte[])pgLargeObject[2];
+//			outStream.write(object2, 0, object2.length);
+//			num = num + 1;
+//			if (num >= 2000)
+//			{
+//				break;
+//			}
+//		}
+//		ByteBuffer byteData = ByteBuffer.wrap(outStream.toByteArray());
+//		return byteData;
+		return null;
 	}
 	
 //	static ByteBuffer readToByteBuffer(InputStream inStream) throws IOException

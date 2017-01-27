@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.ByteBuffer;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -40,8 +37,6 @@ public class StreamEndpoint
 	private PGLargeObjectManagerLocal pgLargeObjectML;
 
 	private static final Logger log = Logger.getLogger("StreamEndpoint");
-
-	private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
 	@OnOpen
 	public void onOpen(Session session)
@@ -122,20 +117,5 @@ public class StreamEndpoint
 	private static Message getMessage(String key, String value)
 	{
 		return new Message(Json.createObjectBuilder().add("key", key).add("value", value).build());
-	}
-
-	public void onChunk(ByteBuffer buffer)
-	{
-		for (Session session : sessions)
-		{
-			try
-			{
-				session.getBasicRemote().sendBinary(buffer);
-			}
-			catch (IOException ex)
-			{
-				ex.printStackTrace();
-			}
-		}
 	}
 }

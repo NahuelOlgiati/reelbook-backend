@@ -1,5 +1,7 @@
 package com.reelbook.service.manager.ejb;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -70,4 +72,27 @@ public class PGLargeObjectManagerEJB extends BaseEJB implements PGLargeObjectMan
 		}
 		return count;
 	}
+	
+//	private static final int ONE_ROW = 2048;
+//	
+//	@Override
+//	public Long getFileSize(Long oID, Long totalSegments)
+//	{
+//		Long count = null;
+//		try
+//		{
+//			count = ((Number) em.createNativeQuery("SELECT count(*) FROM  pg_largeobject WHERE loid=" + oID.toString()).getSingleResult())
+//					.longValue();
+//		}
+//		catch (final Throwable t)
+//		{
+//			throw new EJBException(t.getMessage());
+//		}
+//		return count;
+//	}
+	
+//	octet_length
+//	
+//	Long count = pgLargeObjectML.getCount(video.getoID());
+//	Integer totalSegments = BigDecimal.valueOf(count).divide(BigDecimal.valueOf(NUMBER_OF_ROWS), 0, RoundingMode.UP).intValue();
 }

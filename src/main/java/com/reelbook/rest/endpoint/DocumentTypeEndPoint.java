@@ -1,6 +1,5 @@
 package com.reelbook.rest.endpoint;
 
-import java.io.IOException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -19,7 +18,6 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import com.reelbook.core.exception.ManagerException;
 import com.reelbook.core.model.support.QueryHint;
 import com.reelbook.core.service.manager.ejb.BaseEJB;
-import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.DocumentType;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.app.RoleEnum;
@@ -138,20 +136,17 @@ public class DocumentTypeEndPoint extends BaseEJB
 	@Consumes("multipart/form-data")
 	public Response uploadFile(MultipartFormDataInput input)
 	{
-
-		String uploadName = "uploadedFile";
-		String uploadFilePath = "/home/tallion.com.ar/nolgiati/Desktop/upload/";
-		Integer bufferSize = 8192;
-
-		try
-		{
-			FileUtil.upload(input, uploadName, uploadFilePath, bufferSize);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-
+//		String uploadName = "uploadedFile";
+//		String uploadFilePath = "/home/tallion.com.ar/nolgiati/Desktop/upload/";
+//		Integer bufferSize = 8192;
+//		try
+//		{
+//			FileUtil.upload(input, uploadName, uploadFilePath, bufferSize);
+//		}
+//		catch (IOException e)
+//		{
+//			e.printStackTrace();
+//		}
 		return ResponseUtil.success();
 
 	}

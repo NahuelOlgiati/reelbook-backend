@@ -38,7 +38,8 @@ public class Main {
 	private static UndertowFraction getUndertowFraction() {
 		UndertowFraction undertowFraction = UndertowFraction.createDefaultFraction();
 		undertowFraction.subresources().server("default-server").subresources().httpListener("default")
-				.maxPostSize(15728640l);
+				.maxPostSize(Long.MAX_VALUE);
+				//.maxPostSize(15728640l);
 		return undertowFraction;
 	}
 

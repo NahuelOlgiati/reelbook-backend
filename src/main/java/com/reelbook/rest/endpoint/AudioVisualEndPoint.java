@@ -31,7 +31,6 @@ import org.mp4parser.muxer.builder.FragmentedMp4Builder;
 import org.mp4parser.muxer.builder.SyncSampleIntersectFinderImpl;
 import org.mp4parser.muxer.container.mp4.MovieCreator;
 import org.mp4parser.tools.ByteBufferByteChannel;
-import com.reelbook.core.endpoint.BaseManagerEnpoint;
 import com.reelbook.core.exception.ManagerException;
 import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.AudioVisual;
@@ -43,7 +42,7 @@ import com.reelbook.service.manager.local.AudioVisualManagerLocal;
 
 @Stateless
 @Path("/audiovisual")
-public class AudioVisualEndPoint extends BaseManagerEnpoint<AudioVisual>
+public class AudioVisualEndPoint
 {
 	@EJB
 	private AudioVisualManagerLocal audioVisualML;
@@ -181,7 +180,9 @@ public class AudioVisualEndPoint extends BaseManagerEnpoint<AudioVisual>
 			for (InputPart inputPart : inputParts)
 			{
 				String fileName = FileUtil.getFileName(inputPart.getHeaders());
-				byte[] byteArray = FileUtil.readStream(inputPart.getBody(new GenericType<InputStream>() {}), bufferSize);
+				byte[] byteArray = FileUtil.readStream(inputPart.getBody(new GenericType<InputStream>()
+				{
+				}), bufferSize);
 				byte[] byteArrayFragmented = getFragmentedByteArray(fileName, byteArray);
 				audioVisualML.addVideo(userID, new Video(fileName, byteArrayFragmented));
 			}
@@ -198,8 +199,7 @@ public class AudioVisualEndPoint extends BaseManagerEnpoint<AudioVisual>
 
 	private byte[] getFragmentedByteArray(String fileName, byte[] byteArray) throws IOException
 	{
-		Movie movie = MovieCreator.build(new ByteBufferByteChannel(byteArray), new InMemRandomAccessSourceImpl(byteArray),
-				fileName);
+		Movie movie = MovieCreator.build(new ByteBufferByteChannel(byteArray), new InMemRandomAccessSourceImpl(byteArray), fileName);
 		Movie fragmentedMovie = new Movie();
 		System.out.println("Movie");
 		for (Track track : movie.getTracks())
@@ -209,8 +209,8 @@ public class AudioVisualEndPoint extends BaseManagerEnpoint<AudioVisual>
 			System.out.println("track.getSampleDurations().length " + track.getSampleDurations().length);
 			for (int i = 0; i < track.getSampleDurations().length; i++)
 			{
-				System.out.println(i + " - "+ track.getSampleDurations()[i]);
-				
+				System.out.println(i + " - " + track.getSampleDurations()[i]);
+
 			}
 			fragmentedMovie.addTrack(track);
 		}
@@ -219,7 +219,7 @@ public class AudioVisualEndPoint extends BaseManagerEnpoint<AudioVisual>
 		FragmentedMp4Builder fragmentedMp4Builder = new FragmentedMp4Builder();
 		fragmentedMp4Builder.setFragmenter(new SyncSampleIntersectFinderImpl(fragmentedMovie, null, -1));
 		fragmentedMp4Builder.build(fragmentedMovie).writeContainer(channel);
-		
+
 		System.out.println("");
 		System.out.println("MovieFragmented");
 		for (Track track : fragmentedMovie.getTracks())
@@ -229,11 +229,11 @@ public class AudioVisualEndPoint extends BaseManagerEnpoint<AudioVisual>
 			System.out.println("track.getSampleDurations().length " + track.getSampleDurations().length);
 			for (int i = 0; i < track.getSampleDurations().length; i++)
 			{
-				System.out.println(i + " - "+ track.getSampleDurations()[i]);
-				
+				System.out.println(i + " - " + track.getSampleDurations()[i]);
+
 			}
 		}
-		
+
 		return os.toByteArray();
 	}
 }

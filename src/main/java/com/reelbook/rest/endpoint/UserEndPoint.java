@@ -22,7 +22,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
-import com.reelbook.core.endpoint.BaseManagerEnpoint;
 import com.reelbook.core.exception.ManagerException;
 import com.reelbook.core.model.support.QueryHint;
 import com.reelbook.model.AudioVisual;
@@ -36,21 +35,25 @@ import com.reelbook.service.manager.local.UserManagerLocal;
 
 @Stateless
 @Path("/user")
-public class UserEndPoint extends BaseManagerEnpoint<User> {
+public class UserEndPoint
+{
 	@EJB
 	private UserManagerLocal userML;
 	@EJB
 	private FileManagerLocal fileML;
 
 	@GET
-	@RequiredRole({ RoleEnum.ADMIN })
+	@RequiredRole({RoleEnum.ADMIN})
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getList() {
+	public Response getList()
+	{
 		Response r = null;
-		try {
-			r = ResponseUtil.success(userML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList()
-					.toArray(new User[0]));
-		} catch (Exception e) {
+		try
+		{
+			r = ResponseUtil.success(userML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList().toArray(new User[0]));
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -60,28 +63,34 @@ public class UserEndPoint extends BaseManagerEnpoint<User> {
 	@GET
 	@Path("/get:{id:[0-9][0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response get(@PathParam("id") Long id) {
+	public Response get(@PathParam("id") Long id)
+	{
 		Response r = null;
-		try {
+		try
+		{
 			r = ResponseUtil.success(userML.get(id));
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
 		return r;
 	}
 
-	@Override
 	@GET
 	@Path("/pagedlist:{description}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response pagedlist(@PathParam("description") String description,
-			@DefaultValue("0") @QueryParam("firstResult") Integer firstResult,
-			@DefaultValue("10") @QueryParam("maxResults") Integer maxResults) {
+	public Response pagedlist(@PathParam("description") String description, @DefaultValue("0") @QueryParam("firstResult") Integer firstResult,
+			@DefaultValue("10") @QueryParam("maxResults") Integer maxResults)
+	{
 		Response r = null;
-		try {
+		try
+		{
 			r = ResponseUtil.success(userML.getQueryHintResult(description, new QueryHint(firstResult, maxResults)));
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -91,11 +100,15 @@ public class UserEndPoint extends BaseManagerEnpoint<User> {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response create(User user) {
+	public Response create(User user)
+	{
 		Response r = null;
-		try {
+		try
+		{
 			r = ResponseUtil.success(userML.save(user));
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -105,11 +118,15 @@ public class UserEndPoint extends BaseManagerEnpoint<User> {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(User user) {
+	public Response update(User user)
+	{
 		Response r = null;
-		try {
+		try
+		{
 			r = ResponseUtil.success(userML.save(user));
-		} catch (ManagerException e) {
+		}
+		catch (ManagerException e)
+		{
 			System.out.println("exception in update " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -119,11 +136,15 @@ public class UserEndPoint extends BaseManagerEnpoint<User> {
 	@DELETE
 	@Path("/{id:[0-9][0-9]*}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response delete(@PathParam("id") Long id) {
+	public Response delete(@PathParam("id") Long id)
+	{
 		Response r = null;
-		try {
+		try
+		{
 			r = ResponseUtil.success(userML.delete(id));
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = ResponseUtil.fatalException();
 		}
@@ -136,19 +157,24 @@ public class UserEndPoint extends BaseManagerEnpoint<User> {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("/stream")
-	public StreamingOutput stream() {
+	public StreamingOutput stream()
+	{
 		StreamingOutput r = null;
-		try {
+		try
+		{
 			AudioVisual audioVisual = audioVisualML.get(1l);
 			ByteArrayInputStream bis = new ByteArrayInputStream(audioVisual.getVideo().getContent());
 
-			StreamingOutput stream = new StreamingOutput() {
+			StreamingOutput stream = new StreamingOutput()
+			{
 				@Override
-				public void write(OutputStream output) throws IOException, WebApplicationException {
+				public void write(OutputStream output) throws IOException, WebApplicationException
+				{
 					Writer writer = new BufferedWriter(new OutputStreamWriter(output));
 
 					int b;
-					while ((b = bis.read()) != -1) {
+					while ((b = bis.read()) != -1)
+					{
 						writer.write(b);
 
 					}
@@ -156,7 +182,9 @@ public class UserEndPoint extends BaseManagerEnpoint<User> {
 				}
 			};
 			r = stream;
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("exception in create " + e);
 			r = null;
 		}

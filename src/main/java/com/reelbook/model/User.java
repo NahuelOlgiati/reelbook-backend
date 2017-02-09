@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,11 +16,11 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-
 import org.hibernate.envers.Audited;
 import org.jboss.crypto.CryptoUtil;
 import com.reelbook.core.exception.ValidationException;
@@ -34,7 +35,7 @@ import com.reelbook.model.enumeration.ProfileReservedEnum;
 @Audited
 @XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
-public class User extends BaseModel 
+public class User extends BaseModel
 {
 	@Id
 	@SequenceGenerator(name = "id", sequenceName = "basic_user_seq", allocationSize = 1)
@@ -55,12 +56,15 @@ public class User extends BaseModel
 
 	@Column(length = 100, unique = true)
 	private String email;
-	
+
 	@Basic
 	private Long artistID;
-	
+
 	@Basic
 	private Long audioVisualID;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private YoutubeCredential youtubeCredential;
 
 	@Basic
 	private Boolean validated;
@@ -72,7 +76,8 @@ public class User extends BaseModel
 	@JoinTable(name = "user_profile", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = @JoinColumn(name = "profileID"))
 	private List<Profile> profiles;
 
-	public User(String userName, String firstName, String lastName, String userPassword, List<Profile> profiles) {
+	public User(String userName, String firstName, String lastName, String userPassword, List<Profile> profiles)
+	{
 		this.userID = 0l;
 		this.userName = userName;
 		this.firstName = firstName;
@@ -84,72 +89,88 @@ public class User extends BaseModel
 		this.profiles = profiles;
 	}
 
-	public User() {
+	public User()
+	{
 		this("", "", "", "", null);
 	}
 
 	@Override
-	public Long getID() {
+	public Long getID()
+	{
 		return userID;
 	}
 
 	@Override
-	public void setID(Long id) {
+	public void setID(Long id)
+	{
 		this.userID = id;
 	}
 
-	public String getUserName() {
+	public String getUserName()
+	{
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	public void setUserName(String userName)
+	{
 		this.userName = userName;
 	}
-	
-	public String getFirstName() {
+
+	public String getFirstName()
+	{
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(String firstName)
+	{
 		this.firstName = firstName;
 	}
-	
-	public String getLastName() {
+
+	public String getLastName()
+	{
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(String lastName)
+	{
 		this.lastName = lastName;
 	}
 
-	public String getUserPassword() {
+	public String getUserPassword()
+	{
 		return userPassword;
 	}
 
-	public void setUserPassword(String pass) {
+	public void setUserPassword(String pass)
+	{
 		this.userPassword = getPasswordHash(this.userName, pass);
 	}
 
-	public boolean checkUserPassword(String pass) {
+	public boolean checkUserPassword(String pass)
+	{
 		return this.userPassword.equals(getPasswordHash(this.userName, pass));
 	}
 
-	public String getEmail() {
+	public String getEmail()
+	{
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email)
+	{
 		this.email = email;
 	}
-	
-	public Long getArtistID() {
+
+	public Long getArtistID()
+	{
 		return artistID;
 	}
 
-	public void setArtistID(Long id) {
+	public void setArtistID(Long id)
+	{
 		this.artistID = id;
 	}
-	
+
 	public Long getAudioVisualID()
 	{
 		return audioVisualID;
@@ -160,78 +181,108 @@ public class User extends BaseModel
 		this.audioVisualID = audioVisualID;
 	}
 
-	public Boolean getValidated() {
+	public YoutubeCredential getYoutubeCredential()
+	{
+		return youtubeCredential;
+	}
+
+	public void setYoutubeCredential(YoutubeCredential youtubeCredential)
+	{
+		this.youtubeCredential = youtubeCredential;
+	}
+
+	public Boolean getValidated()
+	{
 		return validated;
 	}
 
-	public void setValidated(Boolean validated) {
+	public void setValidated(Boolean validated)
+	{
 		this.validated = validated;
 	}
 
-	public Boolean getActive() {
+	public Boolean getActive()
+	{
 		return active;
 	}
 
-	public void setActive(Boolean active) {
+	public void setActive(Boolean active)
+	{
 		this.active = active;
 	}
 
-	public List<Profile> getProfiles() {
-		if (profiles == null) {
+	public List<Profile> getProfiles()
+	{
+		if (profiles == null)
+		{
 			profiles = new ArrayList<Profile>();
 		}
 		return profiles;
 	}
 
-	public void setProfiles(List<Profile> profiles) {
+	public void setProfiles(List<Profile> profiles)
+	{
 		this.profiles = profiles;
 	}
 
 	@Override
-	public void initLazyElements() {
+	public void initLazyElements()
+	{
 		super.initLazyElements();
 		getProfiles().size();
 	}
 
 	@Override
-	public void valid() throws ValidationException {
+	public void valid() throws ValidationException
+	{
 		final MessageBuilder mb = new MessageBuilder();
 
-		if (CompareUtil.isEmpty(getUserName())) {
+		if (CompareUtil.isEmpty(getUserName()))
+		{
 			// mb.addMessage(DBSMsgHandler.getMsg(User.class, "userNameEmpty"));
-		} else if (isNew() /* && isUserNameReserved() */) {
+		}
+		else if (isNew() /* && isUserNameReserved() */)
+		{
 			// mb.addMessage(DBSMsgHandler.getMsg(User.class,
 			// "userNameInvalid"));
 		}
 
-		if (CompareUtil.isEmpty(getUserPassword())) {
+		if (CompareUtil.isEmpty(getUserPassword()))
+		{
 			// mb.addMessage(DBSMsgHandler.getMsg(User.class,
 			// "userPasswordEmpty"));
 		}
 
-		if (CompareUtil.isEmpty(getProfiles())) {
+		if (CompareUtil.isEmpty(getProfiles()))
+		{
 			// mb.addMessage(DBSMsgHandler.getMsg(User.class, "profilesEmpty"));
 		}
 
-		if (!mb.isEmpty()) {
+		if (!mb.isEmpty())
+		{
 			throw new ValidationException(mb.getMessages());
 		}
 	}
 
-	public Boolean isUserNameReserved() {
+	public Boolean isUserNameReserved()
+	{
 		// return UserReservedEnum.getNames().contains(getUserName());
 		return null;
 	}
 
-	public String getFullName() {
+	public String getFullName()
+	{
 		final StringBuilder sb = new StringBuilder();
 
-		if (!CompareUtil.isEmpty(getLastName())) {
+		if (!CompareUtil.isEmpty(getLastName()))
+		{
 			sb.append(getLastName().trim());
 		}
 
-		if (!CompareUtil.isEmpty(getFirstName())) {
-			if (!CompareUtil.isEmpty(sb.toString())) {
+		if (!CompareUtil.isEmpty(getFirstName()))
+		{
+			if (!CompareUtil.isEmpty(sb.toString()))
+			{
 				sb.append(", ");
 			}
 			sb.append(getFirstName().trim());
@@ -240,15 +291,19 @@ public class User extends BaseModel
 	}
 
 	@Override
-	public String getFullDescription() {
+	public String getFullDescription()
+	{
 		final StringBuilder sb = new StringBuilder();
 
-		if (!CompareUtil.isEmpty(getUserName())) {
+		if (!CompareUtil.isEmpty(getUserName()))
+		{
 			sb.append(getUserName().trim());
 		}
 
-		if (!CompareUtil.isEmpty(getFullName())) {
-			if (!CompareUtil.isEmpty(sb.toString())) {
+		if (!CompareUtil.isEmpty(getFullName()))
+		{
+			if (!CompareUtil.isEmpty(sb.toString()))
+			{
 				sb.append(" - ");
 			}
 			sb.append(getFullName().trim());
@@ -256,15 +311,19 @@ public class User extends BaseModel
 		return sb.toString();
 	}
 
-	public String getMembersDescription() {
+	public String getMembersDescription()
+	{
 		final StringBuilder sb = new StringBuilder();
 
-		for (Iterator<Profile> it = getProfiles().iterator(); it.hasNext();) {
+		for (Iterator<Profile> it = getProfiles().iterator(); it.hasNext();)
+		{
 			final Profile profile = it.next();
 			final String groupName = profile.getGroupName();
-			if (!ProfileReservedEnum.BASIC.name().equals(groupName)) {
+			if (!ProfileReservedEnum.BASIC.name().equals(groupName))
+			{
 				sb.append(groupName.trim());
-				if (it.hasNext()) {
+				if (it.hasNext())
+				{
 					sb.append(" - ");
 				}
 			}
@@ -272,7 +331,8 @@ public class User extends BaseModel
 		return sb.toString();
 	}
 
-	private String getPasswordHash(final String userName, final String pass) {
+	private String getPasswordHash(final String userName, final String pass)
+	{
 		return CryptoUtil.createPasswordHash("MD5", "Base64", "UTF-8", userName, pass);
 	}
 }

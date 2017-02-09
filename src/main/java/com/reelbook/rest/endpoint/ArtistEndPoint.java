@@ -1,10 +1,8 @@
 package com.reelbook.rest.endpoint;
 
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
@@ -19,15 +17,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-import org.apache.commons.codec.binary.Base64;
-import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-
-import com.reelbook.core.endpoint.BaseManagerEnpoint;
 import com.reelbook.core.model.support.QueryHint;
 import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.Artist;
@@ -35,7 +27,6 @@ import com.reelbook.model.File;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.annotation.Secured;
 import com.reelbook.rest.app.RoleEnum;
-import com.reelbook.rest.app.UserPrincipal;
 import com.reelbook.rest.app.UserPrincipalMap;
 import com.reelbook.rest.util.ResponseHeader;
 import com.reelbook.rest.util.ResponseUtil;
@@ -44,7 +35,7 @@ import com.reelbook.service.manager.local.FileManagerLocal;
 
 @Stateless
 @Path("/artist")
-public class ArtistEndPoint extends BaseManagerEnpoint<Artist>
+public class ArtistEndPoint
 {
 	@EJB
 	private ArtistManagerLocal artistML;
@@ -105,7 +96,7 @@ public class ArtistEndPoint extends BaseManagerEnpoint<Artist>
 		}
 		return r;
 	}
-	
+
 	@GET
 	@Path("/withtags")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -140,7 +131,7 @@ public class ArtistEndPoint extends BaseManagerEnpoint<Artist>
 		}
 		return r;
 	}
-	
+
 	@POST
 	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -150,10 +141,7 @@ public class ArtistEndPoint extends BaseManagerEnpoint<Artist>
 		Response r = null;
 		try
 		{
-			String authorization = req.getHeader(HttpHeaders.AUTHORIZATION);
-			String token = authorization.replace("Basic ", "");
-			UserPrincipal authenticatedUser = UserPrincipalMap.get(token);
-			Long userID = authenticatedUser.getUser().getID();
+			Long userID = UserPrincipalMap.getUserId(req);
 			artist.setUserID(userID);
 			Response response = create(artist);
 			response.getHeaders().add(ResponseHeader.REFRESH_SESSION_USER, true);

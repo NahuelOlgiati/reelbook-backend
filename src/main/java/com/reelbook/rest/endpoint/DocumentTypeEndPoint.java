@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import com.reelbook.core.exception.ManagerException;
 import com.reelbook.core.model.support.QueryHint;
-import com.reelbook.core.service.manager.ejb.BaseEJB;
 import com.reelbook.model.DocumentType;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.app.RoleEnum;
@@ -27,7 +26,7 @@ import com.reelbook.service.manager.local.DocumentTypeManagerLocal;
 // @Secured
 @Stateless
 @Path("/documentType")
-public class DocumentTypeEndPoint extends BaseEJB
+public class DocumentTypeEndPoint
 {
 	@EJB
 	private DocumentTypeManagerLocal documentTypeML;

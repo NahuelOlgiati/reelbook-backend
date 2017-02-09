@@ -2,6 +2,8 @@ package com.reelbook.rest.app;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.HttpHeaders;
 import com.reelbook.model.User;
 
 public class UserPrincipalMap
@@ -30,5 +32,13 @@ public class UserPrincipalMap
 	public static final synchronized void remove(String token)
 	{
 		getMe().remove(token);
+	}
+
+	public static final Long getUserId(HttpServletRequest req)
+	{
+		String authorization = req.getHeader(HttpHeaders.AUTHORIZATION);
+		String token = authorization.replace("Basic ", "");
+		UserPrincipal authenticatedUser = get(token);
+		return authenticatedUser.getUser().getID();
 	}
 }

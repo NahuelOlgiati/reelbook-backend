@@ -23,6 +23,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import org.hibernate.envers.Audited;
 import org.jboss.crypto.CryptoUtil;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.model.BaseModel;
 import com.reelbook.core.msg.MessageBuilder;
@@ -35,7 +37,7 @@ import com.reelbook.model.enumeration.ProfileReservedEnum;
 @Audited
 @XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
-public class User extends BaseModel
+public class User extends BaseModel implements ExclusionStrategy
 {
 	@Id
 	@SequenceGenerator(name = "id", sequenceName = "basic_user_seq", allocationSize = 1)
@@ -334,5 +336,11 @@ public class User extends BaseModel
 	private String getPasswordHash(final String userName, final String pass)
 	{
 		return CryptoUtil.createPasswordHash("MD5", "Base64", "UTF-8", userName, pass);
+	}
+
+	@Override
+	public boolean shouldSkipField(FieldAttributes f)
+	{
+		return f.getName().equals("youtubeCredential");
 	}
 }

@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.User;
 import com.reelbook.model.YoutubeCredential;
 import com.reelbook.rest.app.UserPrincipalMap;
@@ -30,8 +31,8 @@ public class YoutubeEndPoint
 
 	@POST
 	@Path("/credential/save")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response credentialSave(@FormParam("accessToken") String accessToken, @FormParam("refreshToken") String refreshToken,
 			@Context HttpServletRequest req)
 	{
@@ -40,7 +41,15 @@ public class YoutubeEndPoint
 		{
 			Long userID = UserPrincipalMap.getUserId(req);
 			User user = userML.getFULL(userID);
-			user.setYoutubeCredential(new YoutubeCredential(accessToken, refreshToken));
+			if (CompareUtil.isEmpty(user.getYoutubeCredential()))
+			{
+				user.setYoutubeCredential(new YoutubeCredential(user, accessToken, refreshToken));
+			}
+			else
+			{
+				user.getYoutubeCredential().setAccessToken(accessToken);
+				user.getYoutubeCredential().setAccessToken(refreshToken);
+			}
 			user = userML.save(user);
 			r = ResponseUtil.success(user.getYoutubeCredential());
 		}
@@ -51,7 +60,7 @@ public class YoutubeEndPoint
 		}
 		return r;
 	}
-	
+
 	@GET
 	@Path("/channels")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -64,8 +73,12 @@ public class YoutubeEndPoint
 			Long userID = UserPrincipalMap.getUserId(req);
 			User user = userML.getFULL(userID);
 			user = userML.save(user);
-			YoutubeCredential youtubeCredential = user.getYoutubeCredential();
-			r = ResponseUtil.success(youtubeCredential);
+			youtubeML.getChannel(user.getYoutubeCredential().getRefreshToken());
+			System.out.println("");
+			System.out.println("SPACE");
+			System.out.println("");
+			youtubeML.getSearch(user.getYoutubeCredential().getRefreshToken());
+			r = ResponseUtil.success();
 		}
 		catch (Exception e)
 		{

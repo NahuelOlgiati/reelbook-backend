@@ -233,6 +233,30 @@
 				</configuration>
 			</plugin>
 
+			<!-- http://www.habarta.cz/typescript-generator/maven/typescript-generator-maven-plugin/generate-mojo.html -->
+			<plugin>
+				<groupId>cz.habarta.typescript-generator</groupId>
+				<artifactId>typescript-generator-maven-plugin</artifactId>
+				<version>1.17.284</version>
+				<executions>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<jsonLibrary>jackson2</jsonLibrary>
+							<classes>
+								<class>com.reelbook.dto.Person</class>
+							</classes>
+							<outputFile>target/rest.d.ts</outputFile>
+							<outputKind>global</outputKind>
+							<namespace>Rest</namespace>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

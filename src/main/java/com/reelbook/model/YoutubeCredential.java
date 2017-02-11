@@ -14,12 +14,10 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import org.hibernate.envers.Audited;
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.annotations.Expose;
 import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.model.BaseModel;
 import com.reelbook.core.msg.MessageBuilder;
+import com.reelbook.rest.annotation.GsonIgnore;
 
 @Entity
 @Table(name = "youtubecredential")
@@ -27,14 +25,14 @@ import com.reelbook.core.msg.MessageBuilder;
 @Cacheable(value = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
-public class YoutubeCredential extends BaseModel implements ExclusionStrategy
+public class YoutubeCredential extends BaseModel
 {
 	@Id
 	@SequenceGenerator(name = "id", sequenceName = "youtubecredential_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "id")
 	private Long youtubeCredentialID;
 
-	@Expose
+	@GsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userID")
 	private User user;
@@ -109,11 +107,5 @@ public class YoutubeCredential extends BaseModel implements ExclusionStrategy
 		{
 			throw new ValidationException(mb.getMessages());
 		}
-	}
-
-	@Override
-	public boolean shouldSkipField(FieldAttributes f)
-	{
-		return f.getName().equals("user");
 	}
 }

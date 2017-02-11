@@ -2,41 +2,38 @@ package com.reelbook.rest.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.ExclusionStrategy;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.reelbook.core.service.util.QueryHintResult;
-import com.reelbook.core.util.CompareUtil;
 
 public class ResponseEntity
 {
-	private static final Gson gson = new Gson();
+	private static final AnnotationExclusionStrategy exclusionStrategy = new AnnotationExclusionStrategy(); 
 
 	public static String success()
 	{
-		return gson.toJson(new ModelResponse(true, null));
+		return getGson().toJson(new ModelResponse(true, null));
 	}
 
 	public static String success(Object body)
 	{
-		return getGson(body).toJson(new ModelResponse(true, body));
+		return getGson().toJson(new ModelResponse(true, body));
 	}
 
 	public static String unsuccess(Object body)
 	{
-		return getGson(body).toJson(new ModelResponse(false, body));
+		return getGson().toJson(new ModelResponse(false, body));
 	}
 
 	public static String success(QueryHintResult<?> queryHintResult)
 	{
-		Object obj = CompareUtil.isEmpty(queryHintResult.getQueryList()) ? null : queryHintResult.getQueryList().get(0);
-		return getGson(obj).toJson(new PagedModelResponse(true, queryHintResult));
+		return getGson().toJson(new PagedModelResponse(true, queryHintResult));
 	}
 
 	public static String unsuccess(QueryHintResult<?> queryHintResult)
 	{
-		Object obj = CompareUtil.isEmpty(queryHintResult.getQueryList()) ? null : queryHintResult.getQueryList().get(0);
-		return getGson(obj).toJson(new PagedModelResponse(false, queryHintResult));
+		return getGson().toJson(new PagedModelResponse(false, queryHintResult));
 	}
 
 	public static String message(List<String> msgs)
@@ -46,16 +43,16 @@ public class ResponseEntity
 		{
 			messages.add(new MessageResponse("warn", "Warn Message", msg));
 		}
-		return gson.toJson(messages);
+		return getGson().toJson(messages);
 	}
 
 	public static String message(String msg)
 	{
-		return gson.toJson(new MessageResponse("warn", "Warn Message", msg));
+		return getGson().toJson(new MessageResponse("warn", "Warn Message", msg));
 	}
 
-	private static Gson getGson(Object obj)
+	private static Gson getGson()
 	{
-		return (obj instanceof ExclusionStrategy) ? new GsonBuilder().setExclusionStrategies((ExclusionStrategy) obj).create() : gson;
+		return new GsonBuilder().setExclusionStrategies(exclusionStrategy).create();
 	}
 }

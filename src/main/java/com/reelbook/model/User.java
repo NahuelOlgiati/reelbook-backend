@@ -23,13 +23,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import org.hibernate.envers.Audited;
 import org.jboss.crypto.CryptoUtil;
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
 import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.model.BaseModel;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.enumeration.ProfileReservedEnum;
+import com.reelbook.rest.annotation.GsonIgnore;
 
 @Entity
 @Table(name = "basic_user")
@@ -37,7 +36,7 @@ import com.reelbook.model.enumeration.ProfileReservedEnum;
 @Audited
 @XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("serial")
-public class User extends BaseModel implements ExclusionStrategy
+public class User extends BaseModel
 {
 	@Id
 	@SequenceGenerator(name = "id", sequenceName = "basic_user_seq", allocationSize = 1)
@@ -65,6 +64,7 @@ public class User extends BaseModel implements ExclusionStrategy
 	@Basic
 	private Long audioVisualID;
 
+	@GsonIgnore
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private YoutubeCredential youtubeCredential;
 
@@ -336,11 +336,5 @@ public class User extends BaseModel implements ExclusionStrategy
 	private String getPasswordHash(final String userName, final String pass)
 	{
 		return CryptoUtil.createPasswordHash("MD5", "Base64", "UTF-8", userName, pass);
-	}
-
-	@Override
-	public boolean shouldSkipField(FieldAttributes f)
-	{
-		return f.getName().equals("youtubeCredential");
 	}
 }

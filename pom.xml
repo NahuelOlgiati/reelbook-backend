@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ~ Copyright 2015 Red Hat, Inc. and/or its affiliates. ~ ~ Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0 -->
-<project
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<!-- ~ Copyright 2015 Red Hat, Inc. and/or its affiliates. ~ ~ Licensed under 
+	the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0 -->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -24,6 +24,7 @@
 		<version.maven-compiler-plugin>2.5.1</version.maven-compiler-plugin>
 		<version.hibernate-envers>5.1.2.Final</version.hibernate-envers>
 		<version.picketbox>4.9.4.Final</version.picketbox>
+		<reelbook.frontend.path>../reelbook-frontend/src</reelbook.frontend.path>
 	</properties>
 
 	<dependencyManagement>
@@ -240,20 +241,36 @@
 				<version>1.17.284</version>
 				<executions>
 					<execution>
-						<id>generate</id>
+						<id>generate models</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<jsonLibrary>jackson2</jsonLibrary>
-							<classes>
-								<class>com.reelbook.dto.Person</class>
-							</classes>
-							<outputFile>target/rest.d.ts</outputFile>
+							<jsonLibrary>jaxb</jsonLibrary>
+							<classPatterns>
+								<pattern>com.reelbook.model.*</pattern>
+							</classPatterns>
+							<outputFile>${reelbook.frontend.path}/rb-model.d.ts</outputFile>
 							<outputKind>global</outputKind>
-							<namespace>Rest</namespace>
+							<namespace>M</namespace>
 						</configuration>
 					</execution>
+					<!-- <execution> -->
+					<!-- <id>generate enpoints</id> -->
+					<!-- <goals> -->
+					<!-- <goal>generate</goal> -->
+					<!-- </goals> -->
+					<!-- <configuration> -->
+					<!-- <jsonLibrary>jaxb</jsonLibrary> -->
+					<!-- <classPatterns> -->
+					<!-- <pattern>com.reelbook.rest.endpoint.*</pattern> -->
+					<!-- </classPatterns> -->
+					<!-- <experimentalJaxrsApplicationInterface>true</experimentalJaxrsApplicationInterface> -->
+					<!-- <outputFile>target/endpoint.d.ts</outputFile> -->
+					<!-- <outputKind>global</outputKind> -->
+					<!-- <namespace>Model</namespace> -->
+					<!-- </configuration> -->
+					<!-- </execution> -->
 				</executions>
 			</plugin>
 

@@ -21,15 +21,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import com.reelbook.core.model.support.QueryHint;
+import com.reelbook.core.rest.util.ResponseUtil;
 import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.Artist;
 import com.reelbook.model.File;
+import com.reelbook.model.enumeration.ResponseHeaderEnum;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.annotation.Secured;
 import com.reelbook.rest.app.RoleEnum;
 import com.reelbook.rest.app.UserPrincipalMap;
-import com.reelbook.rest.util.ResponseHeader;
-import com.reelbook.rest.util.ResponseUtil;
 import com.reelbook.service.manager.local.ArtistManagerLocal;
 import com.reelbook.service.manager.local.FileManagerLocal;
 
@@ -144,7 +144,7 @@ public class ArtistEndPoint
 			Long userID = UserPrincipalMap.getUserId(req);
 			artist.setUserID(userID);
 			Response response = create(artist);
-			response.getHeaders().add(ResponseHeader.REFRESH_SESSION_USER, true);
+			response.getHeaders().add(ResponseHeaderEnum.REFRESH_SESSION_USER.name(), true);
 			r = response;
 		}
 		catch (Exception e)

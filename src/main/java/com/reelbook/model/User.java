@@ -53,7 +53,7 @@ public class User extends BaseModel
 	private String lastName;
 
 	@Column(length = 50)
-	private String userPassword;
+	private String password;
 
 	@Column(length = 100, unique = true)
 	private String email;
@@ -78,13 +78,13 @@ public class User extends BaseModel
 	@JoinTable(name = "user_profile", joinColumns = @JoinColumn(name = "userID"), inverseJoinColumns = @JoinColumn(name = "profileID"))
 	private List<Profile> profiles;
 
-	public User(String userName, String firstName, String lastName, String userPassword, List<Profile> profiles)
+	public User(String userName, String firstName, String lastName, String password, List<Profile> profiles)
 	{
 		this.userID = 0l;
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.userPassword = CryptoUtil.createPasswordHash("MD5", "Base64", "UTF-8", userName, userPassword);
+		this.password = CryptoUtil.createPasswordHash("MD5", "Base64", "UTF-8", userName, password);
 		this.email = null;
 		this.validated = false;
 		this.active = true;
@@ -138,19 +138,19 @@ public class User extends BaseModel
 		this.lastName = lastName;
 	}
 
-	public String getUserPassword()
+	public String getPassword()
 	{
-		return userPassword;
+		return password;
 	}
 
-	public void setUserPassword(String pass)
+	public void setPassword(String pass)
 	{
-		this.userPassword = getPasswordHash(this.userName, pass);
+		this.password = getPasswordHash(this.userName, pass);
 	}
 
-	public boolean checkUserPassword(String pass)
+	public boolean checkPassword(String pass)
 	{
-		return this.userPassword.equals(getPasswordHash(this.userName, pass));
+		return this.password.equals(getPasswordHash(this.userName, pass));
 	}
 
 	public String getEmail()
@@ -249,10 +249,10 @@ public class User extends BaseModel
 			// "userNameInvalid"));
 		}
 
-		if (CompareUtil.isEmpty(getUserPassword()))
+		if (CompareUtil.isEmpty(getPassword()))
 		{
 			// mb.addMessage(DBSMsgHandler.getMsg(User.class,
-			// "userPasswordEmpty"));
+			// "passwordEmpty"));
 		}
 
 		if (CompareUtil.isEmpty(getProfiles()))

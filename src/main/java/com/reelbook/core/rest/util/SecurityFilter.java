@@ -1,3 +1,4 @@
+package com.reelbook.core.rest.util;
 //package com.reelbook.rest.util;
 //
 //import java.io.IOException;

@@ -1,11 +1,11 @@
-package com.reelbook.rest.util;
+package com.reelbook.core.rest.response;
 
-public class ModelResponse
+public class ModelResponse<T>
 {
 	private Boolean success;
-	private Object model;
+	private T model;
 
-	ModelResponse(Boolean success, Object model)
+	public ModelResponse(Boolean success, T model)
 	{
 		this.success = success;
 		this.model = model;
@@ -21,12 +21,12 @@ public class ModelResponse
 		this.success = success;
 	}
 
-	public Object getModel()
+	public T getModel()
 	{
 		return model;
 	}
 
-	public void setModel(Object model)
+	public void setModel(T model)
 	{
 		this.model = model;
 	}

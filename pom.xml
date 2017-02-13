@@ -248,7 +248,8 @@
 						<configuration>
 							<jsonLibrary>jaxb</jsonLibrary>
 							<classPatterns>
-								<pattern>com.reelbook.model.*</pattern>
+								<pattern>com.reelbook.model.**</pattern>
+								<pattern>com.reelbook.core.rest.response.*</pattern>
 							</classPatterns>
 							<outputFile>${reelbook.frontend.path}/rb-model.d.ts</outputFile>
 							<outputKind>global</outputKind>

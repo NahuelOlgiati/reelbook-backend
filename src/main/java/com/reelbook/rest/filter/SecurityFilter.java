@@ -20,12 +20,12 @@ import javax.ws.rs.ext.Provider;
 import org.jboss.resteasy.core.ResourceMethodInvoker;
 
 import com.reelbook.core.exception.ValidationException;
+import com.reelbook.core.rest.util.ResponseUtil;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.annotation.Secured;
 import com.reelbook.rest.app.RoleEnum;
 import com.reelbook.rest.app.UserPrincipal;
 import com.reelbook.rest.app.UserPrincipalMap;
-import com.reelbook.rest.util.ResponseUtil;
 
 @Secured
 @Provider

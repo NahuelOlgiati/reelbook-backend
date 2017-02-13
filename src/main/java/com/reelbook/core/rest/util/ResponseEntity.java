@@ -1,12 +1,16 @@
-package com.reelbook.rest.util;
+package com.reelbook.core.rest.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.reelbook.core.rest.response.MessageResponse;
+import com.reelbook.core.rest.response.ModelResponse;
+import com.reelbook.core.rest.response.PagedModelResponse;
 import com.reelbook.core.service.util.QueryHintResult;
 
+@SuppressWarnings({"rawtypes","unchecked"})
 public class ResponseEntity
 {
 	private static final AnnotationExclusionStrategy exclusionStrategy = new AnnotationExclusionStrategy(); 

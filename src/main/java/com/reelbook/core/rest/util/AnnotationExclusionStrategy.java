@@ -1,4 +1,4 @@
-package com.reelbook.rest.util;
+package com.reelbook.core.rest.util;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

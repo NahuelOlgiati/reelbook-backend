@@ -1,16 +1,16 @@
-package com.reelbook.rest.util;
+package com.reelbook.core.rest.response;
 
 import java.util.ArrayList;
 import java.util.List;
 import com.reelbook.core.service.util.QueryHintResult;
 
-public class PagedModelResponse
+public class PagedModelResponse<T>
 {
 	private Boolean success;
 	private Integer rowCount;
-	private List<?> queryList;
+	private List<T> queryList;
 
-	public PagedModelResponse(Boolean success, QueryHintResult<?> queryHintResult)
+	public PagedModelResponse(Boolean success, QueryHintResult<T> queryHintResult)
 	{
 		this.success = success;
 		this.rowCount = queryHintResult.getRowCount();
@@ -37,7 +37,7 @@ public class PagedModelResponse
 		this.rowCount = rowCount;
 	}
 
-	public List<?> getQueryList()
+	public List<T> getQueryList()
 	{
 		if (queryList == null)
 		{
@@ -46,7 +46,7 @@ public class PagedModelResponse
 		return queryList;
 	}
 
-	public void setQueryList(List<?> queryList)
+	public void setQueryList(List<T> queryList)
 	{
 		this.queryList = queryList;
 	}

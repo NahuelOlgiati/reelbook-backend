@@ -32,12 +32,12 @@ import org.mp4parser.muxer.builder.SyncSampleIntersectFinderImpl;
 import org.mp4parser.muxer.container.mp4.MovieCreator;
 import org.mp4parser.tools.ByteBufferByteChannel;
 import com.reelbook.core.exception.ManagerException;
+import com.reelbook.core.rest.util.ResponseUtil;
 import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.AudioVisual;
 import com.reelbook.model.Video;
 import com.reelbook.rest.app.UserPrincipal;
 import com.reelbook.rest.app.UserPrincipalMap;
-import com.reelbook.rest.util.ResponseUtil;
 import com.reelbook.service.manager.local.AudioVisualManagerLocal;
 
 @Stateless

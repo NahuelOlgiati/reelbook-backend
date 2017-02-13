@@ -1,4 +1,4 @@
-package com.reelbook.rest.util;
+package com.reelbook.core.rest.util;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.reelbook.rest.util;
+package com.reelbook.core.rest.response;
 
 public class MessageResponse
 {
@@ -6,7 +6,7 @@ public class MessageResponse
 	private String summary;
 	private String detail;
 
-	MessageResponse(String severity, String summary, String detail)
+	public MessageResponse(String severity, String summary, String detail)
 	{
 		this.severity = severity;
 		this.summary = summary;

@@ -12,11 +12,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.reelbook.core.rest.util.ResponseUtil;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.User;
 import com.reelbook.model.YoutubeCredential;
 import com.reelbook.rest.app.UserPrincipalMap;
-import com.reelbook.rest.util.ResponseUtil;
 import com.reelbook.service.manager.local.UserManagerLocal;
 import com.reelbook.service.manager.local.YoutubeManagerLocal;
 

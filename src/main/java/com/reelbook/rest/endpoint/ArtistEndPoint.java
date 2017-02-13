@@ -141,7 +141,7 @@ public class ArtistEndPoint
 		Response r = null;
 		try
 		{
-			Long userID = UserPrincipalMap.getUserId(req);
+			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
 			artist.setUserID(userID);
 			Response response = create(artist);
 			response.getHeaders().add(ResponseHeaderEnum.REFRESH_SESSION_USER.name(), true);

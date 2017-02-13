@@ -7,11 +7,6 @@ import java.io.RandomAccessFile;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.StreamingOutput;
 
-/**
- * Media streaming utility
- *
- * @author Arul Dhesiaseelan (aruld@acm.org)
- */
 public class MediaStreamer implements StreamingOutput {
 
     private int length;

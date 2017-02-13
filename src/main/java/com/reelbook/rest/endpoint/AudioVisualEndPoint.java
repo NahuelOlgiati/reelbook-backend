@@ -36,7 +36,6 @@ import com.reelbook.core.rest.util.ResponseUtil;
 import com.reelbook.core.util.FileUtil;
 import com.reelbook.model.AudioVisual;
 import com.reelbook.model.Video;
-import com.reelbook.rest.app.UserPrincipal;
 import com.reelbook.rest.app.UserPrincipalMap;
 import com.reelbook.service.manager.local.AudioVisualManagerLocal;
 
@@ -171,10 +170,7 @@ public class AudioVisualEndPoint
 		Response r = null;
 		try
 		{
-			String token = input.getFormDataPart("token", String.class, null);
-			UserPrincipal authenticatedUser = UserPrincipalMap.get(token);
-			Long userID = authenticatedUser.getUser().getID();
-
+			Long userID = UserPrincipalMap.getUserPrincipal(input).getUser().getID();
 			Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 			List<InputPart> inputParts = uploadForm.get(uploadName);
 			for (InputPart inputPart : inputParts)

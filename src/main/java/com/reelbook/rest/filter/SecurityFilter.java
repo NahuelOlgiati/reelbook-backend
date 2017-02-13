@@ -1,13 +1,9 @@
-
 package com.reelbook.rest.filter;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.annotation.Priority;
+import javax.ejb.EJB;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -16,41 +12,61 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
-
-import org.jboss.resteasy.core.ResourceMethodInvoker;
-
-import com.reelbook.core.exception.ValidationException;
-import com.reelbook.core.rest.util.ResponseUtil;
-import com.reelbook.rest.annotation.RequiredRole;
+import com.reelbook.core.exception.ManagerException;
+import com.reelbook.core.util.DateUtil;
+import com.reelbook.model.RestSession;
 import com.reelbook.rest.annotation.Secured;
-import com.reelbook.rest.app.RoleEnum;
-import com.reelbook.rest.app.UserPrincipal;
+import com.reelbook.rest.app.ParamApp;
 import com.reelbook.rest.app.UserPrincipalMap;
+import com.reelbook.service.manager.local.RestSessionManagerLocal;
 
 @Secured
 @Provider
 @Priority(Priorities.AUTHORIZATION)
 public class SecurityFilter implements ContainerRequestFilter
 {
-	public static final String RESOURCE_METHOD_INVOKER = "org.jboss.resteasy.core.ResourceMethodInvoker";
+	// public static final String RESOURCE_METHOD_INVOKER = "org.jboss.resteasy.core.ResourceMethodInvoker";
+	private static final Response unauthorizedResponse = Response.status(Status.UNAUTHORIZED).build();
+	private static final Response internalServerErrorResponse = Response.status(Status.INTERNAL_SERVER_ERROR).build();
 
+	@EJB
+	private RestSessionManagerLocal restSessionML;
+
+	/**
+	 */
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException
-	{	
-		Response unauthorized = ResponseUtil.exceptionMessage(new ValidationException(Status.UNAUTHORIZED.name()).getMessages());
+	{
 		String authorization = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 		if (authorization == null || authorization.isEmpty())
 		{
-			requestContext.abortWith(unauthorized);
+			requestContext.abortWith(unauthorizedResponse);
 			return;
 		}
 
 		String token = authorization.replace("Basic ", "");
-		UserPrincipal authenticatedUser = UserPrincipalMap.get(token);
-		if (authenticatedUser == null)
+		RestSession restSession = restSessionML.find(token);
+		if (restSession == null)
 		{
-			requestContext.abortWith(unauthorized);
+			requestContext.abortWith(unauthorizedResponse);
 			return;
+		}
+
+		if (restSession.getExpires())
+		{
+			if (DateUtil.getElapsedSeconds(restSession.getLastAccess().getTime()) > ParamApp.getSecondsExpiresRestRegularSession())
+			{
+				requestContext.abortWith(unauthorizedResponse);
+				try
+				{
+					restSessionML.delete(restSession.getID());
+				}
+				catch (ManagerException e)
+				{
+					requestContext.abortWith(internalServerErrorResponse);
+				}
+				return;
+			}
 		}
 
 		requestContext.setSecurityContext(new SecurityContext()
@@ -58,7 +74,7 @@ public class SecurityFilter implements ContainerRequestFilter
 			@Override
 			public boolean isUserInRole(String role)
 			{
-				return authenticatedUser.getRoles().contains(role);
+				return UserPrincipalMap.get(token).getRoles().contains(role);
 			}
 
 			@Override
@@ -70,7 +86,7 @@ public class SecurityFilter implements ContainerRequestFilter
 			@Override
 			public Principal getUserPrincipal()
 			{
-				return authenticatedUser;
+				return UserPrincipalMap.get(token);
 			}
 
 			@Override
@@ -80,21 +96,22 @@ public class SecurityFilter implements ContainerRequestFilter
 			}
 		});
 
-		ResourceMethodInvoker methodInvoker = (ResourceMethodInvoker) requestContext.getProperty(RESOURCE_METHOD_INVOKER);
-		Method method = methodInvoker.getMethod();
+		/*
+		 * ResourceMethodInvoker methodInvoker = (ResourceMethodInvoker) requestContext.getProperty(RESOURCE_METHOD_INVOKER); Method method
+		 * = methodInvoker.getMethod(); if (method.isAnnotationPresent(RequiredRole.class)) { RequiredRole annotation =
+		 * method.getAnnotation(RequiredRole.class); List<RoleEnum> requiredRoles = Arrays.asList(annotation.value()); for (RoleEnum role :
+		 * requiredRoles) { if (!requestContext.getSecurityContext().isUserInRole(role.name())) {
+		 * requestContext.abortWith(Response.status(Status.UNAUTHORIZED).build()); return; } } }
+		 */
 
-		if (method.isAnnotationPresent(RequiredRole.class))
+		try
 		{
-			RequiredRole annotation = method.getAnnotation(RequiredRole.class);
-			List<RoleEnum> requiredRoles = Arrays.asList(annotation.value());
-			for (RoleEnum role : requiredRoles)
-			{
-				if (!requestContext.getSecurityContext().isUserInRole(role.name()))
-				{
-					requestContext.abortWith(unauthorized);
-					return;
-				}
-			}
+			restSession.updateLastAccess();
+			restSessionML.save(restSession);
+		}
+		catch (ManagerException e)
+		{
+			requestContext.abortWith(internalServerErrorResponse);
 		}
 	}
 }

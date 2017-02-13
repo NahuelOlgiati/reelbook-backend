@@ -1,5 +1,6 @@
 package com.reelbook.rest.endpoint;
 
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.reelbook.core.rest.util.ResponseUtil;
+import com.reelbook.core.service.util.QueryHintResult;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.User;
 import com.reelbook.model.YoutubeCredential;
+import com.reelbook.model.dto.YoutubeVideo;
 import com.reelbook.rest.app.UserPrincipalMap;
 import com.reelbook.service.manager.local.UserManagerLocal;
 import com.reelbook.service.manager.local.YoutubeManagerLocal;
@@ -40,7 +43,7 @@ public class YoutubeEndPoint
 		Response r = null;
 		try
 		{
-			Long userID = UserPrincipalMap.getUserId(req);
+			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
 			User user = userML.getFULL(userID);
 			if (CompareUtil.isEmpty(user.getYoutubeCredential()))
 			{
@@ -63,23 +66,17 @@ public class YoutubeEndPoint
 	}
 
 	@GET
-	@Path("/channels")
+	@Path("/userVideos")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getChannels(@Context HttpServletRequest req)
+	public Response getUserVideos(@Context HttpServletRequest req)
 	{
 		Response r = null;
 		try
 		{
-			Long userID = UserPrincipalMap.getUserId(req);
-			User user = userML.getFULL(userID);
-			user = userML.save(user);
-			youtubeML.getChannel(user.getYoutubeCredential().getRefreshToken());
-			System.out.println("");
-			System.out.println("SPACE");
-			System.out.println("");
-			youtubeML.getSearch(user.getYoutubeCredential().getRefreshToken());
-			r = ResponseUtil.success();
+			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
+			List<YoutubeVideo> userVideos = youtubeML.getUserVideos(userID);
+			r = ResponseUtil.success(new QueryHintResult<YoutubeVideo>(25, userVideos));
 		}
 		catch (Exception e)
 		{

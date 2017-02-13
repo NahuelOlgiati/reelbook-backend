@@ -1,9 +1,11 @@
 package com.reelbook.rest.app;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.HttpHeaders;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import com.reelbook.model.User;
 
 public class UserPrincipalMap
@@ -34,11 +36,16 @@ public class UserPrincipalMap
 		getMe().remove(token);
 	}
 
-	public static final Long getUserId(HttpServletRequest req)
+	public static final UserPrincipal getUserPrincipal(HttpServletRequest req)
 	{
 		String authorization = req.getHeader(HttpHeaders.AUTHORIZATION);
 		String token = authorization.replace("Basic ", "");
-		UserPrincipal authenticatedUser = get(token);
-		return authenticatedUser.getUser().getID();
+		return get(token);
+	}
+
+	public static final UserPrincipal getUserPrincipal(MultipartFormDataInput input) throws IOException
+	{
+		String token = input.getFormDataPart("token", String.class, null);
+		return get(token);
 	}
 }

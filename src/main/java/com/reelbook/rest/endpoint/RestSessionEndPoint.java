@@ -10,15 +10,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import com.reelbook.core.rest.util.ResponseUtil;
 import com.reelbook.model.User;
 import com.reelbook.rest.app.UserPrincipalMap;
 import com.reelbook.service.manager.local.UserManagerLocal;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -37,9 +34,7 @@ public class RestSessionEndPoint
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response getSession(@Context HttpServletRequest req) {
 		try {
-			String authorization = req.getHeader(HttpHeaders.AUTHORIZATION);
-			String token = authorization.replace("Basic ", "");
-			return ResponseUtil.success(UserPrincipalMap.get(token));
+			return ResponseUtil.success(UserPrincipalMap.getUserPrincipal(req));
 		} catch (Exception e) {
 			return ResponseUtil.fatalException();
 		}

@@ -13,23 +13,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import com.reelbook.core.rest.util.ResponseUtil;
 import com.reelbook.core.service.util.QueryHintResult;
 import com.reelbook.core.util.CompareUtil;
+import com.reelbook.model.DriveCredential;
 import com.reelbook.model.User;
-import com.reelbook.model.YoutubeCredential;
-import com.reelbook.model.dto.YoutubeVideo;
+import com.reelbook.model.dto.DriveFile;
 import com.reelbook.rest.app.UserPrincipalMap;
+import com.reelbook.service.manager.local.DriveManagerLocal;
 import com.reelbook.service.manager.local.UserManagerLocal;
-import com.reelbook.service.manager.local.YoutubeManagerLocal;
 
 @Stateless
-@Path("/youtube")
-public class YoutubeEndPoint
+@Path("/drive")
+public class DriveEndPoint
 {
 	@EJB
-	private YoutubeManagerLocal youtubeML;
+	private DriveManagerLocal driveML;
 	@EJB
 	private UserManagerLocal userML;
 
@@ -37,25 +36,24 @@ public class YoutubeEndPoint
 	@Path("/credential/save")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response credentialSave(@FormParam("accessToken") String accessToken, @FormParam("refreshToken") String refreshToken,
-			@Context HttpServletRequest req)
+	public Response credentialSave(@FormParam("accessToken") String accessToken, @FormParam("refreshToken") String refreshToken, @Context HttpServletRequest req)
 	{
 		Response r = null;
 		try
-		{			
+		{
 			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
 			User user = userML.getFULL(userID);
-			if (CompareUtil.isEmpty(user.getYoutubeCredential()))
+			if (CompareUtil.isEmpty(user.getDriveCredential()))
 			{
-				user.setYoutubeCredential(new YoutubeCredential(user, accessToken, refreshToken));
+				user.setDriveCredential(new DriveCredential(user, accessToken, refreshToken));
 			}
 			else
 			{
-				user.getYoutubeCredential().setAccessToken(accessToken);
-				user.getYoutubeCredential().setAccessToken(refreshToken);
+				user.getDriveCredential().setAccessToken(accessToken);
+				user.getDriveCredential().setAccessToken(refreshToken);
 			}
 			user = userML.save(user);
-			r = ResponseUtil.success(user.getYoutubeCredential());
+			r = ResponseUtil.success(user.getDriveCredential());
 		}
 		catch (Exception e)
 		{
@@ -66,17 +64,17 @@ public class YoutubeEndPoint
 	}
 
 	@GET
-	@Path("/userVideos")
+	@Path("/userFiles")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getUserVideos(@Context HttpServletRequest req)
+	public Response getUserFiles(@FormParam("authCode") String authCode, @Context HttpServletRequest req)
 	{
 		Response r = null;
 		try
 		{
 			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
-			List<YoutubeVideo> userVideos = youtubeML.getUserVideos(userID);
-			r = ResponseUtil.success(new QueryHintResult<YoutubeVideo>(25, userVideos));
+			List<DriveFile> userVideos = driveML.getUserFiles(userID, authCode);
+			r = ResponseUtil.success(new QueryHintResult<DriveFile>(25, userVideos));
 		}
 		catch (Exception e)
 		{

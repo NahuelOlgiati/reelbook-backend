@@ -68,6 +68,10 @@ public class User extends BaseModel
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private YoutubeCredential youtubeCredential;
 
+	@GsonIgnore
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private DriveCredential driveCredential;
+
 	@Basic
 	private Boolean validated;
 
@@ -191,6 +195,16 @@ public class User extends BaseModel
 	public void setYoutubeCredential(YoutubeCredential youtubeCredential)
 	{
 		this.youtubeCredential = youtubeCredential;
+	}
+
+	public DriveCredential getDriveCredential()
+	{
+		return driveCredential;
+	}
+
+	public void setDriveCredential(DriveCredential driveCredential)
+	{
+		this.driveCredential = driveCredential;
 	}
 
 	public Boolean getValidated()

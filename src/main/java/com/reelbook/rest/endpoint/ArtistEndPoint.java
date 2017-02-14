@@ -79,6 +79,25 @@ public class ArtistEndPoint
 	}
 
 	@GET
+	@Path("/current")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response current(@Context HttpServletRequest req)
+	{
+		Response r = null;
+		try
+		{
+			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
+			r = ResponseUtil.success(artistML.getByUserID(userID));
+		}
+		catch (Exception e)
+		{
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
+	}
+
+	@GET
 	@Path("/pagedlist:{description}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response pagedlist(@PathParam("description") String description, @DefaultValue("0") @QueryParam("firstResult") Integer firstResult,

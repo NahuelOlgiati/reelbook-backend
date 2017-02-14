@@ -66,11 +66,7 @@ public class User extends BaseModel
 
 	@GsonIgnore
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private YoutubeCredential youtubeCredential;
-
-	@GsonIgnore
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private DriveCredential driveCredential;
+	private OauthCredential oauthCredential;
 
 	@Basic
 	private Boolean validated;
@@ -187,24 +183,14 @@ public class User extends BaseModel
 		this.audioVisualID = audioVisualID;
 	}
 
-	public YoutubeCredential getYoutubeCredential()
+	public OauthCredential getOauthCredential()
 	{
-		return youtubeCredential;
+		return oauthCredential;
 	}
 
-	public void setYoutubeCredential(YoutubeCredential youtubeCredential)
+	public void setOauthCredential(OauthCredential oauthCredential)
 	{
-		this.youtubeCredential = youtubeCredential;
-	}
-
-	public DriveCredential getDriveCredential()
-	{
-		return driveCredential;
-	}
-
-	public void setDriveCredential(DriveCredential driveCredential)
-	{
-		this.driveCredential = driveCredential;
+		this.oauthCredential = oauthCredential;
 	}
 
 	public Boolean getValidated()

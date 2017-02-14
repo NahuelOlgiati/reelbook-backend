@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -19,6 +20,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
@@ -29,6 +31,7 @@ import com.reelbook.model.AudioVisual;
 import com.reelbook.model.User;
 import com.reelbook.rest.annotation.RequiredRole;
 import com.reelbook.rest.app.RoleEnum;
+import com.reelbook.rest.app.UserPrincipalMap;
 import com.reelbook.service.manager.local.AudioVisualManagerLocal;
 import com.reelbook.service.manager.local.FileManagerLocal;
 import com.reelbook.service.manager.local.UserManagerLocal;
@@ -69,6 +72,25 @@ public class UserEndPoint
 		try
 		{
 			r = ResponseUtil.success(userML.get(id));
+		}
+		catch (Exception e)
+		{
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
+	}
+
+	@GET
+	@Path("/current")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getCurrent(@Context HttpServletRequest req)
+	{
+		Response r = null;
+		try
+		{
+			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
+			r = ResponseUtil.success(userML.get(userID));
 		}
 		catch (Exception e)
 		{

@@ -41,19 +41,19 @@ public class DriveEndPoint
 		Response r = null;
 		try
 		{
-			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
-			User user = userML.getFULL(userID);
-			if (CompareUtil.isEmpty(user.getDriveCredential()))
-			{
-				user.setDriveCredential(new DriveCredential(user, accessToken, refreshToken));
-			}
-			else
-			{
-				user.getDriveCredential().setAccessToken(accessToken);
-				user.getDriveCredential().setAccessToken(refreshToken);
-			}
-			user = userML.save(user);
-			r = ResponseUtil.success(user.getDriveCredential());
+//			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
+//			User user = userML.getFULL(userID);
+//			if (CompareUtil.isEmpty(user.getDriveCredential()))
+//			{
+//				user.setDriveCredential(new DriveCredential(user, accessToken, refreshToken));
+//			}
+//			else
+//			{
+//				user.getDriveCredential().setAccessToken(accessToken);
+//				user.getDriveCredential().setAccessToken(refreshToken);
+//			}
+//			user = userML.save(user);
+//			r = ResponseUtil.success(user.getDriveCredential());
 		}
 		catch (Exception e)
 		{

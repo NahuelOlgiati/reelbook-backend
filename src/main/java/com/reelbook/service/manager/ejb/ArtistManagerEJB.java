@@ -1,7 +1,6 @@
 package com.reelbook.service.manager.ejb;
 
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -13,7 +12,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-
 import com.reelbook.core.exception.BaseException;
 import com.reelbook.core.model.support.QueryHint;
 import com.reelbook.core.service.manager.ejb.BasePersistenceManagerEJB;
@@ -32,15 +30,15 @@ public class ArtistManagerEJB extends BasePersistenceManagerEJB<Artist> implemen
 {
 	@EJB
 	private UserManagerLocal userML;
-	
+
 	@Override
 	public Class<Artist> getModelClass()
 	{
 		return Artist.class;
 	}
-	
+
 	@Override
-	protected void doAfterAdd(Artist model) throws BaseException 
+	protected void doAfterAdd(Artist model) throws BaseException
 	{
 		super.doAfterAdd(model);
 		User user = userML.get(model.getUserID());
@@ -72,7 +70,7 @@ public class ArtistManagerEJB extends BasePersistenceManagerEJB<Artist> implemen
 		}
 		return queryHintResult;
 	}
-	
+
 	@Override
 	public QueryHintResult<Artist> getQueryHintResult(final List<String> descriptionList, final QueryHint queryHint)
 	{
@@ -97,5 +95,30 @@ public class ArtistManagerEJB extends BasePersistenceManagerEJB<Artist> implemen
 			throw new EJBException(t.getMessage());
 		}
 		return queryHintResult;
+	}
+
+	@Override
+	public Artist getByUserID(final Long pUserID)
+	{
+		Artist result = null;
+		try
+		{
+			final CriteriaBuilder cb = em.getCriteriaBuilder();
+			final PredicateBuilder pb = new PredicateBuilder(cb);
+			final CriteriaQuery<Artist> cq = cb.createQuery(getModelClass());
+			final Root<Artist> artist = cq.from(getModelClass());
+			final Path<Long> userID = artist.get(Artist_.userID);
+
+			// Expessions.
+			cq.where(pb.equal(userID, pUserID));
+
+			// Gets data.
+			result = getUnique(cq);
+		}
+		catch (Throwable t)
+		{
+			throw new EJBException(t.getMessage());
+		}
+		return result;
 	}
 }

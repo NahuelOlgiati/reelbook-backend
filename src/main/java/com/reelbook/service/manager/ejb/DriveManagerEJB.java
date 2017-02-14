@@ -102,7 +102,7 @@ public class DriveManagerEJB extends BaseEJB implements DriveManagerLocal
 		// Authorize the request.
 		Credential credential = new GoogleCredential.Builder().setTransport(new NetHttpTransport()).setJsonFactory(new JacksonFactory())
 				.setClientSecrets(ParamApp.getGoogleClientID(), ParamApp.getGoogleClientSecret()).build();
-		credential.setRefreshToken(user.getDriveCredential().getRefreshToken());
+		credential.setRefreshToken(user.getOauthCredential().getDriveRefreshToken());
 
 		// We've got auth code from Google and should request an access token and a refresh token.
 		/*

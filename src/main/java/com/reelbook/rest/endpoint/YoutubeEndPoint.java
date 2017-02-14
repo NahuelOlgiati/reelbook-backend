@@ -13,12 +13,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import com.reelbook.core.rest.util.ResponseUtil;
 import com.reelbook.core.service.util.QueryHintResult;
 import com.reelbook.core.util.CompareUtil;
+import com.reelbook.model.OauthCredential;
 import com.reelbook.model.User;
-import com.reelbook.model.YoutubeCredential;
 import com.reelbook.model.dto.YoutubeVideo;
 import com.reelbook.rest.app.UserPrincipalMap;
 import com.reelbook.service.manager.local.UserManagerLocal;
@@ -33,6 +32,28 @@ public class YoutubeEndPoint
 	@EJB
 	private UserManagerLocal userML;
 
+	@GET
+	@Path("/credential/has")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response hasCredential(@Context HttpServletRequest req)
+	{
+		Response r = null;
+		try
+		{
+			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
+			User user = userML.getFULL(userID);
+			Boolean hasCredential = user.getOauthCredential() == null ? Boolean.FALSE : user.getOauthCredential().hasYoutubeCredential();
+			r = ResponseUtil.success(hasCredential);
+		}
+		catch (Exception e)
+		{
+			System.out.println("exception in create " + e);
+			r = ResponseUtil.fatalException();
+		}
+		return r;
+	}
+
 	@POST
 	@Path("/credential/save")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -42,20 +63,23 @@ public class YoutubeEndPoint
 	{
 		Response r = null;
 		try
-		{			
+		{
 			Long userID = UserPrincipalMap.getUserPrincipal(req).getUser().getID();
 			User user = userML.getFULL(userID);
-			if (CompareUtil.isEmpty(user.getYoutubeCredential()))
+			if (CompareUtil.isEmpty(user.getOauthCredential()))
 			{
-				user.setYoutubeCredential(new YoutubeCredential(user, accessToken, refreshToken));
+				OauthCredential oauthCredential = new OauthCredential(user);
+				oauthCredential.setYoutubeAccessToken(accessToken);
+				oauthCredential.setYoutubeRefreshToken(refreshToken);
+				user.setOauthCredential(oauthCredential);
 			}
 			else
 			{
-				user.getYoutubeCredential().setAccessToken(accessToken);
-				user.getYoutubeCredential().setAccessToken(refreshToken);
+				user.getOauthCredential().setYoutubeAccessToken(accessToken);
+				user.getOauthCredential().setYoutubeAccessToken(refreshToken);
 			}
 			user = userML.save(user);
-			r = ResponseUtil.success(user.getYoutubeCredential());
+			r = ResponseUtil.success();
 		}
 		catch (Exception e)
 		{

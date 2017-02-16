@@ -36,7 +36,7 @@ public class DriveManagerEJB extends BaseEJB implements DriveManagerLocal
 	private static final String FILE_LIST_REQUIRED_FIELDS = "nextPageToken, files(id, name, mimeType)";
 
 	@Override
-	public List<DriveFile> getUserFiles(Long userID, String authCode)
+	public List<DriveFile> getUserFiles(Long userID)
 	{
 		List<DriveFile> userVideos = new ArrayList<>();
 		// Call the API's channels.list method to retrieve the
@@ -47,16 +47,15 @@ public class DriveManagerEJB extends BaseEJB implements DriveManagerLocal
 		// list that contains videos uploaded to the channel.
 		try
 		{
-			Drive drive = getDrive(userID, authCode);
-			Drive.Files.List search = drive.files().list().setQ("trashed=false")
-					.setFields(FILE_LIST_REQUIRED_FIELDS);
+			Drive drive = getDrive(userID);
+			Drive.Files.List search = drive.files().list().setQ("trashed=false").setFields(FILE_LIST_REQUIRED_FIELDS);
 
 			// search.setForMine(Boolean.TRUE);
 
 			// Set your developer key from the {{ Google Cloud Console }} for
 			// non-authenticated requests. See:
 			// {{ https://cloud.google.com/console }}
-//			search.setKey(ParamApp.getGoogleApiKey());
+			// search.setKey(ParamApp.getGoogleApiKey());
 			search.setKey("822657132611");
 			// search.setQ(queryTerm);
 
@@ -95,35 +94,12 @@ public class DriveManagerEJB extends BaseEJB implements DriveManagerLocal
 		return userVideos;
 	}
 
-	private Drive getDrive(Long userID, String authCode)
+	private Drive getDrive(Long userID)
 	{
 		User user = userML.getFULL(userID);
-
-		// Authorize the request.
 		Credential credential = new GoogleCredential.Builder().setTransport(new NetHttpTransport()).setJsonFactory(new JacksonFactory())
 				.setClientSecrets(ParamApp.getGoogleClientID(), ParamApp.getGoogleClientSecret()).build();
 		credential.setRefreshToken(user.getOauthCredential().getDriveRefreshToken());
-
-		// We've got auth code from Google and should request an access token and a refresh token.
-		/*
-		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(new NetHttpTransport(), new JacksonFactory(), ParamApp.getGoogleClientID(), ParamApp.getGoogleClientSecret(),
-				Arrays.asList(DriveScopes.DRIVE_READONLY)).setAccessType("offline").setApprovalPrompt("force").build();
-
-		GoogleTokenResponse response = null;
-		try
-		{
-			response = flow.newTokenRequest(authCode).setRedirectUri("urn:ietf:wg:oauth:2.0:oob").execute();
-			System.out.println("AccesToken: " + response.getAccessToken());
-			System.out.println("RefreshToken: " + response.getRefreshToken());
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-
-		// This object is used to make Drive Data API requests.
 		return new Drive.Builder(new NetHttpTransport(), new JacksonFactory(), credential).setApplicationName("drive-reelbook").build();
 	}
 }

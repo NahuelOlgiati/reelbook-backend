@@ -38,13 +38,13 @@ public class OauthCredential extends BaseModel
 	@JoinColumn(name = "userID")
 	private User user;
 
-	@Column(length = 100)
+	@Column(length = 150)
 	private String youtubeAccessToken;
 
 	@Column(length = 100)
 	private String youtubeRefreshToken;
 
-	@Column(length = 100)
+	@Column(length = 150)
 	private String driveAccessToken;
 
 	@Column(length = 100)

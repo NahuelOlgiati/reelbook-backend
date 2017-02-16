@@ -98,13 +98,9 @@ public class YoutubeManagerEJB extends BaseEJB implements YoutubeManagerLocal
 	private YouTube getYoutube(Long userID)
 	{
 		User user = userML.getFULL(userID);
-
-		// Authorize the request.
 		Credential credential = new GoogleCredential.Builder().setTransport(new NetHttpTransport()).setJsonFactory(new JacksonFactory())
 				.setClientSecrets(ParamApp.getGoogleClientID(), ParamApp.getGoogleClientSecret()).build();
 		credential.setRefreshToken(user.getOauthCredential().getYoutubeRefreshToken());
-
-		// This object is used to make YouTube Data API requests.
 		return new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), credential).setApplicationName("youtube-reelbook").build();
 	}
 }

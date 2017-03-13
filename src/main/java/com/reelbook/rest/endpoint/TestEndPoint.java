@@ -37,13 +37,14 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "test")
 public class TestEndPoint {
 
-	@GET
-	@Path("/text")
-	@ApiOperation(value = "Test Text Plain", response = String.class)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String text() {
-		return "Howdy at " + new Date();
-	}
+//	@GET
+//	@Path("/text")
+//	@ApiOperation(value = "Test Text Plain", response = String.class)
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String text() {
+//		return "Howdy at " + new Date();
+//	}
+	
 	@GET
 	@Path("/ip")
 	@ApiOperation(value = "Get Req IP", response = Response.class)
@@ -67,21 +68,21 @@ public class TestEndPoint {
 		return Response.ok(newUser).build();
 	}
 
-	@GET
-	@Path("/auth")
-	@ApiOperation(value = "Finds Pets by status", response = String.class)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String auth() {
-		return "Howdy at " + new Date();
-	}
+//	@GET
+//	@Path("/auth")
+//	@ApiOperation(value = "Finds Pets by status", response = String.class)
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String auth() {
+//		return "Howdy at " + new Date();
+//	}
 
-	@GET
-	@Path("/dbmsg")
-	@ApiOperation(value = "Test db msg", response = String.class)
-	@Produces(MediaType.TEXT_PLAIN)
-	public String dbmsg() {
-		return DBSMsgHandler.getMsg("test");
-	}
+//	@GET
+//	@Path("/dbmsg")
+//	@ApiOperation(value = "Test db msg", response = String.class)
+//	@Produces(MediaType.TEXT_PLAIN)
+//	public String dbmsg() {
+//		return DBSMsgHandler.getMsg("test");
+//	}
 
 	@GET
 	@Path("/reloaddbmsg")

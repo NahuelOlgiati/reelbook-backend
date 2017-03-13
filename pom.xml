@@ -16,7 +16,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.wildfly.swarm>2016.12.0</version.wildfly.swarm>
+		<version.wildfly.swarm>2017.3.2</version.wildfly.swarm>
 		<version.postgresql>9.4.1212</version.postgresql>
 		<version.gson>2.7</version.gson>
 		<version.hibernate-jpamodelgen>5.2.2.Final</version.hibernate-jpamodelgen>
@@ -53,6 +53,7 @@
 		<dependency>
 			<groupId>org.wildfly.swarm</groupId>
 			<artifactId>jaxrs-multipart</artifactId>
+			<version>2017.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.wildfly.swarm</groupId>
@@ -237,40 +238,39 @@
 			<plugin>
 				<groupId>cz.habarta.typescript-generator</groupId>
 				<artifactId>typescript-generator-maven-plugin</artifactId>
-				<version>1.17.284</version>
+				<version>1.19-SNAPSHOT</version>
 				<executions>
 					<execution>
-						<id>generate models</id>
+						<id>generate</id>
 						<goals>
 							<goal>generate</goal>
 						</goals>
 						<configuration>
+							<stringQuotes>singleQuotes</stringQuotes>
 							<jsonLibrary>jaxb</jsonLibrary>
 							<classPatterns>
+								<pattern>com.reelbook.core.model.*</pattern>
+								<pattern>com.reelbook.core.model.mpi.*</pattern>
 								<pattern>com.reelbook.model.**</pattern>
 								<pattern>com.reelbook.core.rest.response.*</pattern>
+								<pattern>com.reelbook.rest.endpoint.*</pattern>
 							</classPatterns>
-							<outputFile>${reelbook.frontend.path}/rb-model.d.ts</outputFile>
-							<outputKind>global</outputKind>
+							<excludeClassPatterns>
+								<pattern>com.reelbook.core.model.*_</pattern>
+								<pattern>com.reelbook.core.model.mpi.*_</pattern>
+								<pattern>com.reelbook.model.**_</pattern>
+							</excludeClassPatterns>
+							<excludeClasses>
+								<class>com.reelbook.rest.endpoint.TestEndPoint</class>
+							</excludeClasses>
+							<generateJaxrsApplicationClient>true</generateJaxrsApplicationClient>
+							<noFileComment>true</noFileComment>
+							<outputFile>${reelbook.frontend.path}/reelbook-backend.ts</outputFile>
+							<outputFileType>implementationFile</outputFileType>
+							<outputKind>module</outputKind>
 							<namespace>M</namespace>
 						</configuration>
 					</execution>
-					<!-- <execution> -->
-					<!-- <id>generate enpoints</id> -->
-					<!-- <goals> -->
-					<!-- <goal>generate</goal> -->
-					<!-- </goals> -->
-					<!-- <configuration> -->
-					<!-- <jsonLibrary>jaxb</jsonLibrary> -->
-					<!-- <classPatterns> -->
-					<!-- <pattern>com.reelbook.rest.endpoint.*</pattern> -->
-					<!-- </classPatterns> -->
-					<!-- <experimentalJaxrsApplicationInterface>true</experimentalJaxrsApplicationInterface> -->
-					<!-- <outputFile>target/endpoint.d.ts</outputFile> -->
-					<!-- <outputKind>global</outputKind> -->
-					<!-- <namespace>Model</namespace> -->
-					<!-- </configuration> -->
-					<!-- </execution> -->
 				</executions>
 			</plugin>
 

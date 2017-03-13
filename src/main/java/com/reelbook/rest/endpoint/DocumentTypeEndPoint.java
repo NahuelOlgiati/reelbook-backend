@@ -34,9 +34,9 @@ public class DocumentTypeEndPoint
 	@GET
 	@RequiredRole({RoleEnum.ADMIN})
 	@Produces(MediaType.APPLICATION_JSON)
-	public DocumentType[] get()
+	public Response get()
 	{
-		return documentTypeML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList().toArray(new DocumentType[0]);
+		return ResponseUtil.success(documentTypeML.getQueryHintResult("", new QueryHint(0, Integer.MAX_VALUE)).getQueryList().toArray(new DocumentType[0]));
 	}
 
 	@GET

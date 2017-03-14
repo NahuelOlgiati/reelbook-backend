@@ -26,7 +26,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import com.reelbook.core.exception.ValidationException;
 import com.reelbook.core.rest.util.ResponseUtil;
-import com.reelbook.model.DocumentType;
 import com.reelbook.model.Profile;
 import com.reelbook.model.User;
 import com.reelbook.service.msg.DBSMsgHandler;
@@ -90,15 +89,6 @@ public class TestEndPoint {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response cleardbmsg() {
 		DBSMsgHandler.reload();
-		return ResponseUtil.success();
-	}
-
-	@POST
-	@Path("/documentType")
-	@ApiOperation(value = "Test document type", response = Response.class)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response create(DocumentType documentType) {
 		return ResponseUtil.success();
 	}
 

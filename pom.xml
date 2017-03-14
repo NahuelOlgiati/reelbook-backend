@@ -265,10 +265,9 @@
 							</excludeClasses>
 							<generateJaxrsApplicationClient>true</generateJaxrsApplicationClient>
 							<noFileComment>true</noFileComment>
-							<outputFile>${reelbook.frontend.path}/reelbook-backend.ts</outputFile>
+							<outputFile>${reelbook.frontend.path}/app/app.backend.ts</outputFile>
 							<outputFileType>implementationFile</outputFileType>
 							<outputKind>module</outputKind>
-							<namespace>M</namespace>
 						</configuration>
 					</execution>
 				</executions>

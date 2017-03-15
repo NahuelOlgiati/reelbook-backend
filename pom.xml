@@ -234,11 +234,10 @@
 				</configuration>
 			</plugin>
 
-			<!-- http://www.habarta.cz/typescript-generator/maven/typescript-generator-maven-plugin/generate-mojo.html -->
 			<plugin>
-				<groupId>cz.habarta.typescript-generator</groupId>
-				<artifactId>typescript-generator-maven-plugin</artifactId>
-				<version>1.19-SNAPSHOT</version>
+				<groupId>com.primus</groupId>
+				<artifactId>jaxrs-angular-maven-plugin</artifactId>
+				<version>01.00.00-SNAPSHOT</version>
 				<executions>
 					<execution>
 						<id>generate</id>
@@ -246,8 +245,10 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<stringQuotes>singleQuotes</stringQuotes>
-							<jsonLibrary>jaxb</jsonLibrary>
+							<module>AppBackendModule</module>
+							<pathPrefix>rest</pathPrefix>
+							<serviceNameReplacement>EndPoint|Service</serviceNameReplacement>
+							<outputFile>${reelbook.frontend.path}/app/app.backend.ts</outputFile>
 							<classPatterns>
 								<pattern>com.reelbook.core.model.*</pattern>
 								<pattern>com.reelbook.core.model.mpi.*</pattern>
@@ -263,11 +264,6 @@
 							<excludeClasses>
 								<class>com.reelbook.rest.endpoint.TestEndPoint</class>
 							</excludeClasses>
-							<generateJaxrsApplicationClient>true</generateJaxrsApplicationClient>
-							<noFileComment>true</noFileComment>
-							<outputFile>${reelbook.frontend.path}/app/app.backend.ts</outputFile>
-							<outputFileType>implementationFile</outputFileType>
-							<outputKind>module</outputKind>
 						</configuration>
 					</execution>
 				</executions>

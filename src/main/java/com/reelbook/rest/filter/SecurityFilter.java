@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.Principal;
 import javax.annotation.Priority;
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -42,6 +43,26 @@ public class SecurityFilter implements ContainerRequestFilter
 		{
 			requestContext.abortWith(unauthorizedResponse);
 			return;
+		}
+
+		RestSessionManagerLocal restSessionML = null;
+		try
+		{
+			final InitialContext initialContext = new InitialContext();
+			restSessionML = (RestSessionManagerLocal) initialContext.lookup("java:global/ejb/RestSessionManagerEJB");
+		}
+		catch (Exception e)
+		{
+			requestContext.abortWith(internalServerErrorResponse);
+			return;
+		}
+		finally
+		{
+			if (restSessionML == null)
+			{
+				requestContext.abortWith(internalServerErrorResponse);
+				return;
+			}
 		}
 
 		String token = authorization.replace("Basic ", "");

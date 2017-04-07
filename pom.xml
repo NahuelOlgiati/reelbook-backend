@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ~ Copyright 2015 Red Hat, Inc. and/or its affiliates. ~ ~ Licensed under 
-	the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0 -->
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<!-- ~ Copyright 2015 Red Hat, Inc. and/or its affiliates. ~ ~ Licensed under the Apache License version 2.0, available at http://www.apache.org/licenses/LICENSE-2.0 -->
+<project
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -16,7 +16,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.wildfly.swarm>2017.3.2</version.wildfly.swarm>
+		<version.wildfly.swarm>2017.3.3</version.wildfly.swarm>
 		<version.postgresql>9.4.1212</version.postgresql>
 		<version.gson>2.7</version.gson>
 		<version.hibernate-jpamodelgen>5.2.2.Final</version.hibernate-jpamodelgen>
@@ -249,6 +249,7 @@
 							<pathPrefix>rest</pathPrefix>
 							<serviceNameReplacement>EndPoint|Service</serviceNameReplacement>
 							<outputFile>${reelbook.frontend.path}/app/app.backend.ts</outputFile>
+							<!-- <sortDeclarations>true</sortDeclarations> -->
 							<classPatterns>
 								<pattern>com.reelbook.core.model.*</pattern>
 								<pattern>com.reelbook.core.model.mpi.*</pattern>

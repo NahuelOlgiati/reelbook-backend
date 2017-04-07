@@ -28,7 +28,6 @@ import com.reelbook.core.model.BaseModel;
 import com.reelbook.core.msg.MessageBuilder;
 import com.reelbook.core.util.CompareUtil;
 import com.reelbook.model.enumeration.ProfileReservedEnum;
-import com.reelbook.rest.annotation.GsonIgnore;
 
 @Entity
 @Table(name = "basic_user")
@@ -64,8 +63,7 @@ public class User extends BaseModel
 	@Basic
 	private Long audioVisualID;
 
-	@GsonIgnore
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private OauthCredential oauthCredential;
 
 	@Basic
